@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ClientRegistrationStepper from './RegistrationFlows/ClientRegistrationFlow/ClientRegistrationStepper';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/css/style.css'
+import VendorRegistrationStepper from './RegistrationFlows/VendorRegistrationFlow/VendorRegistrationStepper';
+import VendorDecisionMakers from './RegistrationFlows/VendorRegistrationFlow/VendorDecisionMakers';
+import DeveloperRegistrationStepper from './RegistrationFlows/DeveloperRegistrationFlow/DeveloperRegistrationStepper';
+// import 'react-date-range/dist/styles.css';
+// import 'react-date-range/dist/theme/default.css';
+// import 'react-calendar/dist/Calendar.css'; 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<ClientRegistrationStepper/>} />
+          <Route path="/vendor-registration" element={<VendorRegistrationStepper/>} />
+          <Route path="/developer-registration" element={<DeveloperRegistrationStepper/>} />
+        </Routes>
+      </Router>
     </div>
   );
 }
