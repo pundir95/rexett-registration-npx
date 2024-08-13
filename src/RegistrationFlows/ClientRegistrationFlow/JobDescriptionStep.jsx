@@ -45,6 +45,7 @@ const JobDesciptionStep = ({
       setFormattedSkillOptions(formattedSkillOptions);
     }
   }, [skillOptions]);
+
   const { fields, remove, append } = useFieldArray({
     control,
     name: "skills",

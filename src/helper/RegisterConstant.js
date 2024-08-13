@@ -153,7 +153,7 @@ export const getStepperIntroData=(activeStep)=>{
 //   VENDOR_STEPPER_HEADINGS[activeStep] || null;
 
 const CLIENT_STEP_1_FIELDS = {
-  indivisual: [
+  individual: [
     {
       label: "firstName",
       fieldName: "first_name",
@@ -219,7 +219,7 @@ const CLIENT_STEP_1_FIELDS = {
     },
     {
       label: "address",
-      fieldName: "company_address",
+      fieldName: "address",
       type: "select",
       placeholder: "e.g. Street 1341,New area,CA,USA",
       rules: { required: "Address is required" },
@@ -342,7 +342,7 @@ const CLIENT_STEP_2_FIELDS = [
   {
     label: "workplaceType",
     type: "normal-select",
-    fieldName: "workplace_type",
+    fieldName: "job_type",
     isRequired: true,
     columnWidth: 6,
     rules: { required: "Workplace type is Required" },
@@ -363,7 +363,7 @@ const CLIENT_STEP_2_FIELDS = [
   {
     label: "jobType",
     type: "normal-select",
-    fieldName: "job_type",
+    fieldName: "contract_type",
     isRequired: true,
     columnWidth: 6,
     rules: { required: "Job type is Required" },
@@ -374,11 +374,20 @@ const CLIENT_STEP_2_FIELDS = [
   {
     label: "availablePositions",
     type: "text",
-    fieldName: "available_positions",
+    fieldName: "job_positions",
     isRequired: true,
     columnWidth: 6,
     rules: { required: "Number of positions available are Required" },
     placeholder: "e.g 10",
+  },
+  {
+    label: "Response Date",
+    type: "date",
+    fieldName: "response_date",
+    isRequired: true,
+    columnWidth: 6,
+    rules: { required: "Response Date is Required" },
+    placeholder: "e.g 01-01-2025",
   },
 ];
 const CLIENT_ACTIVE_STEP_FIELDS = {
@@ -617,8 +626,8 @@ const VENDOR_STEP_4_FIELDS = [
     isRequired: true,
   },
   {
-    label: "Please share your success Stories with atleast 2 of your exiting IT customers and their Contact details for reference check ",
-    fieldName: 'success_story ',
+    label: "Please share your success Stories with at least 2 of your exiting IT customers and their Contact details for reference check ",
+    fieldName: "success_story",
     type: "text",
     placeholder: "e.g. Desc",
     rules: { required: "This field is required" },

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-// import clientInstance, { clientFormInstance } from "../../services/client.instance";
 import authInstance from "../../services/auth.instance";
+import { toast } from "react-toastify";
 
 
 const initialClientData = {
@@ -84,15 +84,11 @@ export const clientDataSlice = createSlice({
     setProfile: (state, action) => {
       state.profileData = action.payload
     },
-    // setJobPostedData:(state,action) =>{
-    //   state.postedJob = action.payload
-    // },
     setDegreeList: (state, action) => {
       let data = action?.payload?.map((item) => {
         return { label: item.title, value: item.id };
       });
       state.degreeList = data;
-      // state.smallLoader = false;
     },
   }
 })
@@ -108,10 +104,9 @@ export function applyAsClient(payload, callback) {
     // dispatch(setScreenLoader());
     try {
       let result = await authInstance.post(`/common/client-registration`, { ...payload });
-      console.log(result.data, "result")
       localStorage.setItem("clientId", result?.data?.data?.id);
-      localStorage.setItem("jobId", result?.data?.data?.id);
-
+      // localStorage.setItem("jobId", result?.data?.data?.id);
+      toast.success(result.data.message, { position: "top-center" });
       return callback(result?.data?.data.Location);
     } catch (error) {
       const message = error?.message;
@@ -119,7 +114,7 @@ export function applyAsClient(payload, callback) {
       if (error.response?.data?.verify_user) {
         // triggerVerificationModal("verify");
       } else {
-        // toast.error(error?.response?.data?.message, { position: "top-center" });
+        toast.error(error?.response?.data?.message, { position: "top-center" });
       }
       // dispatch(setFailClientData());
     }
@@ -134,18 +129,14 @@ export function getWebClientLookUp(callback) {
       callback && callback(result?.data?.data)
     } catch (error) {
       const message = error?.message;
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
-      dispatch(setFailClientData());
+      toast.error(error?.response?.data?.message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
 
 export function clientJobPost(payload, activeStep, id) {
-
-  console.log(activeStep, "activestep")
-  console.log(id, "id")
   const activeStepKey = ["", "step1", "step2", "step3"];
-
   return async (dispatch) => {
     // dispatch(setScreenLoader());
     try {
@@ -158,15 +149,14 @@ export function clientJobPost(payload, activeStep, id) {
         localStorage.removeItem("jobId")
         localStorage.removeItem("activeStep");
 
-        // toast.success("Job successfully Posted", { position: "top-center" });
+        toast.success("Job successfully Posted", { position: "top-center" });
       }
       dispatch(setActionSuccessFully());
       // return callback();
     } catch (error) {
-      console.log(error, "errorr")
-      // const message = error?.message || "Something went wrong";
-      // toast.error(message, { position: "top-center" });
-      dispatch(setFailClientData());
+      const message = error?.message || "Something went wrong";
+      toast.error(message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
@@ -177,20 +167,16 @@ export function clientJobPost(payload, activeStep, id) {
 
 
 export const uploadFileToS3Bucket = (payload, callback) => {
-  console.log(payload, "payload")
   return async (dispatch) => {
     // dispatch(setScreenLoader());
     // dispatch(setSmallLoader());
     try {
       let result = await authInstance.post(`web/upload-file/`, payload);
       callback && callback(result?.data?.data?.Location);
-      // dispatch(setActionSuccessFully())
-      // toast.success("project added successfully", {
-      //   position: "top-center",
-      // });
+      dispatch(setActionSuccessFully())
     } catch (error) {
       console.log(error, "error")
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
+      toast.error(error?.response?.data?.message, { position: "top-center" });
       // dispatch(setFailClientData());
     }
   };
@@ -201,16 +187,16 @@ export function getCoutriesList() {
     // dispatch(setScreenLoader());
     try {
       let result = await authInstance.get(`web/countries/`);
-      console.log(result.data, "countrylist")
       dispatch(setCountriesList(result?.data?.data));
     } catch (error) {
       const message = error?.message;
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
+      toast.error(error?.response?.data?.message, { position: "top-center" });
       // dispatch(setFailClientData());
     }
   };
 }
 export function getStatesList(countryCode) {
+  console.log(countryCode,"countrycode ")
   return async (dispatch) => {
     // dispatch(setScreenLoader());
     try {
@@ -219,21 +205,23 @@ export function getStatesList(countryCode) {
       dispatch(setStatesList(result?.data?.data));
     } catch (error) {
       const message = error?.message;
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
-      dispatch(setFailClientData());
+      toast.error(error?.response?.data?.message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
 export function getTimeZoneForCountry(countryCode) {
+  console.log(countryCode,"countryCode==========")
   return async (dispatch) => {
     // dispatch(setScreenLoader());
     try {
       let result = await authInstance.get(`web/countries/${countryCode}/timezones`);
       dispatch(setTimeZones(result?.data?.data?.timezones));
     } catch (error) {
-      const message = error?.message;
+      console.log(error,"error")
+      // const message = error?.message;
       // toast.error(error?.response?.data?.message, { position: "top-center" });
-      dispatch(setFailClientData());
+      // dispatch(setFailClientData());
     }
   };
 }
@@ -245,22 +233,21 @@ export function getCitiesList(countryCode, stateName) {
       dispatch(setCitiesList(result?.data?.data));
     } catch (error) {
       const message = error?.message;
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
-      dispatch(setFailClientData());
+      toast.error(error?.response?.data?.message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
 export function getJobPost(payload, id) {
-  console.log(payload, "paylaoad")
   return async (dispatch) => {
     // dispatch(setScreenLoader());
     try {
       let result = await authInstance.post(`/common/post-job/?user_id=${id}`, { ...payload });
       // dispatch(setJobPost(result?.data?.data));
     } catch (error) {
-      // const message = error?.message;
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
-      dispatch(setFailClientData());
+      const message = error?.message;
+      toast.error(error?.response?.data?.message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
@@ -272,13 +259,13 @@ export function getProfile(id, callback) {
       callback(result?.data?.data)
       dispatch(setProfile(result?.data?.data));
     } catch (error) {
-      // const message = error?.message;
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
-      dispatch(setFailClientData());
+      const message = error?.message;
+      toast.error(error?.response?.data?.message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
-export function getDegreeList(payload, callback) {
+export function getDegreeList() {
   return async (dispatch) => {
     // dispatch(setSmallLoader())
     try {
@@ -287,8 +274,8 @@ export function getDegreeList(payload, callback) {
       // return callback()
     } catch (error) {
       const message = error.message || "Something went wrong";
-      // toast.error(message, { position: "top-center" });
-      dispatch(setFailDeveloperData());
+      toast.error(message, { position: "top-center" });
+      // dispatch(setFailDeveloperData());
     }
   };
 }
@@ -304,7 +291,7 @@ export function getJobPostData(id, callback) {
       return callback(result.data?.data);
     } catch (error) {
       const message = error.message || "Something went wrong";
-      // toast.error(message, { position: "top-center" });
+      toast.error(message, { position: "top-center" });
       // dispatch(setFailClientData());
     }
   };
@@ -329,8 +316,8 @@ export function updateDeveloperCvDetails(payload, role, callback) {
       // }
     } catch (error) {
       const message = error.message || "Something went wrong";
-      // toast.error(message, { position: "top-center" });
-      dispatch(setFailClientData());
+      toast.error(message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
@@ -343,8 +330,8 @@ export function getDeveloperDetails(id) {
       dispatch(setDeveloperDetails(result.data.data));
     } catch (error) {
       const message = error?.message || "Something went wrong";
-      // toast.error(message, { position: "top-center" });
-      dispatch(setFailClientData());
+      toast.error(message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
@@ -357,8 +344,8 @@ export function filePreassignedUrlGenerate(fileData, callback) {
       return callback(result?.data?.data.Location);
     } catch (error) {
       const message = error.message || "Something went wrong";
-      // toast.error(message, { position: "top-center" });
-      dispatch(setFailClientData());
+      toast.error(message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
@@ -376,8 +363,8 @@ export function getSkillList(callback) {
       }
     } catch (error) {
       const message = error.message || "Something went wrong";
-      // toast.error(message, { position: "top-center" });
-      dispatch(setFailClientData());
+      toast.error(message, { position: "top-center" });
+      // dispatch(setFailClientData());
     }
   };
 }
@@ -393,7 +380,7 @@ export function approvedEditAction(payload) {
       }
     } catch (error) {
       const message = error.message || "Something went wrong";
-      // toast.error(message, { position: "top-center" })
+      toast.error(message, { position: "top-center" })
       // dispatch(setFailAdminData())
     }
   };
@@ -404,12 +391,12 @@ export function rejectEditAction(payload) {
       try {
           let result = await authInstance.delete(`/admin/reject-all-changes/${payload}`)
           if (result.status === 200) {
-              // toast.success("Edit Request has been approved", { position: "top-center" })
+              toast.success("Edit Request has been approved", { position: "top-center" })
             // dispatch(setSuccessAdminData())
           }
       } catch (error) {
           const message = error.message || "Something went wrong";
-          // toast.error(message, { position: "top-center" })
+          toast.error(message, { position: "top-center" })
           // dispatch(setFailAdminData())
       }
   };

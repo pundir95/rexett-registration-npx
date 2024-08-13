@@ -22,7 +22,6 @@ const ScreeningSection = ({
   }, [])
 
   const {degreeList} = useSelector(state => state.clientData)
-  console.log(degreeList, "degreeList")
 
   const SCREENING_OPTIONS = [
     {

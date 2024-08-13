@@ -18,7 +18,7 @@ const VendorRegistrationStepper = () => {
   const dispatch = useDispatch();
   const [companyTypeOptions, setCompanyTypeOptions] = useState([]);
   const { smallLoader } = useSelector((state) => state.developerData);
-  const { } = useSelector((state) => state.clientData);
+  // const { } = useSelector((state) => state.clientData);
   const {
     handleSubmit,
     register,
@@ -205,7 +205,7 @@ const VendorRegistrationStepper = () => {
 
   const callAreaOfExpertiseAPI = () => {
     const stepData = watch();
-    console.log(stepData,"stepDATA")
+    console.log(stepData?.success_story,"success_story")
     let payload = {
       user_id : userId,
       specialization: stepData?.specialization,
@@ -250,6 +250,7 @@ const VendorRegistrationStepper = () => {
           <VendorDecisionMakers
             stepFields={activeStepFields}
             //  skillOptions={skillOptions}
+            errors={errors}
             onSubmit={onSubmit}
             type={"vendor"}
             activeStepFields={activeStepFields}

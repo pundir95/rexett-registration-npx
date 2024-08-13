@@ -157,6 +157,7 @@ export function registerDeveloperEducation(payload, id, callback) {
   };
 }
 export function registerDeveloperExperience(payload, id, callback) {
+  console.log(id,"iid------")
   return async (dispatch) => {
     dispatch(setSmallLoader());
     try {

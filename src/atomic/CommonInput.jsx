@@ -13,6 +13,7 @@ const CommonInput = ({
   label,
   name,
   type = "text",
+  value,
   control,
   rules,
   readOnly = false,
@@ -24,18 +25,22 @@ const CommonInput = ({
   icon,
   onChange,
   accept,
-  options = [], // For radio inputs or select options
+  options, // For radio inputs or select options
   selectOptions, // For react-select options
   isMulti = false,
-  isMinRequired = false,
-  isMaxRequired = false,
+  isMinRequired ,
+  isMaxRequired,
   invalidFieldRequired = false,
   defaultOption = "",
+  disabled,
   rows = null,
+  className,
+  selectedRecommend
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  console.log(error,"error")
-
+console.log(type,"ty")
+console.log(isMinRequired,"isMinRequired")
+console.log(isMaxRequired,"ismax")
   const handleTogglePassword = () => {
     setIsPasswordVisible(!isPasswordVisible);
     if (onTogglePassword) {
@@ -47,9 +52,11 @@ const CommonInput = ({
       return <CloseIcon />;
     }
   };
+  console.log(name,"name")
+  // console.log(watch("total_it_recruiter"),"total recruiters")
   return (
     <Form.Group className="mb-3">
-      <Form.Label className="common-label">{label}</Form.Label>
+      <Form.Label className="font-14 fw-medium form-label">{label}</Form.Label>
       <div className="position-relative">
         <Controller
           name={name}
@@ -57,25 +64,38 @@ const CommonInput = ({
           rules={rules}
           render={({ field }) => {
             if (type === "radio") {
-              return options.map((option, index) => (
-                <Form.Check
+                  <Form.Check
                   {...field}
-                  key={index}
+                  label={label}
                   type="radio"
-                  id={`${name}-${index}`}
-                  label={option.label}
-                  value={option.value}
-                  checked={field.value === option.value}
-                  onChange={(e) => field.onChange(e.target.value)}
+                  id="radio1"
+                  className={className}
+                  checked={field.value}
+                  onChange={(e) =>{
+                    field.onChange(e.target.checked)
+                  } }
                 />
-              ));
-            } else if (type === "phone") {
+              
+            }
+            if (type === "checkbox") {
+              return   <Form.Check
+              {...field}
+              type="checkbox"
+              id="radio1"
+              checked={field.value}
+              onChange={(e) =>{
+                field.onChange(e.target.checked)
+              } }
+            />
+            } 
+            else if (type === "phone") {
               return (
                 <>
                   <PhoneInput
                     placeholder={placeholder}
                     value={field.value ? String(field.value) : ""}
                     onChange={field.onChange}
+                    className="common-field"
                     inputProps={{
                       name: name,
                       readOnly: readOnly,
@@ -102,6 +122,7 @@ const CommonInput = ({
                     // value={selectOptions?.find(
                     //   (option) => option.value === field.value
                     // )}
+                    value={field.value ? field.value : selectedRecommend ? selectedRecommend : ''}
                     placeholder={placeholder}
                     isMulti={isMulti}
                   />
@@ -138,6 +159,8 @@ const CommonInput = ({
                     className={`common-field ${
                       invalidFieldRequired && error?.message && "invalid-field"
                     }`}
+                    // value={value}
+                    // onChange={onChange}
                   >
                     <option disabled selected value="">
                       {defaultOption}
@@ -169,8 +192,7 @@ const CommonInput = ({
                   {showCloseIcon()}
                 </>
               );
-            } 
-            else if (type === "date") {
+            } else if (type === "date") {
               return (
                 <>
                   <Form.Control
@@ -180,20 +202,19 @@ const CommonInput = ({
                       invalidFieldRequired && error?.message && "invalid-field"
                     }`}
                     // if date should not be less than current date
-                    min={
-                      isMinRequired && new Date().toISOString().split("T")[0]
+                    max={
+                       new Date().toISOString().split("T")[0]
                     }
                     // if date should not be less than current date
-                    max={
-                      isMaxRequired && new Date().toISOString().split("T")[0]
-                    }
+                    // max={
+                    //   isMaxRequired && new Date().toISOString().split("T")[0]
+                    // }
+                    disabled={disabled && name=="end_date"}
                   />
                   {showCloseIcon()}
                 </>
               );
-
-            }
-             else if (type === "onlyNumber") {
+            } else if (type === "onlyNumber") {
               return (
                 <>
                   <Form.Control

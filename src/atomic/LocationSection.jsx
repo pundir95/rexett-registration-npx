@@ -15,29 +15,32 @@ const LocationSection = ({
   clearErrors,
   isTimeZoneRequired = false,
   isRegistrationStep = false,
+  countryCode
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { countriesList, statesList, citiesList, timeZones } = useSelector(
     (state) => state.clientData
   );
-console.log(countriesList,"contrylist")
-  useEffect(() => {
-    if (watch("country_code")) {
-      dispatch(getStatesList(watch("country_code")?.value));
-      dispatch(getTimeZoneForCountry(watch("country_code")?.value));
-    }
-  }, []);
+useEffect(() => {
+  if (watch("country_code")) {
+      const countryCode = watch("country_code").value; // Assuming watch("country_code") returns an object with a 'value' property
+      dispatch(getStatesList(countryCode));
+      dispatch(getTimeZoneForCountry(countryCode));
+  } else if (countryCode) {
+      dispatch(getStatesList(countryCode));
+      dispatch(getTimeZoneForCountry(countryCode));
+  }
+}, [countryCode, watch]);
 
   const handleDropDownChange = (value, name) => {
     if (name === "country_code") {
       setValue("country_code", value);
       clearErrors("country_code");
-      console.log(value,"value")
       dispatch(getStatesList(watch("country_code")?.value));
       dispatch(getTimeZoneForCountry(watch("country_code")?.value));
       setValue("time_zone", null);
-      // setValue("state_iso_code", null);
+      setValue("state_iso_code", null);
       // setValue("city", null);
     } else if (name === "state_iso_code") {
       setValue("state_iso_code", value);
@@ -113,8 +116,8 @@ console.log(countriesList,"contrylist")
             <div className="mb-3">
               <CommonInput
                 label={t(`pincode`) + ` *`}
-                name={"post_code"}
-                // name={isVendorStep1 ? "post_code" : "post_code"}
+                // name={"post_code"}
+                name={isVendorStep1 ? "passcode" : "post_code"}
                 invalidFieldRequired={true}
                 control={control}
                 rules={{ required: "Pin code is required" }}

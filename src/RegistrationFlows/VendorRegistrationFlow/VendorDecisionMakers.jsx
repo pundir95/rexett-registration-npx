@@ -29,6 +29,9 @@ const VendorDecisionMakers = ({
   const { t } = useTranslation()
   // const fields = getVendorActiveStepFields(activeStep);
   const fields = activeStepFields;
+console.log(fields,"fields")
+console.log(errors?.proprietor_email,"proprietor_email")
+
 
 
   return (
@@ -61,6 +64,8 @@ const VendorDecisionMakers = ({
                     ) => (
 
                       <>
+                      {console.log(fieldName,"errror inside loop")}
+                      <div className="mb-3">
                         <Col md={columnWidth} >
                         <CommonInput
                               label={t(`${label}`) + `${isRequired && " *"}`}
@@ -70,11 +75,12 @@ const VendorDecisionMakers = ({
                               rules={{ ...rules }}
                               error={errors?.[fieldName]}
                               type={type}
-                              // options={companyTypeOptions ? companyTypeOptions:options}//get options
                               defaultOption={defaultOption}
                               placeholder={placeholder}
                             />
+
                         </Col>
+                        </div>
                       </>
 
                     )

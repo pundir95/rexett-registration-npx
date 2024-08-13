@@ -54,7 +54,7 @@ const RegistrationType = ({ handleRegistrationType }) => {
                     </span>
                   </Form.Label>
                 </Col>
-                <Col md={5} onClick={()=>{handleRegistrationType("indivisual")}}>
+                <Col md={5} onClick={()=>{handleRegistrationType("individual")}}>
                   <input
                     type="radio"
                     className="d-none client-register-radio"

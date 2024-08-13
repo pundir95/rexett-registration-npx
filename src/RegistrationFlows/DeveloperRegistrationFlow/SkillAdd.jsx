@@ -12,8 +12,6 @@ import ReactQuill from "react-quill";
 import { Controller } from "react-hook-form";
 import StepperHeadingSection from "../StepperHeadingSection";
 const SkillAdd = ({control,activeStep,watch,errors,register,skillOptions,nestedActiveStep,type}) => {
-    console.log(nestedActiveStep,"skil")
-    console.log(skillOptions,"skillOptions")
   return (
     <>
       <div>

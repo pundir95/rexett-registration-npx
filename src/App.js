@@ -6,11 +6,24 @@ import './assets/css/style.css'
 import VendorRegistrationStepper from './RegistrationFlows/VendorRegistrationFlow/VendorRegistrationStepper';
 import VendorDecisionMakers from './RegistrationFlows/VendorRegistrationFlow/VendorDecisionMakers';
 import DeveloperRegistrationStepper from './RegistrationFlows/DeveloperRegistrationFlow/DeveloperRegistrationStepper';
-// import 'react-date-range/dist/styles.css';
-// import 'react-date-range/dist/theme/default.css';
-// import 'react-calendar/dist/Calendar.css'; 
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
+    <>
+      <ToastContainer
+        className="custom-toast-container"
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     <div>
       <Router>
         <Routes>
@@ -20,6 +33,7 @@ function App() {
         </Routes>
       </Router>
     </div>
+    </>
   );
 }
 

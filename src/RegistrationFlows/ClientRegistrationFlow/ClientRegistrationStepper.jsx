@@ -16,7 +16,7 @@ import SetUpJobModal from "../../common/Modals/SetUpJobModal";
 import ScreeningSection from "./ScreeningSection";
 import JobDesciptionStep from "./JobDescriptionStep";
 
-const ClientRegistrationStepper = () => {
+  const ClientRegistrationStepper = () => {
   const dispatch = useDispatch();
   const { smallLoader } = useSelector((state) => state?.clientData);
   const [text, setText] = useState("");
@@ -24,7 +24,7 @@ const ClientRegistrationStepper = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [previewImage, setPreviewImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-  const [registrationType, setRegistrationType] = useState("indivisual"); //for register as indivisual or company
+  const [registrationType, setRegistrationType] = useState("individual"); //for register as indivisual or company
   const [showSetUpModal, setShowSetUpJobModal] = useState(false);
   const activeStepFields = getActiveStepFields(activeStep, registrationType);
   const { profileData } = useSelector((state) => state?.clientData)
@@ -46,6 +46,7 @@ const ClientRegistrationStepper = () => {
   });
   const { skillOptions } = useSelector((state) => state.developerData);
   const { t } = useTranslation()
+  const [countryCode , setCountryCode] = useState()
   useEffect(() => {
     const storedStep = localStorage.getItem("clientActiveStep");
     if (storedStep) {
@@ -78,6 +79,7 @@ const ClientRegistrationStepper = () => {
                 label: data["country"],
                 value: data[key],
               };
+              setCountryCode(newValue?.value)
               setValue(key, newValue);
             } else if (key === "state_iso_code") {
               const newValue = { label: data["state"], value: data[key] };
@@ -153,10 +155,11 @@ const ClientRegistrationStepper = () => {
   }
   const job_id = localStorage.getItem("jobId")
   const jobSkills = jobStepData?.skills?.map(skill => ({
-    skill_id: skill?.title?.id,
+    skill_id: skill?.title?.value,
     skill_name: skill?.title?.label,
     weight: skill?.level?.label,
   }));
+  console.log(jobSkills,"jobSkills")
 
   const screeningQuestions = jobStepData?.screening_questions?.map(ques => (
     {
@@ -226,6 +229,7 @@ const ClientRegistrationStepper = () => {
             setPreviewImage={setPreviewImage}
             setImageFile={setImageFile}
             isProfileSectionRequired={activeStep === 1}
+            countryCode={countryCode}
           />
         );
       case 3:
@@ -286,11 +290,11 @@ const ClientRegistrationStepper = () => {
   const handleProceed = () => {
     const stepData = watch();
     let fileData = new FormData();
-    fileData.append("file", imageFile)
+    fileData.append("file", imageFile?.profile_picture)
     setShowSetUpJobModal(false);
     dispatch(uploadFileToS3Bucket(fileData, (url) => {
       const payload = {
-        first_name: stepData?.first_name,
+        first_name: stepData?.first_name, 
         last_name: stepData?.last_name,
         password: stepData?.password,
         profile_picture: url,
