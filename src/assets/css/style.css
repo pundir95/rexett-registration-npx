@@ -668,7 +668,7 @@ select.common-field {
     left: 0;
     height: 100%;
     border-radius: 30px;
-    background: linear-gradient(93.07deg, #2bffe2 4.54%, #70ff83 95.98%);
+    background: linear-gradient(93.07deg, #009f88 4.54%, #37bf4a 95.98%);
 }
 .preview-resume-form
 {
@@ -1017,17 +1017,19 @@ select.common-field {
 {
     display: block;
     padding: 30px 10px;
-    border: 1px solid #037563;
-    color: #037563;
+    border: 1px solid rgba(255, 255, 255, .6);
+    color: #fff;
+    background: rgba(255, 255, 255, .08);
     text-align: center;
     border-radius: 10px;
     text-decoration: none;
     transition: .3s ease;
+    cursor: pointer;
 }
 .education-selection:hover
 {
-    background-color: #037563;
-    color: #fff;
+    background-color: #fff;
+    color: #037563;
 }
 .education-action
 {
@@ -1308,7 +1310,14 @@ input[type="date"].common-field
 {
     stroke: #fff;
 }
-
+.text-offwhite
+{
+    color: #cdcdcd !important;
+}
+.common-field[type="date"].invalid-field
+{
+    padding-right: 30px;
+}
 @media only screen and (max-width: 1550px) {
     .common-field {
         padding: 8px 14px;  
@@ -1318,6 +1327,42 @@ input[type="date"].common-field
     .resume-main-wrapper .resume-heading
     {
         font-size: 32px;
+    }
+}
+
+@media only screen and (max-width: 992px)
+{
+    .resume-sidebar
+    {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+    .resume-sidebar ul
+    {
+        display: flex;
+        justify-content: space-between;
+    }
+    .resume-sidebar ul::before
+    {
+        top: 13px;
+        left: 15px;
+        height: 2px;
+        width: calc(100% - 25px);
+    }
+    .resume-sidebar ul li
+    {
+        flex-direction: column;
+        margin-bottom: 0px;
+    }
+    .resume-main-wrapper
+    {
+        width: 100%;
+        padding-top: 30px;
+    }
+    .resume-section-wrapper
+    {
+        padding-top: 0px;
     }
 }
 
@@ -1396,5 +1441,12 @@ input[type="date"].common-field
     .document-table .document-data {
         padding-left: 20px;
         padding-right: 20px;
+    }
+}
+@media only screen and (max-width: 767px)
+{
+    .resume-sidebar ul li span.step-label
+    {
+        display: none;
     }
 }

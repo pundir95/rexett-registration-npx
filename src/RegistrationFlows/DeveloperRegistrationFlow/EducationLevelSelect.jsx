@@ -9,7 +9,7 @@ const EducationLevelSelect = ({handleEducationLevel}) => {
     <h2 className="resume-heading">
         What best describes your level of education?
     </h2>
-    <p className="fw-semibold">Select the best option and we'll help you structure your education section.</p>
+    <p className="fw-semibold text-offwhite">Select the best option and we'll help you structure your education section.</p>
     <Row className="justify-content-center">
         <Col md={10}>
             <div>
@@ -27,7 +27,7 @@ const EducationLevelSelect = ({handleEducationLevel}) => {
                         }
                     </div>
                     <div className="text-center mt-3">
-                        <Link to={'/add-education'} className="text-green text-decoration-none font-14 fw-medium">Pefer not to answer</Link>
+                        <Link to={'/add-education'} className="text-white text-decoration-underline font-14 fw-medium">Pefer not to answer</Link>
                     </div>
                 </div>
             </div>

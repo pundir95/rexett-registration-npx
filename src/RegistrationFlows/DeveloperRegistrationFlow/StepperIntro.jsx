@@ -8,12 +8,12 @@ const StepperIntro = ({ activeStep, nestedActiveStep }) => {
 
   return (
     <div>
-      <h3 className="font-18 fw-semibold">{t(introData?.heading)}</h3>
+      <h3 className="font-18 fw-semibold text-white">{t(introData?.heading)}</h3>
       <h2 className="resume-heading">
         {t(introData?.mainHead)}
       </h2>
-      <p className="fw-semibold">{t(introData?.heading1)}</p>
-      <p className="mb-1">{t(introData?.para)}</p>
+      <p className="fw-semibold text-offwhite">{t(introData?.heading1)}</p>
+      <p className="mb-1 text-offwhite">{t(introData?.para)}</p>
     </div>
   );
 }

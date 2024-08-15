@@ -27,7 +27,7 @@ const getPercentage = () => {
                   <FaCheck />
                 </span>
               </span>
-              <span>{t(label)}</span>
+              <span className="step-label">{t(label)}</span>
             </li>
           ))}
         </ul>

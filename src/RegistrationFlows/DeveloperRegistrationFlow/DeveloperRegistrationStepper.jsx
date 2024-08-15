@@ -45,7 +45,7 @@ const DeveloperRegistrationStepper = () => {
   })
   const [ifDone,setDone]=useState(true);
   const [selectedRecommend,setSelectedRecommend]=useState(null)
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(10);
   const [isAnotherData, setIsAnotherData] = useState(true);
   const [nestedActiveStep, setNestedActiveStep] = useState(0);
   const [previewImage, setPreviewImage] = useState({
@@ -1223,7 +1223,7 @@ console.log(nestedActiveStep,"nes")
                 decreaseStepCount();
                 resetAllFields();
             }}
-                className="go-back-link text-decoration-none text-green d-inline-block mb-3 fw-medium cursor-pointer"
+                className="go-back-link text-decoration-none text-white d-inline-block mb-3 fw-medium cursor-pointer"
               >
                 <FaArrowLeft /> Go Back
               </span>
