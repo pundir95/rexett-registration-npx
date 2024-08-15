@@ -116,8 +116,8 @@ useEffect(() => {
             <div className="mb-3">
               <CommonInput
                 label={t(`pincode`) + ` *`}
-                // name={"post_code"}
-                name={isVendorStep1 ? "passcode" : "post_code"}
+                name={"passcode"}
+                // name={isVendorStep1 ? "passcode" : "post_code"}
                 invalidFieldRequired={true}
                 control={control}
                 rules={{ required: "Pin code is required" }}

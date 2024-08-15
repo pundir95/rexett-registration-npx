@@ -15,10 +15,11 @@ import { getSkillOptions } from "../../Redux/Slices/DeveloperDataSlice";
 import SetUpJobModal from "../../common/Modals/SetUpJobModal";
 import ScreeningSection from "./ScreeningSection";
 import JobDesciptionStep from "./JobDescriptionStep";
+import ScreenLoader from "../../atomic/ScreenLoader";
 
-  const ClientRegistrationStepper = () => {
+const ClientRegistrationStepper = () => {
   const dispatch = useDispatch();
-  const { smallLoader } = useSelector((state) => state?.clientData);
+  const { smallLoader, screenLoader } = useSelector((state) => state?.clientData);
   const [text, setText] = useState("");
   const [details, setDetails] = useState()
   const [activeStep, setActiveStep] = useState(0);
@@ -26,7 +27,12 @@ import JobDesciptionStep from "./JobDescriptionStep";
   const [imageFile, setImageFile] = useState(null);
   const [registrationType, setRegistrationType] = useState("individual"); //for register as indivisual or company
   const [showSetUpModal, setShowSetUpJobModal] = useState(false);
+  const [skillDetails , setSkillDetails] = useState({
+    skillName : "",
+    skillWeight : ""
+  })
   const activeStepFields = getActiveStepFields(activeStep, registrationType);
+  console.log(activeStepFields, "activeStepFields")
   const { profileData } = useSelector((state) => state?.clientData)
   const {
     handleSubmit,
@@ -46,7 +52,8 @@ import JobDesciptionStep from "./JobDescriptionStep";
   });
   const { skillOptions } = useSelector((state) => state.developerData);
   const { t } = useTranslation()
-  const [countryCode , setCountryCode] = useState()
+  const [countryCode, setCountryCode] = useState()
+
   useEffect(() => {
     const storedStep = localStorage.getItem("clientActiveStep");
     if (storedStep) {
@@ -62,6 +69,7 @@ import JobDesciptionStep from "./JobDescriptionStep";
     }
   }, [activeStep]);
   const user_id = localStorage.getItem("clientId")
+  console.log(user_id, "user_id")
 
   useEffect(() => {
     const activeStepKeys = {
@@ -69,9 +77,11 @@ import JobDesciptionStep from "./JobDescriptionStep";
       2: "step2",
       3: "step3",
       4: "step4",
-    }
+    };
+
     if (user_id) {
       dispatch(getProfile(user_id, (data) => {
+        console.log(data, "data")
         for (let key in data) {
           if (activeStep === 1) {
             if (key === "country_code") {
@@ -79,7 +89,7 @@ import JobDesciptionStep from "./JobDescriptionStep";
                 label: data["country"],
                 value: data[key],
               };
-              setCountryCode(newValue?.value)
+              setCountryCode(newValue?.value);
               setValue(key, newValue);
             } else if (key === "state_iso_code") {
               const newValue = { label: data["state"], value: data[key] };
@@ -88,27 +98,55 @@ import JobDesciptionStep from "./JobDescriptionStep";
               const newValue = { label: data[key], value: data[key] };
               setValue(key, newValue);
             } else {
-              setValue(key, data[key])
+              setValue(key, data[key]);
             }
             if (key === "name") {
-              const [firstName, surname] = data[key]?.split(" ");
-              setValue("first_name", firstName)
-              setValue("last_name", surname)
+              const [firstName, surname] = data[key]?.split(" ") || [];
+              setValue("first_name", firstName || "");
+              setValue("last_name", surname || "");
             }
             if (key === "address") {
-              setValue("company_address", data[key])
+              setValue("company_address", data[key]);
             }
             if (key === "tax_id") {
-              setValue("company_tax_id", data[key])
+              setValue("company_tax_id", data[key]);
             }
-          } else if (activeStep !== 1) {
-            setValue(key, data[key])
+          } else if (activeStep === 2) {
+            const step1Data = data.jobs[0].step1;
+            console.log(step1Data, "step1Data")
+            for (let step1Key in step1Data) {
+              if (step1Key === "response_date") {
+                console.log("hellow")
+                const new_date = step1Data?.response_date.slice(0, 10)
+                console.log(new_date, "new_date")
+                setValue(key, new_date)
+              } else {
+                setValue(step1Key, step1Data[step1Key]);
+              }
+            }
+          } else if (activeStep === 3) {
+            const step2Data = data.jobs[0].step2;
+            console.log(step2Data, "step2Data")
+            for (let step2Key in step2Data) {
+              if (step2Key === "job_skills") {
+                const skill_name = step2Data?.job_skills?.map(itm => (itm.skill_name))
+                console.log(skill_name, "skillName")
+                // setValue(key, skill_name)
+                setSkillDetails({skillName:skill_name})
+                const skill_weight = step2Data?.job_skills?.map(itm => (itm.weight))
+                console.log(skill_weight, "skill_weight")
+                // setValue(key, skill_weight)
+                setSkillDetails({skillWeight:skill_weight})
+              } else {
+                setValue(step2Key, step2Data[step2Key]);
+              }
+            }
           }
-
         }
-      }))
+      }));
     }
-  }, [activeStep, user_id])
+  }, [activeStep, user_id, dispatch]);
+
 
   const getActiveStepText = (values) => {
     switch (activeStep) {
@@ -117,7 +155,7 @@ import JobDesciptionStep from "./JobDescriptionStep";
       case 2:
         return "Next : Job Description";
       case 3:
-        return "Next:Screening Info";
+        return "Next: Screening Info";
       case 4:
         return "Submit";
     }
@@ -130,10 +168,13 @@ import JobDesciptionStep from "./JobDescriptionStep";
     }
     const buttonText = getActiveStepText();
     switch (buttonText) {
+      case "Next : Setup Job":
+        handleProceed();
+        break;
       case "Next : Job Description":
         callJobStep1API();
         break;
-      case "Next:Screening Info":
+      case "Next: Screening Info":
         callJobStep2API();
         break;
       case "Submit":
@@ -142,16 +183,18 @@ import JobDesciptionStep from "./JobDescriptionStep";
   };
   const jobStepData = watch();
   const callJobStep1API = () => {
-    const stepData = watch();
-    let payload = {
-      step: 1,
-      title: jobStepData?.job_title,
-      contract_type: jobStepData?.contract_type,
-      job_location: jobStepData?.job_location,
-      job_positions: jobStepData?.job_positions,
-      job_type: jobStepData?.job_type,
+    if (activeStep == 2) {
+      let payload = {
+        step: 1,
+        title: jobStepData?.title,
+        contract_type: jobStepData?.contract_type,
+        job_location: jobStepData?.job_location,
+        job_positions: jobStepData?.job_positions,
+        job_type: jobStepData?.job_type,
+        response_date: jobStepData?.response_date
+      }
+      dispatch(clientJobPost(payload, activeStep, user_id))
     }
-    dispatch(clientJobPost(payload, activeStep, user_id))
   }
   const job_id = localStorage.getItem("jobId")
   const jobSkills = jobStepData?.skills?.map(skill => ({
@@ -159,7 +202,7 @@ import JobDesciptionStep from "./JobDescriptionStep";
     skill_name: skill?.title?.label,
     weight: skill?.level?.label,
   }));
-  console.log(jobSkills,"jobSkills")
+  console.log(jobSkills, "jobSkills")
 
   const screeningQuestions = jobStepData?.screening_questions?.map(ques => (
     {
@@ -171,27 +214,32 @@ import JobDesciptionStep from "./JobDescriptionStep";
     }
   ))
   const callJobStep2API = () => {
-    if (job_id) {
-      let payload = {
-        step: 2,
-        job_id: job_id,
-        description: jobStepData?.description,
-        job_skills: jobSkills,
+    if (activeStep == 3) {
+      if (job_id) {
+        let payload = {
+          step: 2,
+          job_id: job_id,
+          description: jobStepData?.description,
+          job_skills: jobSkills,
+        }
+        dispatch(clientJobPost(payload, activeStep, user_id))
       }
-      dispatch(clientJobPost(payload, activeStep, user_id))
     }
   }
 
   const callJobStep3API = () => {
-    const stepData = watch();
-    let payload = {
-      step: 3,
-      job_id: job_id,
-      user_id: user_id,
-      qualification_filter_out: jobStepData?.qualification_filter_out,
-      screening_questions: screeningQuestions,
+    if (activeStep == 4) {
+      const stepData = watch();
+      let payload = {
+        step: 3,
+        job_id: job_id,
+        user_id: user_id,
+        qualification_filter_out: jobStepData?.qualification_filter_out,
+        screening_questions: screeningQuestions,
+      }
+      dispatch(clientJobPost(payload, activeStep, user_id))
+
     }
-    dispatch(clientJobPost(payload, activeStep, user_id))
   }
 
 
@@ -214,6 +262,8 @@ import JobDesciptionStep from "./JobDescriptionStep";
         return (
           // this step will be used for both first and second
           <ClientStep1
+          
+            screenLoader={screenLoader}
             control={control}
             errors={errors}
             activeStep={activeStep}
@@ -235,6 +285,8 @@ import JobDesciptionStep from "./JobDescriptionStep";
       case 3:
         return (
           <JobDesciptionStep
+          skillDetails={skillDetails}
+            screenLoader={screenLoader}
             register={register}
             stepFields={activeStepFields}
             errors={errors}
@@ -249,6 +301,7 @@ import JobDesciptionStep from "./JobDescriptionStep";
       case 4:
         return (
           <ScreeningSection
+            screenLoader={screenLoader}
             activeStep={activeStep}
             register={register}
             control={control}
@@ -290,11 +343,13 @@ import JobDesciptionStep from "./JobDescriptionStep";
   const handleProceed = () => {
     const stepData = watch();
     let fileData = new FormData();
+    console.log(imageFile, "imageFile")
     fileData.append("file", imageFile?.profile_picture)
     setShowSetUpJobModal(false);
     dispatch(uploadFileToS3Bucket(fileData, (url) => {
       const payload = {
-        first_name: stepData?.first_name, 
+        // name :`${stepData?.first_name } ${stepData?.last_name}`,
+        first_name: stepData?.first_name,
         last_name: stepData?.last_name,
         password: stepData?.password,
         profile_picture: url,
@@ -318,7 +373,7 @@ import JobDesciptionStep from "./JobDescriptionStep";
   };
   return (
     <>
-      <div>
+      {screenLoader ? <ScreenLoader /> : <div>
         {activeStep === 0 ? (
           <RegistrationType handleRegistrationType={handleRegistrationType} />
         ) : (
@@ -356,7 +411,7 @@ import JobDesciptionStep from "./JobDescriptionStep";
             </div>
           </section>
         )}
-      </div>
+      </div>}
       {showSetUpModal ? <SetUpJobModal
         show={showSetUpModal}
         handleClose={handleToggleSetupModal}

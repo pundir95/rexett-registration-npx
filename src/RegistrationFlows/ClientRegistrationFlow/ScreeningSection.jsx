@@ -6,8 +6,10 @@ import { FaArrowLeft } from "react-icons/fa6";
 import JobPostStep3 from "../../common/JobPostForm/JobPost3";
 import { getDegreeList } from "../../Redux/Slices/ClientDataSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ScreenLoader from "../../atomic/ScreenLoader";
 
 const ScreeningSection = ({
+  screenLoader,
   activeStep,
   register,
   control,
@@ -104,7 +106,7 @@ const ScreeningSection = ({
   ];
   return (
     <>
-      <div>
+      {screenLoader ? <ScreenLoader/> : <div>
         <Row>
           <Col md={12}>
             <StepperHeadingSection activeStep={activeStep} type={'client'} />
@@ -121,7 +123,7 @@ const ScreeningSection = ({
             />
           </Col>
         </Row>
-      </div>
+      </div>}
     </>
   );
 };
