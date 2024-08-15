@@ -41,7 +41,7 @@ const ClientStep1 = ({
   
   
   let isStillWorking=watch("is_still_working")
-  console.log(stepFields,"stepFields")
+  console.log(skillOptions,"skillOptions")
   // let isStillWorking=true
   return (
     <>
@@ -147,7 +147,7 @@ const ClientStep1 = ({
                               rules={{ ...rules }}
                               error={errors?.[fieldName]}
                               type={type}
-                              options={companyTypeOptions ? companyTypeOptions:skillOptions && label=="Skill" ?skillOptions:options}//get options
+                              options={companyTypeOptions ? companyTypeOptions:skillOptions && label=="Skill" ?skillOptions: fieldName=="time_zone"? skillOptions :options}//get options
                               defaultOption={defaultOption}
                               placeholder={placeholder}
                               isMaxRequired={isMaxRequired}

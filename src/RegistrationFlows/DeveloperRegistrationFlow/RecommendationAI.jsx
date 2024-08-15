@@ -6,7 +6,7 @@ import CommonInput from '../../atomic/CommonInput';
 
 const RecommendationAI = ({
     control,
-    setSelectedRecommend
+    setRecommend
 
 }) => {
     const recommendations = [
@@ -44,8 +44,8 @@ const RecommendationAI = ({
 
 
       const handleRecommendation=(item)=>{
-        console.log(item,"kk")
-        setSelectedRecommend(item.text)
+        // console.log(item,"kk")
+        setRecommend(item.text)
       }
   return (
    <>
@@ -74,16 +74,16 @@ const RecommendationAI = ({
               </Button>
             </div>
           </div> */}
-          <CommonInput
+          {/* <CommonInput
             label=""
             name="search"
             type="text"
             control={control}
             invalidFieldRequired={true}
             placeholder="Search keywords"
-          />
+          /> */}
           <div className="recommended-desc">
-            {recommendations.map((item) => (
+            {recommendations?.map((item) => (
               <div key={item.id} className="d-flex align-items-center gap-3" onClick={()=>handleRecommendation(item)}>
                 <Button
                   variant="transparent"
@@ -92,11 +92,11 @@ const RecommendationAI = ({
                   <IoAddOutline />
                 </Button>
                 <div>
-                  {item.isExpertRecommended && (
+               
                     <p className="font-14 fw-medium mb-1">
                       <FaStar /> Expert Recommended
                     </p>
-                  )}
+                  
                   <p className="font-14 mb-0">{item.text}</p>
                 </div>
               </div>

@@ -12,6 +12,7 @@ import { t } from "i18next";
 import { createOptionsForReactSelect } from "../../constant/developerStepConstant";
 import CommonInput from "../../atomic/CommonInput";
 import ScreenLoader from "../../atomic/ScreenLoader";
+import RecommendationAI from "../DeveloperRegistrationFlow/RecommendationAI";
 const LEVEL_OPTIONS = [
   {
     label: "Beginner",
@@ -37,6 +38,7 @@ const JobDesciptionStep = ({
   skillOptions,
   type
 }) => {
+  const [recommend,setRecommend]=useState(null)
   const [formattedSkillOptions, setFormattedSkillOptions] = useState([]);
   useEffect(() => {
     if (skillOptions?.length) {
@@ -54,7 +56,7 @@ const JobDesciptionStep = ({
     name: "skills",
   });
 
-console.log(skillDetails,"skillDetails----")
+  console.log(recommend,"recommend")
 
   const handleAppend = () => {
     const index = watch("skills").findIndex(
@@ -86,6 +88,7 @@ console.log(skillDetails,"skillDetails----")
                       render={({ field }) => (
                         <ReactQuill
                           {...field}
+                          value={recommend ? recommend : field?.value}
                           className={`common-field ${errors.description?.message && "invalid-field"
                             }`}
                           theme="snow"
@@ -97,11 +100,11 @@ console.log(skillDetails,"skillDetails----")
                     )}
                   </div>
                   <div>
-                    <p className="font-14 mt-3 fw-semibold">Add Skills</p>
+                    <p className="font-14 mt-3 fw-semibold">Add Description</p>
                   </div>
                 </Col>
                 <Col md={6}>
-                  <div>
+                  {/* <div>
                     <div className="recommended-desc">
                       <div className="d-flex align-items-center gap-3">
                         <Button
@@ -179,7 +182,8 @@ console.log(skillDetails,"skillDetails----")
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
+                    <RecommendationAI control={control} setRecommend={setRecommend}/>
                 </Col>
                 <Col md={6}>
                   <div>

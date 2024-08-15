@@ -1,19 +1,33 @@
-
 import { TbRulerOff } from "react-icons/tb";
-import { EXPERIENCE_YEAR, JOB_TYPES_OPTIONS, LANGUAGE_PREFERENCES_OPTIONS, PROJECT_TYPE, TEAM_SIZE, WORK_TYPE, WORKPLACE_TYPES_OPTIONS } from "../common/JobPostForm/Constant";
+import {
+  EXPERIENCE_YEAR,
+  JOB_TYPES_OPTIONS,
+  LANGUAGE_PREFERENCES_OPTIONS,
+  PROJECT_TYPE,
+  TEAM_SIZE,
+  WORK_TYPE,
+  WORKPLACE_TYPES_OPTIONS,
+} from "../common/JobPostForm/Constant";
 
 export const MODAL_INFORMATION = {
   1: {
     heading: "Setting Up Your First Job post",
-    paragraph: "We are really excited that you want to set up a new job with us. Our team is dedicated to providing you with the best possible experience as you embark on this new journey. We are committed to supporting you every step of the way and ensuring that your transition is smooth and successful. Welcome aboard, and we look forward to achieving great things together!"
+    paragraph:
+      "We are really excited that you want to set up a new job with us. Our team is dedicated to providing you with the best possible experience as you embark on this new journey. We are committed to supporting you every step of the way and ensuring that your transition is smooth and successful. Welcome aboard, and we look forward to achieving great things together!",
   },
   4: {
     heading: "Thank you for applying",
-    paragraph: <span>Welcome to the Rexett Community! <br />  A Rexett Team  Will Reach Out to You Shortly for the Next Steps!</span>
-  }
-}
+    paragraph: (
+      <span>
+        Welcome to the Rexett Community! <br /> A Rexett Team Will Reach Out to
+        You Shortly for the Next Steps!
+      </span>
+    ),
+  },
+};
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const GOOGLE_AUTOCOMPLETE_API_KEY = "AIzaSyABX4LTqTLQGg_b3jFOH8Z6_H5CDqn8tbc"
+export const GOOGLE_AUTOCOMPLETE_API_KEY =
+  "AIzaSyABX4LTqTLQGg_b3jFOH8Z6_H5CDqn8tbc";
 export const SIDEBAR_ITEMS = {
   client: [
     { stepNumber: 1, label: "personal" },
@@ -53,9 +67,15 @@ export const VENDOR_STEPPER_HEADINGS = {
   3: { heading: "vendorStep4Heading", para: "vendorStep4Para" },
 };
 export const DEVELOPER_NESTED_STEPPER_HEADINGS = {
-  1: { heading: "developerNestedStep1Heading", para: "developerNestedStep1Para" },
+  1: {
+    heading: "developerNestedStep1Heading",
+    para: "developerNestedStep1Para",
+  },
   2: { heading: "developerNestedStep3Heading", para: "" },
-  4:  { heading: "developerNestedStep4Heading", para: "developerNestedStep4Para" },
+  4: {
+    heading: "developerNestedStep4Heading",
+    para: "developerNestedStep4Para",
+  },
 };
 
 export const DEVELOPER_STEPPER_HEADINGS = {
@@ -65,92 +85,119 @@ export const DEVELOPER_STEPPER_HEADINGS = {
   4: { heading: "developerStep4Heading", para: "developerStep4Para" },
 };
 export const DEVELOPER_INTRO_DATA = {
-  2:{
-    heading:"developerIntroData2Heading",
-    mainHead:"developerMain2Head",
-    heading1:"developerHeading2",
-    para:"developer2Para"
+  2: {
+    heading: "developerIntroData2Heading",
+    mainHead: "developerMain2Head",
+    heading1: "developerHeading2",
+    para: "developer2Para",
   },
-  3:{
-    heading:"developerIntroData3Heading",
-    mainHead:"developerMain3Head",
-    heading1:"developerHeading3",
-    para:"developer3Para"
+  3: {
+    heading: "developerIntroData3Heading",
+    mainHead: "developerMain3Head",
+    heading1: "developerHeading3",
+    para: "developer3Para",
   },
-  4:{
-    heading:"developerIntroData4Heading",
-    mainHead:"developerMain4Head",
-    heading1:"developerHeading4",
-    para:"developer4Para"
+  4: {
+    heading: "developerIntroData4Heading",
+    mainHead: "developerMain4Head",
+    heading1: "developerHeading4",
+    para: "developer4Para",
   },
-  5:{
-    heading:"developerIntroData5Heading",
-    mainHead:"developerMain5Head",
-    heading1:"developerHeading5",
-    para:"developer5Para"
+  5: {
+    heading: "developerIntroData5Heading",
+    mainHead: "developerMain5Head",
+    heading1: "developerHeading5",
+    para: "developer5Para",
   },
-  6:{
-    heading:"developerIntroData6Heading",
-    mainHead:"developerMain6Head",
-    heading1:"developerHeading6",
-    para:"developer6Para"
+  6: {
+    heading: "developerIntroData6Heading",
+    mainHead: "developerMain6Head",
+    heading1: "developerHeading6",
+    para: "developer6Para",
   },
-
-
 };
 
-
 export const DEVELOPER_STEPPER_HEADINGS_FOR_STEP_3 = {
-  2: { heading: "developerNestedStep1HeadingForStep3", para: "developerNestedStep1ParaForStep3" },
+  2: {
+    heading: "developerNestedStep1HeadingForStep3",
+    para: "developerNestedStep1ParaForStep3",
+  },
   3: { heading: "developerNestedStep2HeadingForStep3", para: "'" },
 };
 export const DEVELOPER_STEPPER_HEADINGS_FOR_STEP_4 = {
-  1: { heading: "developerNestedStep1HeadingForStep4", para: "developerNestedStep1ParaForStep4" },
-  2: { heading: "developerNestedStep2HeadingForStep4", para: "developerNestedStep2ParaForStep4" },
-  4:  { heading: "developerNestedStep3HeadingForStep3", para: "" },
+  1: {
+    heading: "developerNestedStep1HeadingForStep4",
+    para: "developerNestedStep1ParaForStep4",
+  },
+  2: {
+    heading: "developerNestedStep2HeadingForStep4",
+    para: "developerNestedStep2ParaForStep4",
+  },
+  4: { heading: "developerNestedStep3HeadingForStep3", para: "" },
 };
 
 export const DEVELOPER_STEPPER_HEADINGS_FOR_STEP_5 = {
-  1: { heading: "developerNestedStep1HeadingForStep5", para: "developerNestedStep1ParaForStep5" },
-
+  1: {
+    heading: "developerNestedStep1HeadingForStep5",
+    para: "developerNestedStep1ParaForStep5",
+  },
 };
 
 export const DEVELOPER_STEPPER_HEADINGS_FOR_STEP_6 = {
-  1: { heading: "developerNestedStep1HeadingForStep6", para: "developerNestedStep1ParaForStep6" },
+  1: {
+    heading: "developerNestedStep1HeadingForStep6",
+    para: "developerNestedStep1ParaForStep6",
+  },
   2: { heading: "developerNestedStep2HeadingForStep6", para: "" },
-
 };
-export const getActiveStepHeadingData = (activeStep ,type,nestedActiveStep ) => {
-  if (type === 'client') {
-    return CLIENT_STEPPER_HEADINGS[activeStep] ||{ heading: '' }; 
-  } 
-  else if (type === 'vendor') {
-    return VENDOR_STEPPER_HEADINGS[activeStep] || { heading: '' }; 
+export const getActiveStepHeadingData = (
+  activeStep,
+  type,
+  nestedActiveStep
+) => {
+  if (type === "client") {
+    return CLIENT_STEPPER_HEADINGS[activeStep] || { heading: "" };
+  } else if (type === "vendor") {
+    return VENDOR_STEPPER_HEADINGS[activeStep] || { heading: "" };
   } else {
-    if(nestedActiveStep>0 && activeStep==2){
-      return DEVELOPER_NESTED_STEPPER_HEADINGS[nestedActiveStep] || { heading: '' }; 
-    }else if(nestedActiveStep>0 && activeStep==3){
-      console.log("hello33")
-      return DEVELOPER_STEPPER_HEADINGS_FOR_STEP_3[nestedActiveStep] || { heading: '' }; 
-    }else if(nestedActiveStep>0 && activeStep==4){
-      return DEVELOPER_STEPPER_HEADINGS_FOR_STEP_4[nestedActiveStep] || { heading: '' }; 
-
-    }else if(nestedActiveStep>0 && activeStep==5){
-      return DEVELOPER_STEPPER_HEADINGS_FOR_STEP_5[nestedActiveStep] || { heading: '' }; 
-     
-    }else if(nestedActiveStep>0 && activeStep==6){
-      return DEVELOPER_STEPPER_HEADINGS_FOR_STEP_6[nestedActiveStep] || { heading: '' };
-    }
-    else{
-      return DEVELOPER_STEPPER_HEADINGS[activeStep] || { heading: '' };
+    if (nestedActiveStep > 0 && activeStep == 2) {
+      return (
+        DEVELOPER_NESTED_STEPPER_HEADINGS[nestedActiveStep] || { heading: "" }
+      );
+    } else if (nestedActiveStep > 0 && activeStep == 3) {
+      console.log("hello33");
+      return (
+        DEVELOPER_STEPPER_HEADINGS_FOR_STEP_3[nestedActiveStep] || {
+          heading: "",
+        }
+      );
+    } else if (nestedActiveStep > 0 && activeStep == 4) {
+      return (
+        DEVELOPER_STEPPER_HEADINGS_FOR_STEP_4[nestedActiveStep] || {
+          heading: "",
+        }
+      );
+    } else if (nestedActiveStep > 0 && activeStep == 5) {
+      return (
+        DEVELOPER_STEPPER_HEADINGS_FOR_STEP_5[nestedActiveStep] || {
+          heading: "",
+        }
+      );
+    } else if (nestedActiveStep > 0 && activeStep == 6) {
+      return (
+        DEVELOPER_STEPPER_HEADINGS_FOR_STEP_6[nestedActiveStep] || {
+          heading: "",
+        }
+      );
+    } else {
+      return DEVELOPER_STEPPER_HEADINGS[activeStep] || { heading: "" };
     }
   }
-}
+};
 
-export const getStepperIntroData=(activeStep)=>{
-  return DEVELOPER_INTRO_DATA[activeStep]
-}
-
+export const getStepperIntroData = (activeStep) => {
+  return DEVELOPER_INTRO_DATA[activeStep];
+};
 
 // export const getActiveStepVendorHeadingData = (activeStep) =>
 //   VENDOR_STEPPER_HEADINGS[activeStep] || null;
@@ -162,7 +209,13 @@ const CLIENT_STEP_1_FIELDS = {
       fieldName: "first_name",
       type: "text",
       placeholder: "e.g. John",
-      rules: { required: "First name is required" },
+      rules: {
+        required: "First name is required",
+        pattern: {
+          value: /^[A-Za-z]+$/,
+          message: "First name must contain only letters",
+        },
+      },
       columnWidth: 6,
       isRequired: true,
     },
@@ -171,7 +224,13 @@ const CLIENT_STEP_1_FIELDS = {
       fieldName: "last_name",
       type: "text",
       placeholder: "e.g. Doe",
-      rules: { required: "Surname is required" },
+      rules: {
+        required: "Surname is required",
+        pattern: {
+          value: /^[A-Za-z]+$/,
+          message: "Surname must contain only letters",
+        },
+      },
       columnWidth: 6,
       isRequired: true,
     },
@@ -202,12 +261,19 @@ const CLIENT_STEP_1_FIELDS = {
     {
       isPasswordSection: true,
     },
+
     {
       label: "taxId",
       fieldName: "company_tax_id",
       type: "text",
-      placeholder: "Enter Tax ID",
-      rules: { required: "Phone number is required" },
+      placeholder: "Enter Tax Id",
+      rules: {
+        required: "Tax Id number is required",
+        pattern: {
+          value: /^[0-9]+$/,
+          message: "Tax Id number must contain only numbers",
+        },
+      },
       columnWidth: 6,
       isRequired: true,
     },
@@ -216,7 +282,13 @@ const CLIENT_STEP_1_FIELDS = {
       fieldName: "yearly_revenue",
       type: "text",
       placeholder: "Enter yearly revenue",
-      rules: { required: "Yearly revenue is required" },
+      rules: {
+        required: "Yearly revenue is required",
+        pattern: {
+          value: /^[0-9]+$/,
+          message: "Yearly revenue number must contain only numbers",
+        },
+      },
       columnWidth: 6,
       isRequired: true,
     },
@@ -248,11 +320,18 @@ const CLIENT_STEP_1_FIELDS = {
       label: "taxId",
       fieldName: "company_tax_id",
       type: "text",
-      placeholder: "Enter Tax ID",
-      rules: { required: "Tax ID is required" },
+      placeholder: "Enter Tax Id",
+      rules: {
+        required: "Tax Id number is required",
+        pattern: {
+          value: /^[0-9]+$/,
+          message: "Tax Id number must contain only numbers",
+        },
+      },
       columnWidth: 6,
       isRequired: true,
     },
+
     {
       label: "establishmentYear",
       fieldName: "establishment_year",
@@ -268,7 +347,14 @@ const CLIENT_STEP_1_FIELDS = {
       fieldName: "website_url",
       type: "text",
       placeholder: "e.g. www.xyztechnology.com",
-      rules: { required: "Tax ID is required" },
+      rules: {
+        required: "Website URL is required",
+        pattern: {
+          value:
+            /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+)\.([a-zA-Z]{2,})(\/[^\s]*)?$/,
+          message: "Please enter a valid URL",
+        },
+      },
       columnWidth: 6,
       isRequired: true,
     },
@@ -286,10 +372,16 @@ const CLIENT_STEP_1_FIELDS = {
       fieldName: "total_it_recruiter",
       type: "text",
       placeholder: "e.g. 100",
-      rules: { required: "Employees strength is required" },
+      rules: { 
+        required: "Employees strength is required",
+        pattern: {
+          value: /^[0-9]+$/,
+          message: "Employees strength must be a number"
+        }
+      },
       columnWidth: 6,
       isRequired: true,
-    },
+    },    
     {
       label: "phoneNumber",
       fieldName: "phone_number",
@@ -380,17 +472,35 @@ const CLIENT_STEP_2_FIELDS = [
     fieldName: "job_positions",
     isRequired: true,
     columnWidth: 6,
-    rules: { required: "Number of positions available are Required" },
+    rules: { 
+       required: "Number of positions available are Required",
+      pattern: {
+        value: /^[0-9]+$/,
+        message: "Number of Positions must be a number"
+      }
+    },
     placeholder: "e.g 10",
   },
   {
     label: "Response Date",
     type: "date",
     fieldName: "response_date",
+    isMinRequired: true,
+    isMaxRequired: false,
     isRequired: true,
     columnWidth: 6,
     rules: { required: "Response Date is Required" },
     placeholder: "e.g 01-01-2025",
+  },
+  {
+    label: "Time Zone",
+    fieldName: "time_zone",
+    type: "grouped-select",
+    // placeholder: "",
+    rules: { required: "Time Zone is required" },
+    columnWidth: 12,
+    isRequired: false,
+    defaultOption: "Select Time Zone",
   },
 ];
 const CLIENT_ACTIVE_STEP_FIELDS = {
@@ -398,8 +508,6 @@ const CLIENT_ACTIVE_STEP_FIELDS = {
   2: CLIENT_STEP_2_FIELDS,
 };
 export const getActiveStepFields = (activeStep, registrationType) => {
-  console.log(activeStep,"activestep")
-  console.log(registrationType,"registrationType")
   if (activeStep === 1) {
     return CLIENT_ACTIVE_STEP_FIELDS[activeStep][registrationType] || null;
   } else {
@@ -457,8 +565,14 @@ const VENDOR_STEP_1_FIELDS = [
     label: "taxId",
     fieldName: "tax_id",
     type: "text",
-    placeholder: "Enter Tax ID",
-    rules: { required: "Tax ID is required" },
+    placeholder: "Enter CIN Number",
+    rules: {
+      required: "Tax Id number is required",
+      pattern: {
+        value: /^[0-9]+$/,
+        message: "Tax d number must contain only numbers",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -631,7 +745,8 @@ const VENDOR_STEP_4_FIELDS = [
     isRequired: true,
   },
   {
-    label: "Please share your success Stories with at least 2 of your exiting IT customers and their Contact details for reference check ",
+    label:
+      "Please share your success Stories with at least 2 of your exiting IT customers and their Contact details for reference check ",
     fieldName: "success_story",
     type: "text",
     placeholder: "e.g. Desc",
@@ -639,7 +754,7 @@ const VENDOR_STEP_4_FIELDS = [
     columnWidth: 6,
     isRequired: true,
   },
-]
+];
 const VENDOR_STEP_FIELDS = {
   1: VENDOR_STEP_1_FIELDS,
   2: VENDOR_STEP_2_FIELDS,
@@ -647,7 +762,7 @@ const VENDOR_STEP_FIELDS = {
 };
 export const getVendorActiveStepFields = (activeStep) => {
   return VENDOR_STEP_FIELDS[activeStep] || null;
-}
+};
 
 const DEVELOPER_STEP_1_FIELDS = [
   {
@@ -667,7 +782,6 @@ const DEVELOPER_STEP_1_FIELDS = [
     rules: { required: "Last name is required" },
     columnWidth: 6,
     isRequired: true,
-    
   },
   {
     label: "Profession",
@@ -685,7 +799,7 @@ const DEVELOPER_STEP_1_FIELDS = [
     rules: { required: "Preferences is required" },
     columnWidth: 6,
     isRequired: true,
-    options:LANGUAGE_PREFERENCES_OPTIONS,
+    options: LANGUAGE_PREFERENCES_OPTIONS,
     defaultOption: "Select",
   },
   {
@@ -695,7 +809,7 @@ const DEVELOPER_STEP_1_FIELDS = [
     rules: { required: "Experience is required" },
     columnWidth: 6,
     isRequired: true,
-    options:EXPERIENCE_YEAR,
+    options: EXPERIENCE_YEAR,
     defaultOption: "Select",
   },
   {
@@ -721,7 +835,7 @@ const DEVELOPER_STEP_1_FIELDS = [
     },
     columnWidth: 6,
     isRequired: true,
-    readOnly:false
+    readOnly: false,
   },
   {
     isPasswordSection: true,
@@ -729,7 +843,7 @@ const DEVELOPER_STEP_1_FIELDS = [
   {
     isLocation: true,
   },
-  
+
   {
     label: "address",
     fieldName: "address",
@@ -770,14 +884,14 @@ const DEVELOPER_STEP_1_FIELDS = [
   },
   {
     label: "Github",
-    fieldName: "github_url", 
+    fieldName: "github_url",
     type: "text",
     placeholder: "e.g. www.github.com/profile/12345",
     rules: { required: "GitHub in is required" },
     columnWidth: 6,
     isRequired: true,
   },
-]
+];
 const NESTED_DEVELOPER_STEP_1_FIELDS = [
   {
     label: "Job Title",
@@ -811,7 +925,7 @@ const NESTED_DEVELOPER_STEP_1_FIELDS = [
     label: "Work Type",
     fieldName: "work_type",
     type: "normal-select",
-    options:WORK_TYPE,
+    options: WORK_TYPE,
     // placeholder: "e.g. Street 1341,New area,CA,USA",
     rules: { required: "Work type is required" },
     columnWidth: 6,
@@ -823,13 +937,12 @@ const NESTED_DEVELOPER_STEP_1_FIELDS = [
     fieldName: "start_date",
     type: "date",
     isMinRequired: true,
-    isMaxRequired:false,
+    isMaxRequired: false,
     rules: { required: "Start date is required" },
     columnWidth: 6,
     isRequired: true,
     defaultOption: "Select Month",
   },
-
 
   {
     label: "End Date",
@@ -837,13 +950,13 @@ const NESTED_DEVELOPER_STEP_1_FIELDS = [
     type: "date",
     // placeholder: "e.g. Street 1341,New area,CA,USA",
     isMinRequired: true,
-    isMaxRequired:false,
+    isMaxRequired: false,
     // rules: { required: "End date is required" },
     columnWidth: 6,
     // isRequired: false,
     defaultOption: "Select Month",
   },
-  
+
   {
     label: "Are you currently Working in this job?",
     fieldName: "is_still_working",
@@ -852,9 +965,9 @@ const NESTED_DEVELOPER_STEP_1_FIELDS = [
     columnWidth: 12,
     isRequired: false,
   },
-]
+];
 
-const NESTED_DEVELOPER_STEP_2_FIELDS=[
+const NESTED_DEVELOPER_STEP_2_FIELDS = [
   {
     label: "University Name",
     fieldName: "name",
@@ -900,24 +1013,22 @@ const NESTED_DEVELOPER_STEP_2_FIELDS=[
     columnWidth: 6,
     isRequired: true,
   },
-  
+
   {
     label: "Graduation Date",
     fieldName: "graduate_date",
     type: "date",
     isMinRequired: true,
-    isMaxRequired:false,
+    isMaxRequired: false,
     // placeholder: "e.g. Street 1341,New area,CA,USA",
     rules: { required: "Job location is required" },
     columnWidth: 6,
     isRequired: true,
     defaultOption: "Select Month",
   },
+];
 
-]
-
-
-const NESTED_DEVELOPER_STEP_6_FIELDS=[
+const NESTED_DEVELOPER_STEP_6_FIELDS = [
   {
     label: "Project Title",
     fieldName: "project_title",
@@ -974,7 +1085,7 @@ const NESTED_DEVELOPER_STEP_6_FIELDS=[
     isRequired: true,
     options: TEAM_SIZE,
   },
-  
+
   {
     label: "Project URL",
     fieldName: "project_link",
@@ -1000,13 +1111,12 @@ const NESTED_DEVELOPER_STEP_6_FIELDS=[
     fieldName: "project_start_date",
     type: "date",
     isMinRequired: true,
-    isMaxRequired:false,
+    isMaxRequired: false,
     rules: { required: "Job location is required" },
     columnWidth: 6,
     isRequired: true,
     defaultOption: "Select Month",
   },
-
 
   {
     label: "End Date",
@@ -1016,12 +1126,11 @@ const NESTED_DEVELOPER_STEP_6_FIELDS=[
     rules: { required: "Job location is required" },
     columnWidth: 6,
     isMinRequired: true,
-    isMaxRequired:false,
+    isMaxRequired: false,
     isRequired: true,
     defaultOption: "Select Month",
   },
-
-]
+];
 
 const adminStepData = [
   {
@@ -1110,51 +1219,47 @@ const adminStepData = [
   {
     isLocation: true,
   },
-]
+];
 
 const DEVELOPER_STEP_FIELDS = {
   1: DEVELOPER_STEP_1_FIELDS,
 };
 
-const NESTED_DEVELOPER_STEP_FIELDS={
-  1:NESTED_DEVELOPER_STEP_1_FIELDS,
-}
-const DEVELOPER_STEP_FIELDS_FOR_STEP_3={
-  3:NESTED_DEVELOPER_STEP_2_FIELDS,
-}
-const DEVELOPER_STEP_FIELDS_FOR_STEP_6={
-  1:NESTED_DEVELOPER_STEP_6_FIELDS,
-}
+const NESTED_DEVELOPER_STEP_FIELDS = {
+  1: NESTED_DEVELOPER_STEP_1_FIELDS,
+};
+const DEVELOPER_STEP_FIELDS_FOR_STEP_3 = {
+  3: NESTED_DEVELOPER_STEP_2_FIELDS,
+};
+const DEVELOPER_STEP_FIELDS_FOR_STEP_6 = {
+  1: NESTED_DEVELOPER_STEP_6_FIELDS,
+};
 
-
-export const getDeveloperActiveStepFields = (activeStep,nestedActiveStep) =>{
-  console.log(activeStep,nestedActiveStep,"cosn")
-  if(nestedActiveStep>0  &&activeStep==2){
+export const getDeveloperActiveStepFields = (activeStep, nestedActiveStep) => {
+  console.log(activeStep, nestedActiveStep, "cosn");
+  if (nestedActiveStep > 0 && activeStep == 2) {
     return NESTED_DEVELOPER_STEP_FIELDS[1] || null;
-  }else if(nestedActiveStep>0  &&activeStep==3){
-   return DEVELOPER_STEP_FIELDS_FOR_STEP_3[3] || null;
-  }else if(nestedActiveStep>0  &&activeStep==6){
-   return DEVELOPER_STEP_FIELDS_FOR_STEP_6[1] || null
+  } else if (nestedActiveStep > 0 && activeStep == 3) {
+    return DEVELOPER_STEP_FIELDS_FOR_STEP_3[3] || null;
+  } else if (nestedActiveStep > 0 && activeStep == 6) {
+    return DEVELOPER_STEP_FIELDS_FOR_STEP_6[1] || null;
+  } else {
+    return DEVELOPER_STEP_FIELDS[activeStep] || null;
   }
-  else{
-    return DEVELOPER_STEP_FIELDS[activeStep] || null
-   }
-}
+};
 export const getAdminActiveFields = () => {
   return adminStepData;
-}
-  
-  
-export const getStepDataFromAPI=(data,activeStep)=>{
-  if(data){
-    return data[`step${activeStep}`]
-  }else{
-    return {}
+};
+
+export const getStepDataFromAPI = (data, activeStep) => {
+  if (data) {
+    return data[`step${activeStep}`];
+  } else {
+    return {};
   }
-}
+};
 
-
-const EDUCATION_KEYS= {
+const EDUCATION_KEYS = {
   university_name: "",
   address: "",
   degree_id: "",
@@ -1164,34 +1269,25 @@ const EDUCATION_KEYS= {
   end_year: 0,
   currently_attending: "",
   description: "",
-}
+};
 
+const PROJECT_KEYS = {
+  project_title: "",
+  project_description: "",
+  tech_stacks_used: "",
+  role_in_project: "",
+  project_team_size: "",
+  project_link: "",
+  project_start_date: "",
+  project_end_date: "",
+  project_type: "",
+};
 
-const PROJECT_KEYS={
-    "project_title": "",
-    "project_description": "",
-    "tech_stacks_used": "",
-    "role_in_project": "",
-    "project_team_size": "",
-    "project_link": "",
-    "project_start_date": "",
-    "project_end_date": "",
-    "project_type":  "" 
-}
+const KEYS = {
+  5: EDUCATION_KEYS,
+  6: PROJECT_KEYS,
+};
 
-
-const KEYS={
-  5:EDUCATION_KEYS,
-  6:PROJECT_KEYS
-}
-
-export const stepperFormKeys=(activeStep)=>{
- return KEYS[activeStep]
-
-}
-
-
-
-
-
-
+export const stepperFormKeys = (activeStep) => {
+  return KEYS[activeStep];
+};

@@ -15,7 +15,8 @@ const initialClientData = {
   degreeList: {},
   // postedJob:{}
   developerDetails: {},
-  skillList:{}
+  skillList:{},
+  timeZoneList:[]
 
 }
 
@@ -90,10 +91,14 @@ export const clientDataSlice = createSlice({
       });
       state.degreeList = data;
     },
+    setListTimeZone: (state, action) => {
+      state.timeZoneList = action.payload;
+      state.screenLoader = false;
+    },
   }
 })
 
-export const { setCountriesList, setSkillList ,setScreenLoader,setSmallLoader, setDeveloperDetails, setStatesList, setFailClientData, setActionSuccessFully, setFailDeveloperData, setClientLook, setDegreeList, setProfile, setTimeZones, setCitiesList } = clientDataSlice.actions
+export const { setCountriesList, setSkillList ,setListTimeZone,setScreenLoader,setSmallLoader, setDeveloperDetails, setStatesList, setFailClientData, setActionSuccessFully, setFailDeveloperData, setClientLook, setDegreeList, setProfile, setTimeZones, setCitiesList } = clientDataSlice.actions
 
 export default clientDataSlice.reducer
 
@@ -135,10 +140,9 @@ export function getWebClientLookUp(callback) {
   };
 }
 
-export function clientJobPost(payload, activeStep, id) {
-  const activeStepKey = ["", "step1", "step2", "step3"];
+export function clientJobPost(payload, activeStep, id,callback) {
   return async (dispatch) => {
-    dispatch(setScreenLoader());
+    dispatch(setSmallLoader());
     try {
       let result = await authInstance.post(`common/post-job?user_id=${id}`, { ...payload });
       if (result?.data?.step1?.id) {
@@ -152,7 +156,7 @@ export function clientJobPost(payload, activeStep, id) {
         toast.success("Job successfully Posted", { position: "top-center" });
       }
       dispatch(setActionSuccessFully());
-      // return callback();
+      return callback();
     } catch (error) {
       console.log(error ,"error")
       const message = error?.message || "Something went wrong";
@@ -169,8 +173,8 @@ export function clientJobPost(payload, activeStep, id) {
 
 export const uploadFileToS3Bucket = (payload, callback) => {
   return async (dispatch) => {
-    dispatch(setScreenLoader());
-    // dispatch(setSmallLoader());
+    // dispatch(setScreenLoader());
+    dispatch(setSmallLoader());
     try {
       let result = await authInstance.post(`web/upload-file/`, payload);
       callback && callback(result?.data?.data?.Location);
@@ -404,6 +408,16 @@ export function rejectEditAction(payload) {
   };
 }
 
-
-
-
+export function getTimeZoneList() {
+  return async (dispatch) => {
+    // dispatch(setScreenLoader());
+    try {
+      let result = await authInstance.get(`web/countries/timezones`);
+      dispatch(setListTimeZone(result?.data.data));
+    } catch (error) {
+      const message = error?.message;
+      toast.error(error?.response?.data?.message, { position: "top-center" });
+      dispatch(setFailClientData());
+    }
+  };
+}

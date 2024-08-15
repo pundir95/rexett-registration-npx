@@ -38,7 +38,7 @@ const CommonInput = ({
   selectedRecommend
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-console.log(type,"ty")
+console.log(options,"options")
 console.log(isMinRequired,"isMinRequired")
 console.log(isMaxRequired,"ismax")
   const handleTogglePassword = () => {
@@ -174,7 +174,34 @@ console.log(isMaxRequired,"ismax")
                   {showCloseIcon()}
                 </>
               );
-            } else if (type === "multi-select") {
+            }
+            else if (type === "grouped-select") {
+              return (
+                <>
+                  <Select
+                    {...field}
+                    className={`common-field ${
+                      invalidFieldRequired && error?.message && "invalid-field"
+                    }`}
+                    // value={value}
+                    // onChange={onChange}
+                    options={options}
+                  >
+                    {/* <option disabled selected value="">
+                      {defaultOption}
+                    </option>
+                    {options?.map(({ label, value }, idx) => (
+                      <option key={idx} value={value}>
+                        {label}
+                      </option>
+                    ))} */}
+                  </Select>
+                  {showCloseIcon()}
+                </>
+              );
+            }
+            
+            else if (type === "multi-select") {
               return (
                 <>
                   <Select
@@ -202,13 +229,13 @@ console.log(isMaxRequired,"ismax")
                       invalidFieldRequired && error?.message && "invalid-field"
                     }`}
                     // if date should not be less than current date
-                    max={
-                       new Date().toISOString().split("T")[0]
+                    min={
+                      isMinRequired && new Date().toISOString().split("T")[0]
                     }
                     // if date should not be less than current date
-                    // max={
-                    //   isMaxRequired && new Date().toISOString().split("T")[0]
-                    // }
+                    max={
+                      isMaxRequired && new Date().toISOString().split("T")[0]
+                    }
                     disabled={disabled && name=="end_date"}
                   />
                   {showCloseIcon()}

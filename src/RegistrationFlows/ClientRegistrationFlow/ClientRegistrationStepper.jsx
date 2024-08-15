@@ -9,7 +9,7 @@ import RegistrationType from "./RegistrationType";
 import { FaArrowLeft } from "react-icons/fa6";
 import { DEFAULT_SCREENING_DATA, getActiveStepFields, MODAL_INFORMATION, SIDEBAR_ITEMS } from "../../helper/RegisterConstant";
 import RexettButton from "../../atomic/RexettButton";
-import { applyAsClient, clientJobPost, getCoutriesList, getJobPost, getProfile, getStatesList, uploadFileToS3Bucket } from "../../Redux/Slices/ClientDataSlice";
+import { applyAsClient, clientJobPost, getCoutriesList, getJobPost, getProfile, getStatesList, getTimeZoneList, uploadFileToS3Bucket } from "../../Redux/Slices/ClientDataSlice";
 import { useTranslation } from "react-i18next";
 import { getSkillOptions } from "../../Redux/Slices/DeveloperDataSlice";
 import SetUpJobModal from "../../common/Modals/SetUpJobModal";
@@ -19,7 +19,7 @@ import ScreenLoader from "../../atomic/ScreenLoader";
 
 const ClientRegistrationStepper = () => {
   const dispatch = useDispatch();
-  const { smallLoader, screenLoader } = useSelector((state) => state?.clientData);
+  const { smallLoader, screenLoader,timeZoneList } = useSelector((state) => state?.clientData);
   const [text, setText] = useState("");
   const [details, setDetails] = useState()
   const [activeStep, setActiveStep] = useState(0);
@@ -27,11 +27,14 @@ const ClientRegistrationStepper = () => {
   const [imageFile, setImageFile] = useState(null);
   const [registrationType, setRegistrationType] = useState("individual"); //for register as indivisual or company
   const [showSetUpModal, setShowSetUpJobModal] = useState(false);
+  const [groupedTime, setGroupedTime] = useState([])
   const [skillDetails , setSkillDetails] = useState({
     skillName : "",
     skillWeight : ""
   })
-  const activeStepFields = getActiveStepFields(activeStep, registrationType);
+
+  let currentFormtype=localStorage.getItem("currentRegisterFormType")
+  const activeStepFields = getActiveStepFields(activeStep, currentFormtype);
   console.log(activeStepFields, "activeStepFields")
   const { profileData } = useSelector((state) => state?.clientData)
   const {
@@ -54,7 +57,9 @@ const ClientRegistrationStepper = () => {
   const { t } = useTranslation()
   const [countryCode , setCountryCode] = useState()
   let arrPercentage=[0,0,30,40,50,70,80,100]
+  
   useEffect(() => {
+    dispatch(getTimeZoneList())
     const storedStep = localStorage.getItem("clientActiveStep");
     if (storedStep) {
       setActiveStep(Number(storedStep));
@@ -70,6 +75,19 @@ const ClientRegistrationStepper = () => {
   }, [activeStep]);
   const user_id = localStorage.getItem("clientId")
   console.log(user_id, "user_id")
+  useEffect(() => {
+    if (timeZoneList?.length > 0) {
+      let groupedTimeZones = timeZoneList?.map((item) => {
+        return {
+          label: item?.country_name,
+          options: item?.timezones?.map((it) => {
+            return { label: it, value: it }
+          }),
+        }
+      })
+      setGroupedTime(groupedTimeZones)
+    }
+  }, [timeZoneList])
 
   useEffect(() => {
     const activeStepKeys = {
@@ -164,7 +182,7 @@ const ClientRegistrationStepper = () => {
     if (activeStep === 1 || activeStep == 4) {
       setShowSetUpJobModal(true);
     } else {
-      increaseStepCount();
+      // increaseStepCount();
     }
     const buttonText = getActiveStepText();
     switch (buttonText) {
@@ -193,7 +211,7 @@ const ClientRegistrationStepper = () => {
         job_type: jobStepData?.job_type,
         response_date: jobStepData?.response_date
       }
-      dispatch(clientJobPost(payload, activeStep, user_id))
+      dispatch(clientJobPost(payload, activeStep, user_id,handleAfterApiSuccess))
     }
   }
   const job_id = localStorage.getItem("jobId")
@@ -242,6 +260,8 @@ const ClientRegistrationStepper = () => {
     }
   }
 
+  console.log(groupedTime,"groupedTime")
+
 
   const increaseStepCount = () => {
     if (activeStep === 4) {
@@ -280,12 +300,13 @@ const ClientRegistrationStepper = () => {
             setImageFile={setImageFile}
             isProfileSectionRequired={activeStep === 1}
             countryCode={countryCode}
+            skillOptions={groupedTime}
           />
         );
       case 3:
         return (
           <JobDesciptionStep
-          skillDetails={skillDetails}
+           skillDetails={skillDetails}
             screenLoader={screenLoader}
             register={register}
             stepFields={activeStepFields}
@@ -326,6 +347,7 @@ const ClientRegistrationStepper = () => {
   }, [activeStep])
 
   const handleRegistrationType = (registrationType) => {
+    localStorage.setItem("currentRegisterFormType",registrationType)
     setRegistrationType(registrationType);
     increaseStepCount();
   };
@@ -399,7 +421,7 @@ const ClientRegistrationStepper = () => {
                     <div>
                       <RexettButton
                         type="submit"
-                        onClick={() => text === "Submit"}
+                        // onClick={() => text === "Submit"}
                         text={getActiveStepText()}
                         className="main-btn px-5 mr-2"
                         disabled={smallLoader}
