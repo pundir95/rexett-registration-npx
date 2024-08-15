@@ -93,7 +93,7 @@ export const clientDataSlice = createSlice({
   }
 })
 
-export const { setCountriesList, setSkillList ,setSmallLoader, setDeveloperDetails, setStatesList, setFailClientData, setActionSuccessFully, setFailDeveloperData, setClientLook, setDegreeList, setProfile, setTimeZones, setCitiesList } = clientDataSlice.actions
+export const { setCountriesList, setSkillList ,setScreenLoader,setSmallLoader, setDeveloperDetails, setStatesList, setFailClientData, setActionSuccessFully, setFailDeveloperData, setClientLook, setDegreeList, setProfile, setTimeZones, setCitiesList } = clientDataSlice.actions
 
 export default clientDataSlice.reducer
 
@@ -101,7 +101,7 @@ export default clientDataSlice.reducer
 
 export function applyAsClient(payload, callback) {
   return async (dispatch) => {
-    // dispatch(setScreenLoader());
+    dispatch(setScreenLoader());
     try {
       let result = await authInstance.post(`/common/client-registration`, { ...payload });
       localStorage.setItem("clientId", result?.data?.data?.id);
@@ -109,13 +109,13 @@ export function applyAsClient(payload, callback) {
       toast.success(result.data.message, { position: "top-center" });
       return callback(result?.data?.data.Location);
     } catch (error) {
-      const message = error?.message;
+      console.log(error,"error")
       // if (error?.message === VERIFY_USER_MESSAGE) {
-      if (error.response?.data?.verify_user) {
+      // if (error.response?.data?.verify_user) {
         // triggerVerificationModal("verify");
-      } else {
+      // } else {
         toast.error(error?.response?.data?.message, { position: "top-center" });
-      }
+      // }
       // dispatch(setFailClientData());
     }
   };
@@ -138,7 +138,7 @@ export function getWebClientLookUp(callback) {
 export function clientJobPost(payload, activeStep, id) {
   const activeStepKey = ["", "step1", "step2", "step3"];
   return async (dispatch) => {
-    // dispatch(setScreenLoader());
+    dispatch(setScreenLoader());
     try {
       let result = await authInstance.post(`common/post-job?user_id=${id}`, { ...payload });
       if (result?.data?.step1?.id) {
@@ -154,6 +154,7 @@ export function clientJobPost(payload, activeStep, id) {
       dispatch(setActionSuccessFully());
       // return callback();
     } catch (error) {
+      console.log(error ,"error")
       const message = error?.message || "Something went wrong";
       toast.error(message, { position: "top-center" });
       // dispatch(setFailClientData());
@@ -168,7 +169,7 @@ export function clientJobPost(payload, activeStep, id) {
 
 export const uploadFileToS3Bucket = (payload, callback) => {
   return async (dispatch) => {
-    // dispatch(setScreenLoader());
+    dispatch(setScreenLoader());
     // dispatch(setSmallLoader());
     try {
       let result = await authInstance.post(`web/upload-file/`, payload);
@@ -240,10 +241,11 @@ export function getCitiesList(countryCode, stateName) {
 }
 export function getJobPost(payload, id) {
   return async (dispatch) => {
-    // dispatch(setScreenLoader());
+    dispatch(setScreenLoader());
     try {
       let result = await authInstance.post(`/common/post-job/?user_id=${id}`, { ...payload });
       // dispatch(setJobPost(result?.data?.data));
+      dispatch(setActionSuccessFully());
     } catch (error) {
       const message = error?.message;
       toast.error(error?.response?.data?.message, { position: "top-center" });

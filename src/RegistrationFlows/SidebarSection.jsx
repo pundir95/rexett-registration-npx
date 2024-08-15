@@ -4,22 +4,18 @@ import { FaCheck } from "react-icons/fa6";
 import rexettLogo from "./../assets/images/rexett-logo-white.png"
 
 
-const SidebarSection = ({activeStep,stepperSideBarItems,handleSetActiveStep}) => {
+const SidebarSection = ({activeStep,stepperSideBarItems,handleSetActiveStep,arrPercentage}) => {
     const {t} = useTranslation();
-    let arrPercentage=[0,40,20,20,20]
     
-const getPercentage = (currentStep) => {
-  let result = 0;
-  for (let i = 0; i < currentStep-1; i++) {
-      result = arrPercentage[i] + arrPercentage[i + 1];
-  }
-  return result;
+const getPercentage = () => {
+  return arrPercentage[activeStep]
+
 };
 
   return (
     <div className="resume-sidebar">
       <div className="resume-sidelogo mb-4">
-        <img src={rexettLogo} />
+      <img src={rexettLogo} />
       </div>
       <div>
         <ul>
@@ -36,12 +32,14 @@ const getPercentage = (currentStep) => {
           ))}
         </ul>
       </div>
-      <h4 className="resume-sideheading mt-3">Completeness:</h4>
-      <div className="resume-progress-wrapper">
-        <div className="resume-progressbx">
-          <div></div>
+      <div className="flex-none comp-wrapper">
+        <h4 className="resume-sideheading mt-3">Completeness:</h4>
+        <div className="resume-progress-wrapper">
+          <div className="resume-progressbx">
+            <div style={{width: `${getPercentage()}%`}}></div>
+          </div>
+          <span className="resume-progress-status font-12 fw-medium">{getPercentage()}%</span>
         </div>
-        <span className="resume-progress-status font-12 fw-medium">{getPercentage(activeStep)}%</span>
       </div>
     </div>
   );

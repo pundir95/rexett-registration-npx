@@ -1,4 +1,7 @@
+
+import { TbRulerOff } from "react-icons/tb";
 import { EXPERIENCE_YEAR, JOB_TYPES_OPTIONS, LANGUAGE_PREFERENCES_OPTIONS, PROJECT_TYPE, TEAM_SIZE, WORK_TYPE, WORKPLACE_TYPES_OPTIONS } from "../common/JobPostForm/Constant";
+
 export const MODAL_INFORMATION = {
   1: {
     heading: "Setting Up Your First Job post",
@@ -333,7 +336,7 @@ const CLIENT_STEP_2_FIELDS = [
   {
     label: "jobTitle",
     type: "text",
-    fieldName: "job_title",
+    fieldName: "title",
     isRequired: true,
     columnWidth: 6,
     rules: { required: "Job title is Required" },
@@ -395,6 +398,8 @@ const CLIENT_ACTIVE_STEP_FIELDS = {
   2: CLIENT_STEP_2_FIELDS,
 };
 export const getActiveStepFields = (activeStep, registrationType) => {
+  console.log(activeStep,"activestep")
+  console.log(registrationType,"registrationType")
   if (activeStep === 1) {
     return CLIENT_ACTIVE_STEP_FIELDS[activeStep][registrationType] || null;
   } else {
