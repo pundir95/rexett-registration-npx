@@ -110,7 +110,7 @@ const ScreeningSection = ({
         <Row>
           <Col md={12}>
             <StepperHeadingSection activeStep={activeStep} type={'client'} />
-            <p className="font-12 fw-medium">* includes a required field</p>
+            <p className="font-12 fw-medium req-text">* includes a required field</p>
             <JobPostStep3
               degreeList={degreeList}
               register={register}

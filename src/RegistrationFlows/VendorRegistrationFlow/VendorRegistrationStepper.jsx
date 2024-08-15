@@ -299,24 +299,22 @@ const VendorRegistrationStepper = () => {
         <div className="resume-main-wrapper">
           <form onSubmit={handleSubmit(onSubmit)}>
             <Container>
-              {activeStep > 1 && (
-                <div>
-                  <span
-                    onClick={decreaseStepCount}
-                    className="go-back-link text-decoration-none text-green d-inline-block mb-3 fw-medium cursor-pointer"
-                  >
-                    <FaArrowLeft /> Go Back
-                  </span>
-                </div>
-              )}
+              {activeStep > 1 && <div>
+                <span
+                  onClick={decreaseStepCount}
+                  className="go-back-link text-decoration-none text-white d-inline-block mb-3 fw-medium cursor-pointer"
+                >
+                  <FaArrowLeft /> Go Back
+                </span>
+              </div>}
               {renderActiveStep()}
               <div className="d-flex justify-content-between align-items-center ">
                 <div></div>
                 <div>
                   <RexettButton
                     type="submit"
-                    text={getActiveStepText(activeStep)}
-                    className="main-btn px-5 mr-2"
+                    text={getActiveStepText()}
+                    className="main-btn px-4 mr-2"
                     disabled={smallLoader}
                     isLoading={smallLoader}
                   />

@@ -264,7 +264,7 @@ console.log(isMaxRequired,"ismax")
                   showYearPicker
                   dateFormat="yyyy"
                   placeholderText="Select year"
-                  className="common-field"
+                  className="common-field w-100"
                 />
               )
             } else {

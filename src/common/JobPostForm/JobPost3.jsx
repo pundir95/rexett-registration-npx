@@ -186,7 +186,7 @@ const JobPostStep3 = ({
                   </p>
                 )}
               </div>
-              <Row className="align-items-start screening-grid">
+              <Row className="align-items-start screening-grid mx-0 py-3">
                 <Col md="4" className="mb-md-0 mb-4">
                   <Form.Group>
                     <Form.Label className="font-14">Response Type</Form.Label>
@@ -281,31 +281,33 @@ const JobPostStep3 = ({
                   {field?.isRecommended && "Recommended"}
                   <Button
                     variant="transparent"
-                    className="border-0 p-0"
+                    className="border-0 p-0 text-white"
                     onClick={() => remove(idx)}
                   >
                     <IoClose />
                   </Button>
                 </div>
-                <Row className="align-items-end screening-grid">
+                <Row className="screening-grid py-3 mx-0">
                   <Col md="4" className="mb-md-0 mb-4">
                     <Form.Group>
                       {field?.question_type && field?.question_type === "Degree" && (
                         <>
                           <Form.Label className="font-14">{"Degree"}</Form.Label>
-                          <CreatableSelect
-                            {...register(`screening_questions.${idx}.title`,
-                              { required: t("required_message") }
-                            )}
-                            isClearable
-                            onChange={(val) =>
-                              setValue(
-                                `screening_questions.${idx}.title`,
-                                val ? val.label : ""
-                              )
-                            }
-                            options={degreeList}
-                          />
+                          <div className="common-field">
+                            <CreatableSelect
+                              {...register(`screening_questions.${idx}.title`,
+                                { required: t("required_message") }
+                              )}
+                              isClearable
+                              onChange={(val) =>
+                                setValue(
+                                  `screening_questions.${idx}.title`,
+                                  val ? val.label : ""
+                                )
+                              }
+                              options={degreeList}
+                            />
+                          </div>
                            {/* {errors?.screening_questions[idx].Degree && (
                               <p className="error-message">
                                 {errors.screening_questions[idx].Degree.message}
@@ -367,7 +369,7 @@ const JobPostStep3 = ({
                         />
                       ) : field?.question_type === "language" ? (
                         <>
-                          <Form.Select
+                          <Form.Select className="common-field"
                             {...register(
                               `screening_questions.${idx}.ideal_answer`,
                               {
@@ -425,7 +427,7 @@ const JobPostStep3 = ({
                       </p>
                     )}
                   </Col>
-                  <Col md="4" className="pb-md-2">
+                  <Col md="4" className="pb-md-2 align-self-center">
                     <Form.Group>
                       <Form.Check
                         type="checkbox"

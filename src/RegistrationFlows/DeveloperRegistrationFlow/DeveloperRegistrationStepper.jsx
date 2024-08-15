@@ -1244,7 +1244,7 @@ console.log(nestedActiveStep,"nes")
                 <RexettButton
                   type="submit"
                   text={getActiveDecreaseStepText()}
-                  className="main-btn px-5 mr-2"
+                  className="outline-main-btn px-4 font-14 mr-2"
                   onClick={profileSubmitIfDone}
                   disabled={!ifDone && smallLoader}
                   isLoading={!ifDone && smallLoader}
@@ -1254,7 +1254,7 @@ console.log(nestedActiveStep,"nes")
                 <RexettButton
                   type="submit"
                   text={getActiveStepText()}
-                  className="main-btn px-5 mr-2"
+                  className="main-btn px-4 font-14 mr-2"
                   disabled={smallLoader}
                   isLoading={smallLoader}
                 />

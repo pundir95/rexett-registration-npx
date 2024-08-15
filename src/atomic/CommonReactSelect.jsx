@@ -30,63 +30,65 @@ const CommonReactSelect = ({
     }
   }
   return (
-    <Form.Group className="mb-3">
+    <Form.Group className="mb-3 position-relative">
       <Form.Label className="common-label font-14 fw-medium">
         {label}
         {required && "*"}
       </Form.Label>
-      <Controller
-        name={name}
-        control={control}
-        rules={{
-          required: {
-            value: required ? true : false,
-            message: required,
-          },
-        }}
-        render={({ field }) =>
-          handleChange ? (
-            <>
-              <Select
-                className={`common-field font-14 ${
-                  invalidFieldRequired &&
-                  errors[name]?.message &&
-                  "invalid-field"
-                }`}
-                {...field}
-                value={watch(name)}
-                onChange={(selectedOption) => {
-                  handleChange(selectedOption, name);
-                }}
-                options={formattedOptions}
-              />
-              {showCloseIcon()}
-            </>
-          ) : (
-            <>
-              <Select
-                className={`common-field 14 ${
-                  invalidFieldRequired &&
-                  errors[name]?.message &&
-                  "invalid-field"
-                }`}
-                {...field}
-                options={formattedOptions}
-              />
-              {showCloseIcon()}
-            </>
-          )
-        }
-      />
-      {errors[name] && (
-        <p
-          className={`${
-            invalidFieldRequired ? "field-error" : "error-message"
-          }`}
-        >
-          {errors[name]?.message}
-        </p>
-      )}
+      <div className="position-relative">
+        <Controller
+          name={name}
+          control={control}
+          rules={{
+            required: {
+              value: required ? true : false,
+              message: required,
+            },
+          }}
+          render={({ field }) =>
+            handleChange ? (
+              <>
+                <Select
+                  className={`common-field font-14 ${
+                    invalidFieldRequired &&
+                    errors[name]?.message &&
+                    "invalid-field"
+                  }`}
+                  {...field}
+                  value={watch(name)}
+                  onChange={(selectedOption) => {
+                    handleChange(selectedOption, name);
+                  }}
+                  options={formattedOptions}
+                />
+                {showCloseIcon()}
+              </>
+            ) : (
+              <>
+                <Select
+                  className={`common-field 14 ${
+                    invalidFieldRequired &&
+                    errors[name]?.message &&
+                    "invalid-field"
+                  }`}
+                  {...field}
+                  options={formattedOptions}
+                />
+                {showCloseIcon()}
+              </>
+            )
+          }
+        />
+      </div>
+        {errors[name] && (
+          <p
+            className={`${
+              invalidFieldRequired ? "field-error" : "error-message"
+            }`}
+          >
+            {errors[name]?.message}
+          </p>
+        )}
     </Form.Group>
   );
 };
