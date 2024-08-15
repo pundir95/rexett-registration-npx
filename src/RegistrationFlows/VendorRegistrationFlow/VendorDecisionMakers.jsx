@@ -29,8 +29,8 @@ const VendorDecisionMakers = ({
   const { t } = useTranslation()
   // const fields = getVendorActiveStepFields(activeStep);
   const fields = activeStepFields;
-console.log(fields,"fields")
-console.log(errors?.proprietor_email,"proprietor_email")
+  console.log(fields, "fields")
+  console.log(errors?.proprietor_email, "proprietor_email")
 
 
 
@@ -41,7 +41,7 @@ console.log(errors?.proprietor_email,"proprietor_email")
           <Row>
             <Col md={12}>
               <StepperHeadingSection activeStep={activeStep} type={"vendor"} />
-              <p className="font-12 fw-medium">* includes a required field</p>
+              <p className="font-12 fw-medium req-text">* includes a required field</p>
               <div>
                 <Row className="w-100">
                   {fields?.map(
@@ -64,10 +64,10 @@ console.log(errors?.proprietor_email,"proprietor_email")
                     ) => (
 
                       <>
-                      {console.log(fieldName,"errror inside loop")}
-                      <div className="mb-3">
+                        {console.log(fieldName, "errror inside loop")}
                         <Col md={columnWidth} >
-                        <CommonInput
+                          <div className="mb-3">
+                            <CommonInput
                               label={t(`${label}`) + `${isRequired && " *"}`}
                               name={fieldName}
                               control={control}
@@ -79,8 +79,8 @@ console.log(errors?.proprietor_email,"proprietor_email")
                               placeholder={placeholder}
                             />
 
+                          </div>
                         </Col>
-                        </div>
                       </>
 
                     )

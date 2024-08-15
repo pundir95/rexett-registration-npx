@@ -285,7 +285,7 @@ const VendorRegistrationStepper = () => {
               {activeStep > 1 && <div>
                 <span
                   onClick={decreaseStepCount}
-                  className="go-back-link text-decoration-none text-green d-inline-block mb-3 fw-medium cursor-pointer"
+                  className="go-back-link text-decoration-none text-white d-inline-block mb-3 fw-medium cursor-pointer"
                 >
                   <FaArrowLeft /> Go Back
                 </span>
@@ -297,7 +297,7 @@ const VendorRegistrationStepper = () => {
                   <RexettButton
                     type="submit"
                     text={getActiveStepText()}
-                    className="main-btn px-5 mr-2"
+                    className="main-btn px-4 mr-2"
                     disabled={smallLoader}
                     isLoading={smallLoader}
                   />

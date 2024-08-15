@@ -332,7 +332,7 @@ import JobDesciptionStep from "./JobDescriptionStep";
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Container>
                   <div>
-                    <span onClick={decreaseStepCount} className="go-back-link text-decoration-none text-green d-inline-block mb-3 fw-medium cursor-pointer">
+                    <span onClick={decreaseStepCount} className="go-back-link text-decoration-none text-white d-inline-block mb-3 fw-medium cursor-pointer">
                       <FaArrowLeft /> Go Back
                     </span>
                   </div>

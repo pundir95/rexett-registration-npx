@@ -66,7 +66,7 @@ const JobDesciptionStep = ({
     <Row>
       <Col md={12}>
         <StepperHeadingSection activeStep={activeStep} type={type} />
-        <p className="font-12 fw-medium">* includes a required field</p>
+        <p className="font-12 fw-medium req-text">* includes a required field</p>
         <div className="d-flex align-items-start gap-3">
           <Row className="w-100">
             <Col md={12}>
@@ -81,9 +81,8 @@ const JobDesciptionStep = ({
                   render={({ field }) => (
                     <ReactQuill
                       {...field}
-                      className={`common-field ${
-                        errors.description?.message && "invalid-field"
-                      }`}
+                      className={`common-field ${errors.description?.message && "invalid-field"
+                        }`}
                       theme="snow"
                     />
                   )}
@@ -92,11 +91,11 @@ const JobDesciptionStep = ({
                   <p className="field-error">{errors.description?.message}</p>
                 )}
               </div>
-              <div>
-                <p className="font-14 mt-3 fw-semibold">Add Skills</p>
-              </div>
             </Col>
             <Col md={6}>
+              <div className="mt-3">
+                <label className="font-14 mb-3 fw-medium">Add Skills</label>
+              </div>
               <div>
                 <div className="recommended-desc">
                   <div className="d-flex align-items-center gap-3">
@@ -178,64 +177,70 @@ const JobDesciptionStep = ({
               </div>
             </Col>
             <Col md={6}>
-              <div>
-                {fields?.map((field, idx) => (
-                  <>
-                    <div
-                      key={field.id}
-                      className="d-flex align-items-center gap-2"
-                    >
-                      <div className="w-100">
-                        <CommonInput
-                          label={"Enter Skill"}
-                          name={`skills.${idx}.title`}
-                          type={"select2"}
-                          control={control}
-                          rules={{ required: "This field is required" }}
-                          error={errors?.skills?.[idx]?.title}
-                          selectOptions={formattedSkillOptions}
-                          invalidFieldRequired={true}
-                          placeholder="Select Skill"
-                        />{" "}
+              <div className="d-flex align-items-center gap-2 mt-3">
+                <div className="w-100">
+                  {fields?.map((field, idx) => (
+                    <>
+                    <div>
+                      <div
+                        key={field.id}
+                        className="d-flex align-items-center gap-2 w-100"
+                      >
+                        <div className="w-100">
+                          <CommonInput
+                            label={"Enter Skill"}
+                            name={`skills.${idx}.title`}
+                            type={"select2"}
+                            control={control}
+                            rules={{ required: "This field is required" }}
+                            error={errors?.skills?.[idx]?.title}
+                            selectOptions={formattedSkillOptions}
+                            invalidFieldRequired={true}
+                            placeholder="Select Skill"
+                          />{" "}
+                        </div>
+                        <div className="w-100">
+                          <CommonInput
+                            label={"Enter Level"}
+                            name={`skills.${idx}.level`}
+                            type={"select2"}
+                            control={control}
+                            rules={{ required: "This field is required" }}
+                            error={errors?.skills?.[idx]?.level}
+                            selectOptions={LEVEL_OPTIONS}
+                            invalidFieldRequired={true}
+                            placeholder="Select Level"
+                          />{" "}
+                        </div>
+                        {/* <Button
+                            onClick={handleAppend}
+                            variant="transparent"
+                            className="text-green font-24 p-0 shadow-none border-0"
+                          >
+                            <IoAddCircle />
+                          </Button> */}
+                        {watch("skills")?.length > 1 && (
+                          <Button
+                            onClick={() => remove(idx)}
+                            variant="transparent"
+                            className="text-danger font-24 p-0 shadow-none border-0"
+                          >
+                            <IoTrash />
+                          </Button>
+                        )}
                       </div>
-                      <div className="w-100">
-                        <CommonInput
-                          label={"Enter Level"}
-                          name={`skills.${idx}.level`}
-                          type={"select2"}
-                          control={control}
-                          rules={{ required: "This field is required" }}
-                          error={errors?.skills?.[idx]?.level}
-                          selectOptions={LEVEL_OPTIONS}
-                          invalidFieldRequired={true}
-                          placeholder="Select Level"
-                        />{" "}
-                      </div>
-                      {/* <Button
-                          onClick={handleAppend}
-                          variant="transparent"
-                          className="text-green font-24 p-0 shadow-none border-0"
-                        >
-                          <IoAddCircle />
-                        </Button> */}
-                      {watch("skills")?.length > 1 && (
-                        <Button
-                          onClick={() => remove(idx)}
-                          variant="transparent"
-                          className="text-danger font-24 p-0 shadow-none border-0"
-                        >
-                          <IoTrash />
-                        </Button>
-                      )}
                     </div>
-                  </>
-                ))}
+                    </>
+                  ))}
+                </div>
                 <Button
                   onClick={handleAppend}
                   variant="transparent"
-                  className="text-green font-24 p-0 shadow-none border-0"
+                  className="text-gradient font-24 p-0 shadow-none border-0"
                 >
-                  <IoAddCircle />
+                  <span>
+                    <IoAddCircle />
+                  </span>
                 </Button>
               </div>
             </Col>

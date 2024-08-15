@@ -12,7 +12,7 @@ const StepperHeadingSection = ({ activeStep, type,nestedActiveStep }) => {
   return (
     <div>
       <h2 className="resume-heading">{t(heading)}</h2>
-      <p>{t(para)}</p>
+      <p className="resume-subtext">{t(para)}</p>
     </div>
   );
 };
