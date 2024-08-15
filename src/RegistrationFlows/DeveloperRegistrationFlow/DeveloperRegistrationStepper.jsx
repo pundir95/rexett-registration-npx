@@ -63,6 +63,7 @@ const DeveloperRegistrationStepper = () => {
     introVideo: false,
     isDelete: false,
   });
+  let arrPercentage=[0,0,30,40,50,70,80,100]
   const [isRegistrationStepModal, setIsRegistrationStepModal] = useState(false);
   const [filteredStepData, setFilteredStepData] = useState([]);
 
@@ -1210,6 +1211,7 @@ console.log(nestedActiveStep,"nes")
         activeStep={activeStep}
         handleSetActiveStep={handleSetActiveStep}
         stepperSideBarItems={SIDEBAR_ITEMS?.developer}
+        arrPercentage={arrPercentage}
       />
 
       <div className="resume-main-wrapper">

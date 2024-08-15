@@ -43,6 +43,7 @@ const VendorRegistrationStepper = () => {
   const activeStepFields = getVendorActiveStepFields(activeStep);
   console.log(activeStepFields,"activeStepFields")
   console.log(activeStep,"activestep")
+  let arrPercentage=[0,0,30,40,50,70,80,100]
 
   useEffect(() => {
     const storedStep = localStorage.getItem("vendorActiveStep");
@@ -283,6 +284,7 @@ const VendorRegistrationStepper = () => {
           activeStep={activeStep}
           handleSetActiveStep={handleSetActiveStep}
           stepperSideBarItems={SIDEBAR_ITEMS?.vendor}
+          arrPercentage={arrPercentage}
         />
         <div className="resume-main-wrapper">
           <form onSubmit={handleSubmit(onSubmit)}>

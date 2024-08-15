@@ -52,8 +52,8 @@ const ClientRegistrationStepper = () => {
   });
   const { skillOptions } = useSelector((state) => state.developerData);
   const { t } = useTranslation()
-  const [countryCode, setCountryCode] = useState()
-
+  const [countryCode , setCountryCode] = useState()
+  let arrPercentage=[0,0,30,40,50,70,80,100]
   useEffect(() => {
     const storedStep = localStorage.getItem("clientActiveStep");
     if (storedStep) {
@@ -382,6 +382,7 @@ const ClientRegistrationStepper = () => {
               activeStep={activeStep}
               handleSetActiveStep={handleSetActiveStep}
               stepperSideBarItems={SIDEBAR_ITEMS?.client}
+              arrPercentage={arrPercentage}
             />
             <div className="resume-main-wrapper">
               <form onSubmit={handleSubmit(onSubmit)}>
