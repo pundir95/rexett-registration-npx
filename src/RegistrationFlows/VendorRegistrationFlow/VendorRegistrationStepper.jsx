@@ -33,7 +33,7 @@ const VendorRegistrationStepper = () => {
   const userId = localStorage.getItem("vendorId");
 
   const [companyTypeOptions, setCompanyTypeOptions] = useState([]);
-  const { smallLoader } = useSelector((state) => state.developerData);
+  const { smallLoader } = useSelector((state) => state.clientData);
   const {
     handleSubmit,
     register,
@@ -51,7 +51,7 @@ const VendorRegistrationStepper = () => {
   const activeStepFields = getVendorActiveStepFields(activeStep);
   console.log(activeStepFields, "activeStepFields");
   console.log(activeStep, "activestep");
-  let arrPercentage = [0, 0, 30, 40, 50, 70, 80, 100];
+  let arrPercentage = [0, 0, 30,70,100];
 
   useEffect(() => {
     const storedStep = localStorage.getItem("vendorActiveStep");
@@ -146,7 +146,8 @@ const VendorRegistrationStepper = () => {
     }
   };
 
-  const getActiveStepText = (activeStep) => {
+  const getActiveStepText = () => {
+    console.log(activeStep,"ab")
     switch (activeStep) {
       case 1:
         return "Next :  Decision Makers";

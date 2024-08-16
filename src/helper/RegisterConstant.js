@@ -547,7 +547,13 @@ const VENDOR_STEP_1_FIELDS = [
     fieldName: "company_name",
     type: "text",
     placeholder: "e.g. Microsoft",
-    rules: { required: "Company name is required" },
+    rules: {
+      required: "Company name is required" ,
+      pattern: {
+        value: /^[A-Za-z]+$/,
+        message: "Company name must contain only letters",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -565,12 +571,12 @@ const VENDOR_STEP_1_FIELDS = [
     label: "taxId",
     fieldName: "tax_id",
     type: "text",
-    placeholder: "Enter CIN Number",
+    placeholder: "Enter Tax Id Number",
     rules: {
       required: "Tax Id number is required",
       pattern: {
         value: /^[0-9]+$/,
-        message: "Tax d number must contain only numbers",
+        message: "Tax Id number must contain only numbers",
       },
     },
     columnWidth: 6,
@@ -581,7 +587,13 @@ const VENDOR_STEP_1_FIELDS = [
     fieldName: "cin",
     type: "text",
     placeholder: "Enter CIN Number",
-    rules: { required: "CIN number is required" },
+    rules: {
+      required: "CIN number is required" ,
+      pattern: {
+        value: /^[0-9]+$/,
+        message: "CIN number must contain only numbers",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -599,7 +611,14 @@ const VENDOR_STEP_1_FIELDS = [
     fieldName: "website",
     type: "text",
     placeholder: "e.g. www.xyztechnology.com",
-    rules: { required: "Website URL is required" },
+    rules: {
+     required: "Website URL is required",
+      pattern: {
+        value:
+          /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+)\.([a-zA-Z]{2,})(\/[^\s]*)?$/,
+        message: "Please enter a valid URL",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -617,7 +636,13 @@ const VENDOR_STEP_1_FIELDS = [
     fieldName: "total_it_recruiter", // need to change this field according to the API
     type: "text",
     placeholder: "e.g. 100",
-    rules: { required: "Employees strength is required" },
+    rules: {
+      required: "Employees strength is required"  ,
+      pattern: {
+        value: /^[0-9]+$/,
+        message: "Employees strength number must contain only numbers",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -770,7 +795,13 @@ const DEVELOPER_STEP_1_FIELDS = [
     fieldName: "first_name",
     type: "text",
     placeholder: "e.g. John",
-    rules: { required: "First name is required" },
+    rules: {
+      required: "First name is required",
+      pattern: {
+        value: /^[A-Za-z]+$/,
+        message: "First name must contain only letters",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -779,7 +810,13 @@ const DEVELOPER_STEP_1_FIELDS = [
     fieldName: "last_name",
     type: "text",
     placeholder: "e.g. Doe",
-    rules: { required: "Last name is required" },
+    rules: {
+      required: "Last name is required",
+      pattern: {
+        value: /^[A-Za-z]+$/,
+        message: "Last name must contain only letters",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -788,7 +825,13 @@ const DEVELOPER_STEP_1_FIELDS = [
     fieldName: "professional_title",
     type: "text",
     placeholder: "e.g. Software Engineer",
-    rules: { required: "Profession is required" },
+    rules: {
+    required: "Profession is required",
+      pattern: {
+        value: /^[A-Za-z]+$/,
+        message: "Profession must contain only letters",
+      },
+    },
     columnWidth: 12,
     isRequired: true,
   },
@@ -878,7 +921,14 @@ const DEVELOPER_STEP_1_FIELDS = [
     fieldName: "linkedin_url",
     type: "text",
     placeholder: "e.g. www.linkedin.com/profile/12345",
-    rules: { required: "Linked in is required" },
+    rules: {
+      required: "Linked in is required",
+      pattern: {
+        value:
+          /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+)\.([a-zA-Z]{2,})(\/[^\s]*)?$/,
+        message: "Please enter a valid URL",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -887,7 +937,14 @@ const DEVELOPER_STEP_1_FIELDS = [
     fieldName: "github_url",
     type: "text",
     placeholder: "e.g. www.github.com/profile/12345",
-    rules: { required: "GitHub in is required" },
+    rules: {
+      required: "GitHub link is required",
+      pattern: {
+        value:
+          /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+)\.([a-zA-Z]{2,})(\/[^\s]*)?$/,
+        message: "Please enter a valid URL",
+      },
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -925,7 +982,7 @@ const NESTED_DEVELOPER_STEP_1_FIELDS = [
     label: "Work Type",
     fieldName: "work_type",
     type: "normal-select",
-    options: WORK_TYPE,
+    options: WORKPLACE_TYPES_OPTIONS,
     // placeholder: "e.g. Street 1341,New area,CA,USA",
     rules: { required: "Work type is required" },
     columnWidth: 6,

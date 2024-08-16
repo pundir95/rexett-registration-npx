@@ -36,7 +36,8 @@ const JobDesciptionStep = ({
   watch,
   register,
   skillOptions,
-  type
+  type,
+  setValue
 }) => {
   const [recommend,setRecommend]=useState(null)
   const [formattedSkillOptions, setFormattedSkillOptions] = useState([]);
@@ -50,6 +51,10 @@ const JobDesciptionStep = ({
       setFormattedSkillOptions(formattedSkillOptions);
     }
   }, [skillOptions]);
+
+  useEffect(()=>{
+    setValue("description",recommend)
+  },[recommend])
 
   const { fields, remove, append } = useFieldArray({
     control,
@@ -67,6 +72,7 @@ const JobDesciptionStep = ({
       append({ title: "", level: "" });
     }
   };
+  
   return (
     <>
       {screenLoader ? <ScreenLoader /> :
@@ -88,7 +94,7 @@ const JobDesciptionStep = ({
                       render={({ field }) => (
                         <ReactQuill
                           {...field}
-                          value={recommend ? recommend : field?.value}
+                          value={field?.value}
                           className={`common-field ${errors.description?.message && "invalid-field"
                             }`}
                           theme="snow"

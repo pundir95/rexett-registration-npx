@@ -56,7 +56,7 @@ const ClientRegistrationStepper = () => {
   const { skillOptions } = useSelector((state) => state.developerData);
   const { t } = useTranslation()
   const [countryCode , setCountryCode] = useState()
-  let arrPercentage=[0,0,30,40,50,70,80,100]
+  let arrPercentage=[0,0,30,50,70,100]
   
   useEffect(() => {
     dispatch(getTimeZoneList())
@@ -240,7 +240,7 @@ const ClientRegistrationStepper = () => {
           description: jobStepData?.description,
           job_skills: jobSkills,
         }
-        dispatch(clientJobPost(payload, activeStep, user_id))
+        dispatch(clientJobPost(payload, activeStep, user_id,handleAfterApiSuccess))
       }
     }
   }
@@ -255,13 +255,12 @@ const ClientRegistrationStepper = () => {
         qualification_filter_out: jobStepData?.qualification_filter_out,
         screening_questions: screeningQuestions,
       }
-      dispatch(clientJobPost(payload, activeStep, user_id))
+      dispatch(clientJobPost(payload, activeStep, user_id,handleAfterApiSuccess))
 
     }
   }
 
   console.log(groupedTime,"groupedTime")
-
 
   const increaseStepCount = () => {
     if (activeStep === 4) {

@@ -50,6 +50,7 @@ const AddEducation = ({
 }) => {
 
   const [formattedSkillOptions, setFormattedSkillOptions] = useState([]);
+  console.log(selectedRecommend,"selectedRecommend")
   useEffect(() => {
     if (skillOptions?.length) {
       const formattedSkillOptions = createOptionsForReactSelect(
@@ -60,6 +61,11 @@ const AddEducation = ({
       setFormattedSkillOptions(formattedSkillOptions);
     }
   }, [skillOptions]);
+
+  useEffect(()=>{
+    setValue(name,selectedRecommend)
+
+  },[selectedRecommend])
 
   const tipstext = (
     <Popover id="popover-basic">
@@ -111,7 +117,7 @@ const AddEducation = ({
       <Row>
         <Col md={6}>
           <div>
-          <RecommendationAI control={control} setSelectedRecommend={setSelectedRecommend}/>
+          <RecommendationAI control={control} setRecommend={setSelectedRecommend}/>
           </div>
         </Col>
         <Col md={6}>

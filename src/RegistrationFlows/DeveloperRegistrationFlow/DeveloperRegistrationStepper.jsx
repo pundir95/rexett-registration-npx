@@ -677,7 +677,7 @@ const DeveloperRegistrationStepper = () => {
                   nestedActiveStep={nestedActiveStep}
                 type="developer"
                 selectedRecommend={selectedRecommend}
-                setSelectedRecommend={handleSetSelectedRecommended}
+                setSelectedRecommend={setSelectedRecommend}
               />
             );
         }

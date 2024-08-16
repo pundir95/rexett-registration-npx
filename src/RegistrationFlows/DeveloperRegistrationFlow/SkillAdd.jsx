@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import {
   IoAddCircle,
@@ -11,14 +11,17 @@ import CustomSkill from "./CustomSkill";
 import ReactQuill from "react-quill";
 import { Controller } from "react-hook-form";
 import StepperHeadingSection from "../StepperHeadingSection";
-const SkillAdd = ({control,activeStep,watch,errors,register,skillOptions,nestedActiveStep,type}) => {
+const SkillAdd = ({control,activeStep,watch,errors,register,skillOptions,nestedActiveStep,type,setSelectedRecommend,setValue,selectedRecommend}) => {
+  useEffect(()=>{
+  setValue("description",selectedRecommend)
+  },[selectedRecommend])
   return (
     <>
       <div>
       <StepperHeadingSection nestedActiveStep={nestedActiveStep} activeStep={activeStep} type={type}/>
         <Row>
           <Col md={6}>
-            <RecommendationAI control={control} />
+            <RecommendationAI control={control} setRecommend={setSelectedRecommend}  />
           </Col>
           <Col md={6}>
            

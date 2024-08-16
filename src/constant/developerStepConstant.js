@@ -10,8 +10,8 @@ export const LEVEL_OPTIONS = [
     value: "beginner",
   },
   {
-    label: "Intemediate",
-    value: "intemediate",
+    label: "Intermediate",
+    value: "intermediate",
   },
   {
     label: "Expert",
