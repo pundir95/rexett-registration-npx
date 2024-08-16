@@ -795,13 +795,14 @@ const DEVELOPER_STEP_1_FIELDS = [
     fieldName: "first_name",
     type: "text",
     placeholder: "e.g. John",
-    rules: {
-      required: "First name is required",
+    rules: { 
+      required: "First name is required" ,
       pattern: {
-        value: /^[A-Za-z]+$/,
-        message: "First name must contain only letters",
-      },
+        value: /^[A-Za-z\s]+$/,
+        message: "First Name must contain only letters and spaces"
+      }
     },
+
     columnWidth: 6,
     isRequired: true,
   },
@@ -810,12 +811,12 @@ const DEVELOPER_STEP_1_FIELDS = [
     fieldName: "last_name",
     type: "text",
     placeholder: "e.g. Doe",
-    rules: {
-      required: "Last name is required",
+    rules: { 
+      required: "Last name is required" ,
       pattern: {
-        value: /^[A-Za-z]+$/,
-        message: "Last name must contain only letters",
-      },
+        value: /^[A-Za-z\s]+$/,
+        message: "Last Name must contain only letters and spaces"
+      }
     },
     columnWidth: 6,
     isRequired: true,
@@ -825,12 +826,12 @@ const DEVELOPER_STEP_1_FIELDS = [
     fieldName: "professional_title",
     type: "text",
     placeholder: "e.g. Software Engineer",
-    rules: {
-    required: "Profession is required",
+    rules: { 
+      required: "Profession name is required" ,
       pattern: {
-        value: /^[A-Za-z]+$/,
-        message: "Profession must contain only letters",
-      },
+        value: /^[A-Za-z\s]+$/,
+        message: "Profession Name must contain only letters and spaces"
+      }
     },
     columnWidth: 12,
     isRequired: true,
@@ -955,7 +956,13 @@ const NESTED_DEVELOPER_STEP_1_FIELDS = [
     fieldName: "job_title",
     type: "text",
     placeholder: "e.g. Web Developer",
-    rules: { required: "Job Title is required" },
+    rules: { 
+      required: "Job Title is required" ,
+      pattern: {
+        value: /^[A-Za-z\s]+$/,
+        message: "Job Name must contain only letters and spaces"
+      }
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -964,7 +971,13 @@ const NESTED_DEVELOPER_STEP_1_FIELDS = [
     fieldName: "company_name",
     type: "text",
     placeholder: "e.g. Microsoft",
-    rules: { required: "Employer is required" },
+    rules: { 
+      required: "Employer is required" ,
+      pattern: {
+        value: /^[A-Za-z\s]+$/,
+        message: "Employer Name must contain only letters and spaces"
+      }
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -1030,7 +1043,13 @@ const NESTED_DEVELOPER_STEP_2_FIELDS = [
     fieldName: "name",
     type: "text",
     placeholder: "e.g. Delhi University",
-    rules: { required: "University name is required" },
+    rules: { 
+      required: "University name is required" ,
+      pattern: {
+        value: /^[A-Za-z\s]+$/,
+        message: "University must contain only letters and spaces"
+      }
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -1039,7 +1058,13 @@ const NESTED_DEVELOPER_STEP_2_FIELDS = [
     fieldName: "location",
     type: "text",
     placeholder: "e.g. Delhi,India",
-    rules: { required: "University location is required" },
+    rules: { 
+      required: "University location is required",
+      pattern: {
+        value: /^[A-Za-z\s]+$/,
+        message: "University location must contain only letters and spaces"
+      }
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -1075,10 +1100,17 @@ const NESTED_DEVELOPER_STEP_2_FIELDS = [
     label: "Graduation Date",
     fieldName: "graduate_date",
     type: "date",
-    isMinRequired: true,
-    isMaxRequired: false,
+    isMinRequired: false,
+    isMaxRequired: true,
     // placeholder: "e.g. Street 1341,New area,CA,USA",
-    rules: { required: "Job location is required" },
+    rules: { 
+      required:"Job location is required",
+      pattern: {
+        value: /^[A-Za-z\s]+$/,
+        message: "job location must contain only letters and spaces"
+      }
+    },
+    
     columnWidth: 6,
     isRequired: true,
     defaultOption: "Select Month",
@@ -1091,16 +1123,29 @@ const NESTED_DEVELOPER_STEP_6_FIELDS = [
     fieldName: "project_title",
     type: "text",
     placeholder: "e.g. AI chat bot",
-    rules: { required: "Project title is required" },
+    rules: { 
+      required: "Project title is required",
+      pattern: {
+        value: /^[A-Za-z\s]+$/,
+        message: "Project title must contain only letters and spaces"
+      }
+    },
     columnWidth: 6,
     isRequired: true,
   },
+  
   {
     label: "Role",
     fieldName: "role_in_project",
     type: "text",
     placeholder: "e.g. Team Lead",
-    rules: { required: "Role is required" },
+    rules: { 
+      required:"Role is required" ,
+      pattern: {
+        value: /^[A-Za-z\s]+$/,
+        message: "Project title must contain only letters and spaces"
+      }
+    },
     columnWidth: 6,
     isRequired: true,
   },
@@ -1148,11 +1193,18 @@ const NESTED_DEVELOPER_STEP_6_FIELDS = [
     fieldName: "project_link",
     type: "text",
     placeholder: "e.g. https://example.com",
-    rules: { required: "Project url is required" },
+    rules: { 
+      required: "Project URL is required",
+      pattern: {
+        value: /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/,
+        message: "Please enter a valid URL"
+      }
+    },
     columnWidth: 6,
     isRequired: true,
     defaultOption: "",
   },
+  
   {
     label: "Skill",
     fieldName: "tech_stacks_used",
@@ -1167,8 +1219,8 @@ const NESTED_DEVELOPER_STEP_6_FIELDS = [
     label: "Start Date",
     fieldName: "project_start_date",
     type: "date",
-    isMinRequired: true,
-    isMaxRequired: false,
+    isMinRequired: false,
+    isMaxRequired: true,
     rules: { required: "Job location is required" },
     columnWidth: 6,
     isRequired: true,
