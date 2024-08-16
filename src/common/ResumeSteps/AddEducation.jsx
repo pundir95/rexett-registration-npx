@@ -122,7 +122,7 @@ const AddEducation = ({
         </Col>
         <Col md={6}>
           <div id="custom-ck">
-          <p className="font-14 fw-medium mb-1">Description</p>
+          <label className="font-14 fw-medium mb-1">Description</label>
           <Controller
             name={name}
             control={control}
