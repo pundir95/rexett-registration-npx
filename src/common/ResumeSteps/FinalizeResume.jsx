@@ -26,16 +26,16 @@ const FinalizeResume = () => {
   const { smallLoader, developerRegistrationData } = useSelector(
     (state) => state?.developerData
   );
-  let developerId=localStorage.getItem("developerId")
+  let developerId = localStorage.getItem("developerId")
 
-  useEffect(()=>{
-      if(developerId){
-          dispatch(getDeveloperProfileDetails(developerId));
-      }
-    
-  },[developerId])
+  useEffect(() => {
+    if (developerId) {
+      dispatch(getDeveloperProfileDetails(developerId));
+    }
 
-  console.log(developerRegistrationData,"developerDetails")
+  }, [developerId])
+
+  console.log(developerRegistrationData, "developerDetails")
 
 
   return (
@@ -44,10 +44,10 @@ const FinalizeResume = () => {
         <Col md={12}>
           <div>
             <div>
-              <section className="overview-cv">
+              <section className="overview-cv card-box">
                 <div className="cv-template-section">
                   <div className="">
-                    <h2 className="section-head mb-0 border-0">Overview</h2>
+                    <h2 className="section-head text-dark mb-0 border-0">Overview</h2>
                     <Row>
                       <Col md={6} className="px-0 h-100">
                         <div className="resume-basic-info text-center">
@@ -107,12 +107,12 @@ const FinalizeResume = () => {
                                 <span>
                                   <GoClockFill />
                                 </span>{" "}
-                               {developerRegistrationData?.step1?.time_zone}
+                                {developerRegistrationData?.step1?.time_zone}
                               </p>
                             </div>
                           </div>
-                          <div className="px-3 d-flex justify-content-center align-items-center gap-2">
-                            <ul className="social-media">
+                          <div className="px-3">
+                            <ul className="social-media d-flex justify-content-center align-items-center gap-2">
                               <li>
                                 <FaGithub />
                               </li>
@@ -155,53 +155,53 @@ const FinalizeResume = () => {
                                 Projects
                               </h3>
                             </div>
-                            {developerRegistrationData?.step6?.map((ele)=>(
-                            <div>
-                              <div className="project-wrapper">
-                                <div>
-                                  <p className="project-title mb-0">
-                                   {ele?.project_title}
-                                  </p>
-                                  <p className="project-role p-0 bg-transparent mb-0 d-block mb-2">
-                                    {ele?.role_in_project}
-                                  </p>
-                                  <p className="project-role mb-1">
-                                    {ele?.project_type}
-                                  </p>
-                                </div>
-                                <div className="d-flex align-items-center gap-2 project-date-wrapper status-finished">
-                                  <p className="project-date mb-0">
-                                    {ele?.project_start_date.slice(0,10)}
-                                  </p>
-                                  -
-                                  <p className="project-date mb-0">
-                                  {ele?.project_end_date.slice(0,10)}
-                                  </p>
+                            {developerRegistrationData?.step6?.map((ele) => (
+                              <div>
+                                <div className="project-wrapper">
+                                  <div>
+                                    <p className="project-title mb-0">
+                                      {ele?.project_title}
+                                    </p>
+                                    <p className="project-role p-0 bg-transparent mb-0 d-block mb-2">
+                                      {ele?.role_in_project}
+                                    </p>
+                                    <p className="project-role mb-1">
+                                      {ele?.project_type}
+                                    </p>
+                                  </div>
+                                  <div className="d-flex align-items-center gap-2 project-date-wrapper status-finished">
+                                    <p className="project-date mb-0">
+                                      {ele?.project_start_date.slice(0, 10)}
+                                    </p>
+                                    -
+                                    <p className="project-date mb-0">
+                                      {ele?.project_end_date.slice(0, 10)}
+                                    </p>
+                                  </div>
+                                  <label className="font-14 mb-1">
+                                    Tech Skill Used
+                                  </label>
+                                  <div className="d-flex justify-content-between align-items-start">
+                                    <div>
+                                      <ul className="skills-pill text-start" >
+                                        <li>
+                                          {ele?.tech_stacks_used?.split(',')?.map((val) => (
+                                            <span>{val}</span>
+                                          ))}
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div>
+                                      <a
+                                        href={`/${ele?.project_link}`}
+                                        className="project-link main-btn px-1 py-1  outline-main-btn text-decoration-none mb-1 d-inline-flex align-items-center gap-2"
+                                      >
+                                        Show Project <FiExternalLink />
+                                      </a>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <label className="font-14 mb-1">
-                                Tech Skill Used
-                              </label>
-                              <div className="d-flex justify-content-between align-items-start">
-                                <div>
-                                  <ul className="skills-pill text-start" >
-                                    <li>
-                                      {ele?.tech_stacks_used?.split(',')?.map((val)=>(
-                                      <span>{val}</span>
-                                      ))}
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div>
-                                  <a
-                                    href={`/${ele?.project_link}`}
-                                    className="project-link main-btn px-1 py-1  outline-main-btn text-decoration-none mb-1 d-inline-flex align-items-center gap-2"
-                                  >
-                                    Show Project <FiExternalLink />
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
                             ))}
                           </div>
                         </div>
@@ -215,8 +215,8 @@ const FinalizeResume = () => {
                               </h3>
                             </div>
                             <p className="resume-text" dangerouslySetInnerHTML={{
-                        __html:developerRegistrationData?.step5?.bio
-                      }}>
+                              __html: developerRegistrationData?.step5?.bio
+                            }}>
                             </p>
                           </div>
                         </div>
@@ -227,21 +227,21 @@ const FinalizeResume = () => {
                             </h3>
                           </div>
                           <div className="exp-timeline">
-                            { developerRegistrationData?.step2?.map((ele)=>(
-                            <div>
-                              <h5>{ele?.company_name}</h5>
-                              <p>3 years</p>
+                            {developerRegistrationData?.step2?.map((ele) => (
                               <div>
-                                <div className="sub-exp">
-                                  <h4 className="role-text">{ele?.job_title} </h4>
-                                  <p className="exp-date">{`${ele?.start_date.slice(0,4)}-${ele?.is_still_working ? 'Present' : ele?.end_date.slice(0,4)}`}</p>
-                                  <p className="exp-desc" dangerouslySetInnerHTML={{
-                        __html:ele?.description
-                      }}>
-                                  </p>
+                                <h5>{ele?.company_name}</h5>
+                                <p>3 years</p>
+                                <div>
+                                  <div className="sub-exp">
+                                    <h4 className="role-text">{ele?.job_title} </h4>
+                                    <p className="exp-date">{`${ele?.start_date.slice(0, 4)}-${ele?.is_still_working ? 'Present' : ele?.end_date.slice(0, 4)}`}</p>
+                                    <p className="exp-desc" dangerouslySetInnerHTML={{
+                                      __html: ele?.description
+                                    }}>
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
                             ))}
                           </div>
                         </div>
@@ -251,19 +251,19 @@ const FinalizeResume = () => {
                               Education
                             </h3>
                           </div>
-                          {developerRegistrationData?.step3?.map((ele)=>(
-                          <div className="exp-wrapper">
-                            <p>
-                              {`20-06-2016 - 10-06-2020 | ${ele?.field_of_study}`}
-                            </p>
-                            <ul className="exp-role">
-                              <li>{ele?.university_name}</li>
-                              <li dangerouslySetInnerHTML={{
-                        __html:ele?.description
-                      }}></li>
-                            </ul>
-                          </div>
-))}
+                          {developerRegistrationData?.step3?.map((ele) => (
+                            <div className="exp-wrapper">
+                              <p>
+                                {`20-06-2016 - 10-06-2020 | ${ele?.field_of_study}`}
+                              </p>
+                              <ul className="exp-role">
+                                <li>{ele?.university_name}</li>
+                                <li dangerouslySetInnerHTML={{
+                                  __html: ele?.description
+                                }}></li>
+                              </ul>
+                            </div>
+                          ))}
                         </div>
                       </Col>
                     </Row>

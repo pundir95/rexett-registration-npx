@@ -247,13 +247,15 @@ const JobDesciptionStep = ({
                         </div>
                       </>
                     ))}
-                    <Button
-                      onClick={handleAppend}
-                      variant="transparent"
-                      className="text-green font-24 p-0 shadow-none border-0"
-                    >
-                      <IoAddCircle />
-                    </Button>
+                    <div className="text-end">
+                      <Button
+                        onClick={handleAppend}
+                        variant="transparent"
+                        className="arrow-btn font-24 p-0 shadow-none border-0"
+                      >
+                        <IoAddCircle />
+                      </Button>
+                    </div>
                   </div>
                 </Col>
               </Row>

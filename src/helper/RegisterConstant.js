@@ -1,4 +1,4 @@
-import { TbRulerOff } from "react-icons/tb";
+// [himport { TbRulerOff } from "react-icons/tb";
 import {
   EXPERIENCE_YEAR,
   JOB_TYPES_OPTIONS,
@@ -1103,13 +1103,13 @@ const NESTED_DEVELOPER_STEP_2_FIELDS = [
     isMinRequired: false,
     isMaxRequired: true,
     // placeholder: "e.g. Street 1341,New area,CA,USA",
-    rules: { 
-      required:"Job location is required",
-      pattern: {
-        value: /^[A-Za-z\s]+$/,
-        message: "job location must contain only letters and spaces"
-      }
-    },
+    // rules: { 
+    //   required:"Job location is required",
+    //   pattern: {
+    //     value: /^[A-Za-z\s]+$/,
+    //     message: "job location must contain only letters and spaces"
+    //   }
+    // },
     
     columnWidth: 6,
     isRequired: true,

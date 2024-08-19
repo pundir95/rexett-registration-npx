@@ -14,7 +14,7 @@ const PreviewModal = ({ show, handleClose }) => {
 
                 <Modal.Body>
                     <div>
-                        <section className="overview-cv">
+                        <section className="overview-cv card-box">
                             <div className="cv-template-section">
                                 <div className="">
                                     <h2 className="section-head mb-0 border-0">Overview</h2>
