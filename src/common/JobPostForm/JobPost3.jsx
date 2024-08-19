@@ -278,7 +278,7 @@ const JobPostStep3 = ({
               <div key={field.id} className="screening-wrapper mb-4">
                 <div className="d-flex justify-content-between align-items-center screen-wrapper-heading">
                   <h3 className="mb-0">{field.question}</h3>
-                  {field?.isRecommended && "Recommended"}
+                  <span className="recommended-badge">{field?.isRecommended && "Recommended"}</span>
                   <Button
                     variant="transparent"
                     className="border-0 p-0 text-white"

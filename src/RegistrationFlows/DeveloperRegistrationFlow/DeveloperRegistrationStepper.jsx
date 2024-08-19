@@ -30,6 +30,7 @@ import PreviewModal from "../../common/Modals/PreviewResume.jsx";
 import AddEducation from "../../common/ResumeSteps/AddEducation.jsx";
 import RegistrationStepModal from "../../common/Modals/RegistrationStepModal.jsx";
 import FinalizeResume from "../../common/ResumeSteps/FinalizeResume.jsx";
+import bgVideo from '../../assets/images/bg-video.mp4';
 
 
 
@@ -1215,7 +1216,10 @@ console.log(nestedActiveStep,"nes")
       />
 
       <div className="resume-main-wrapper">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <video className="bg-fixed" autoPlay="true" muted="true" loop="true">
+          <source src={bgVideo} type="video/mp4" />
+        </video>
+        <form className="position-relative z-3" onSubmit={handleSubmit(onSubmit)}>
           <Container>
             {activeStep!==1 &&<div>
               <span
@@ -1262,6 +1266,9 @@ console.log(nestedActiveStep,"nes")
             </div>:""}
           </Container>
         </form>
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
       </div>
       <RecomdModal
         show={showSetUpModal.recommendation}

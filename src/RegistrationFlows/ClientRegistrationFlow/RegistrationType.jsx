@@ -3,6 +3,7 @@ import { FaArrowLeft, FaUser, FaUsers } from "react-icons/fa6";
 import rexettLogo from "../../assets/images/rexett-logo-white.png"
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import bgVideo from '../../assets/images/bg-video.mp4';
 const RegistrationType = ({ handleRegistrationType }) => {
   return (
     <>
@@ -12,7 +13,10 @@ const RegistrationType = ({ handleRegistrationType }) => {
         </Container>
       </header>
       <section className="main-register">
-        <Container>
+        <video className="bg-fixed" autoPlay="true" muted="true" loop="true">
+          <source src={bgVideo} type="video/mp4" />
+        </video>
+        <Container className="position-relative z-3">
           <div>
             <Row className="justify-content-center">
               <Col md={10}>
@@ -26,7 +30,7 @@ const RegistrationType = ({ handleRegistrationType }) => {
                 <h2 className="client-main-heading text-center">
                   Are you a company or an individual?
                 </h2>
-                <p className="text-muted text-center mb-4">
+                <p className="text-light text-center mb-4">
                   Please select whether you are registering as a company or as
                   an individual.
                 </p>
@@ -45,9 +49,11 @@ const RegistrationType = ({ handleRegistrationType }) => {
                     htmlFor="company_client"
                     className="client_register_label"
                   >
-                    <FaUsers />
+                    <div className="register_label_icon">
+                      <FaUsers />
+                    </div>
                     <span className="d-block mt-3 mb-2">As a Company</span>
-                    <span className="font-14 fw-normal text-center d-block text-dark">
+                    <span className="font-14 fw-normal text-center d-block text-light">
                       If you are representing a business or organization, please
                       select this option. We will collect relevant details about
                       your company to ensure seamless collaboration and support.
@@ -65,9 +71,11 @@ const RegistrationType = ({ handleRegistrationType }) => {
                     htmlFor="individual_client"
                     className="client_register_label"
                   >
-                    <FaUser />
+                    <div className="register_label_icon">
+                      <FaUser />
+                    </div>
                     <span className="d-block mt-3 mb-2">As an Individual</span>
-                    <span className="font-14 fw-normal text-center d-block text-dark">
+                    <span className="font-14 fw-normal text-center d-block text-light">
                       If you are signing up for personal use, please select this
                       option. We will gather the necessary information to offer
                       you personalized services and support.
@@ -78,6 +86,9 @@ const RegistrationType = ({ handleRegistrationType }) => {
             </div>
           </div>
         </Container>
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
       </section>
     </>
   );

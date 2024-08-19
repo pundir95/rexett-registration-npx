@@ -16,6 +16,7 @@ import SetUpJobModal from "../../common/Modals/SetUpJobModal";
 import ScreeningSection from "./ScreeningSection";
 import JobDesciptionStep from "./JobDescriptionStep";
 import ScreenLoader from "../../atomic/ScreenLoader";
+import bgVideo from '../../assets/images/bg-video.mp4';
 
 const ClientRegistrationStepper = () => {
   const dispatch = useDispatch();
@@ -406,7 +407,10 @@ const ClientRegistrationStepper = () => {
               arrPercentage={arrPercentage}
             />
             <div className="resume-main-wrapper">
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <video className="bg-fixed" autoPlay="true" muted="true" loop="true">
+                <source src={bgVideo} type="video/mp4" />
+              </video>
+              <form className="position-relative z-3" onSubmit={handleSubmit(onSubmit)}>
                 <Container>
                   <div>
                     <span onClick={decreaseStepCount} className="go-back-link text-decoration-none text-white d-inline-block mb-3 fw-medium cursor-pointer">
@@ -430,6 +434,9 @@ const ClientRegistrationStepper = () => {
                   </div>
                 </Container>
               </form>
+              <div id='stars'></div>
+              <div id='stars2'></div>
+              <div id='stars3'></div>
             </div>
           </section>
         )}
