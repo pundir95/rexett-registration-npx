@@ -26,6 +26,7 @@ import {
 import VendorDecisionMakers from "./VendorDecisionMakers";
 import RexettButton from "../../atomic/RexettButton";
 import RegistrationType from "../ClientRegistrationFlow/RegistrationType";
+import bgVideo from '../../assets/images/bg-video.mp4';
 
 const VendorRegistrationStepper = () => {
   const dispatch = useDispatch();
@@ -300,7 +301,10 @@ const VendorRegistrationStepper = () => {
           arrPercentage={arrPercentage}
         />
         <div className="resume-main-wrapper">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <video className="bg-fixed" autoPlay="true" muted="true" loop="true">
+            <source src={bgVideo} type="video/mp4" />
+          </video>
+          <form className="position-relative z-3" onSubmit={handleSubmit(onSubmit)}>
             <Container>
               {activeStep > 1 && <div>
                 <span
@@ -325,6 +329,9 @@ const VendorRegistrationStepper = () => {
               </div>
             </Container>
           </form>
+          <div id='stars'></div>
+          <div id='stars2'></div>
+          <div id='stars3'></div>
         </div>
       </section>
       {/* {showSetUpModal ? <SetUpJobModal
