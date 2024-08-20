@@ -88,6 +88,7 @@ const VendorRegistrationStepper = () => {
       dispatch(
         getVendorUpdatedDetails(userId, (response) => {
           const data = response[activeStepKeys[activeStep]];
+          console.log(data,"data")
           for (let key in data) {
             if (activeStep === 1) {
               if (key === "country_code") {
@@ -106,7 +107,8 @@ const VendorRegistrationStepper = () => {
                 const newValue = { label: data[key], value: data["time_zone"] };
                 setValue(key, newValue);
               } else if (key === "company_logo") {
-                setPreviewImage(data?.company_logo);
+                // setPreviewImage(data?.company_logo);
+                setPreviewImage({profile_picture : data?.company_logo})
               } else {
                 setValue(key, data[key]);
               }

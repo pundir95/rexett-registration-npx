@@ -119,24 +119,25 @@ const ClientRegistrationStepper = () => {
               setValue(key, data[key]);
             }
             if (key === "name") {
-              const [firstName, surname] = data[key]?.split(" ") || [];
-              setValue("first_name", firstName || "");
-              setValue("last_name", surname || "");
+              const [firstName, surname] = data[key]?.split(" ") ;
+              setValue("first_name", firstName );
+              setValue("last_name", surname);
             }
             if (key === "address") {
-              setValue("company_address", data[key]);
+              setValue("address", data[key]);
             }
             if (key === "tax_id") {
               setValue("company_tax_id", data[key]);
+            }
+            if (key === "company_logo") {
+              setPreviewImage({profile_picture : data?.profile_picture})
             }
           } else if (activeStep === 2) {
             const step1Data = data.jobs[0].step1;
             console.log(step1Data, "step1Data")
             for (let step1Key in step1Data) {
               if (step1Key === "response_date") {
-                console.log("hellow")
                 const new_date = step1Data?.response_date.slice(0, 10)
-                console.log(new_date, "new_date")
                 setValue(key, new_date)
               } else {
                 setValue(step1Key, step1Data[step1Key]);
@@ -144,16 +145,12 @@ const ClientRegistrationStepper = () => {
             }
           } else if (activeStep === 3) {
             const step2Data = data.jobs[0].step2;
-            console.log(step2Data, "step2Data")
             for (let step2Key in step2Data) {
               if (step2Key === "job_skills") {
                 const skill_name = step2Data?.job_skills?.map(itm => (itm.skill_name))
                 console.log(skill_name, "skillName")
-                // setValue(key, skill_name)
                 setSkillDetails({skillName:skill_name})
                 const skill_weight = step2Data?.job_skills?.map(itm => (itm.weight))
-                console.log(skill_weight, "skill_weight")
-                // setValue(key, skill_weight)
                 setSkillDetails({skillWeight:skill_weight})
               } else {
                 setValue(step2Key, step2Data[step2Key]);
@@ -380,7 +377,7 @@ const ClientRegistrationStepper = () => {
         country_code: stepData?.country_code?.value,
         yearly_revenue: stepData?.yearly_revenue,
         tax_id: stepData?.company_tax_id,
-        address: stepData?.company_address,
+        address: stepData?.address,
         country: stepData?.country_code?.label,
         state: stepData?.state_iso_code?.label,
         phone_number: stepData?.phone_number,

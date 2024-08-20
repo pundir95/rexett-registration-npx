@@ -22,8 +22,8 @@ import SkillAdd from "./SkillAdd.jsx";
 import DeveloperCvModal from "./DeveloperCvModal.jsx";
 import RexettButton from "../../atomic/RexettButton.jsx";
 import { DEFAULT_SCREENING_DATA, getDeveloperActiveStepFields, getStepDataFromAPI, SIDEBAR_ITEMS, stepperFormKeys } from "../../helper/RegisterConstant.js";
-import { getCoutriesList } from "../../Redux/Slices/ClientDataSlice.js";
-import { addDeveloperRegisProject, developerRegistration, developerRegistrationBio, fileUploadForWeb, getDeveloperProfileDetails, getSkillOptions, registerDeveloperEducation, registerDeveloperExperience, registerDeveloperSkills } from "../../Redux/Slices/DeveloperDataSlice.js";
+import { getCoutriesList, getDeveloperDetails } from "../../Redux/Slices/ClientDataSlice.js";
+import { addDeveloperRegisProject, developerRegistration, developerRegistrationBio, fileUploadForWeb, getDeveloperProfile, getDeveloperProfileDetails, getSkillOptions, registerDeveloperEducation, registerDeveloperExperience, registerDeveloperSkills } from "../../Redux/Slices/DeveloperDataSlice.js";
 import ClientStep1 from "../ClientRegistrationFlow/ClientStep1.jsx";
 import RecomdModal from "../../common/Modals/RecomdModal.jsx";
 import PreviewModal from "../../common/Modals/PreviewResume.jsx";
@@ -38,6 +38,8 @@ const DeveloperRegistrationStepper = () => {
   const { smallLoader, developerRegistrationData } = useSelector(
     (state) => state?.developerData
   );
+  const [countryCode , setCountryCode] = useState()
+  console.log(countryCode,"countryCode")
   const [educationLevel, setEducationLevel] = useState(null);
   const [isEditMode,setEditMode]=useState({
     isEdit:false,
@@ -95,13 +97,14 @@ const DeveloperRegistrationStepper = () => {
 
   let stepData = getStepDataFromAPI(developerRegistrationData, activeStep);
   console.log(stepData,"stepData hghg")
+  const storedStep = localStorage.getItem("clientActiveStep");
+
 
   useEffect(()=>{
     setFilteredStepData(stepData);
   },[stepData])
 
   useEffect(() => {
-    const storedStep = localStorage.getItem("clientActiveStep");
     const storedNestedStep = localStorage.getItem("nestedActiveStep");
     if (storedStep) {
       setActiveStep(Number(storedStep));
@@ -117,54 +120,55 @@ const DeveloperRegistrationStepper = () => {
   let name = stepData?.name ? stepData?.name?.split(' ') : '';
   let [firstName, ...rest] = name;
   let lastName = rest.join(' ');
+  const devId = localStorage.getItem("developerId")
+  console.log(devId,"devId")
 
-  useEffect(() => {
-    if (stepData) {
-      setValue("job_title", stepData[0]?.job_title);
-      setValue("company_name", stepData[0]?.company_name);
-      // setValue("description",selectedRecommend? selectedRecommend: stepData[0]?.description );
-      setValue("is_still_working", stepData[0]?.is_still_working);
-      setValue("start_date", stepData[0]?.start_date?.slice(0, 10));
-      setValue("end_date", stepData[0]?.end_date?.slice(0, 10));
-      setValue("work_type", stepData[0]?.work_type);
-      setValue("location", stepData[0]?.location);
-
-
-      
-  setValue('first_name',firstName);
-  setValue('last_name',lastName);
-  setValue("phone_number",stepData?.phone_number);
-  setValue("email",stepData?.email);
-  setValue("profession",stepData?.professional_title);
-  setValue("country",{ label: stepData?.country, value: null });
-  setValue("state",{ label: stepData?.state, value: null });
-  setValue("city",{ label: stepData?.city, value: null });
-  setValue('language_preference',stepData?.language_preference);
-  setValue('total_experience',stepData?.total_experience);
-  setValue("passcode",stepData?.passcode);
-  setValue("time_zone",stepData?.time_zone);
-  setValue("time_zone",{ label: stepData?.time_zone, value: null });
-  setValue("address",stepData?.address);
-  setValue('github_url',stepData?.github_url);
-  setValue('linkedin_url',stepData?.linkedin_url)
-  setValue('country_code',{label:stepData?.country, value: stepData?.country_code})
-  setValue('state_iso_code',{label:stepData?.state, value: stepData?.state_iso_code})
-  setValue("project_title", stepData[0]?.project_title);
-  setValue("project_description", stepData[0]?.project_description);
-  setValue("tech_stacks_used", stepData[0]?.tech_stacks_used);
-  setValue("role_in_project", stepData[0]?.role_in_project);
-  setValue("project_team_size", stepData[0]?.project_team_size);
-  setValue("project_link", stepData[0]?.project_link);
-  setValue("project_start_date", stepData[0]?.project_start_date?.slice(0,10));
-  setValue("project_end_date", stepData[0]?.project_end_date?.slice(0,10));
-  setValue("project_type", stepData[0]?.project_type);
-
-  setPreviewImage({
-    ...previewImage,
-    profile_picture: stepData?.profile_picture
-  });
+  console.log(stepData,"stepDataDeveloperRegistration")
+  useEffect(()=>{
+    const activeStepKeys = {
+      1: "step1",
+      2: "step2",
+      3: "step3",
+      4: "step4",
+      5: "step5",
+      6: "step6", 
     }
-  }, [stepData]);
+    if(devId){
+      dispatch(getDeveloperProfileDetails(devId , (response)=>{
+          const data = response[activeStepKeys[storedStep]]
+          console.log(activeStepKeys[storedStep],"checkit")
+          console.log(data , "developerData")
+          for (let key in data) {
+            if(key == "name"){
+              const [firstName , surName] = data[key]?.split(" ")
+              setValue("first_name", firstName)
+              setValue("last_name", surName)
+            }
+            else if(key === "country_code"){
+              const newValue = {
+                label: data["country"],
+                value: data[key],
+              };
+              setCountryCode(newValue?.value);
+              setValue(key, newValue);
+            } else if (key === "state_iso_code") {
+              const newValue = { label: data["state"], value: data[key] };
+              setValue(key, newValue);
+            } else if (key === "time_zone") {
+              const newValue = { label: data[key], value: data[key] };
+              setValue(key, newValue);
+            }else if(key === "profile_picture"){
+            setPreviewImage({profile_picture : data?.profile_picture})
+            }
+            else{
+            setValue(key, data[key])
+            }
+          }
+       
+      }))
+    }
+  },[devId])
+
 
   useEffect(()=>{
     // setValue("description",selectedRecommend? selectedRecommend: stepData ? stepData[0]?.description : null );
@@ -175,7 +179,6 @@ const DeveloperRegistrationStepper = () => {
   },[selectedRecommend])
 
   useEffect(() => {
-  
     if (activeStep === 1) {
       dispatch(getCoutriesList());
     }
@@ -514,6 +517,7 @@ const DeveloperRegistrationStepper = () => {
             setImageFile={setImageFile}
             isProfileSectionRequired={activeStep === 1 && nestedActiveStep == 0}
             stepData={stepData}
+            countryCode={countryCode}
           />
         );
 
@@ -829,7 +833,7 @@ const DeveloperRegistrationStepper = () => {
           first_name: values?.first_name,
           last_name: values?.last_name,
           profile_picture: uploadedUrls?.profile_picture,
-          profession: values?.profession,
+          professional_title: values?.professional_title,
           email: values?.email,
           country: values?.country_code?.label,
           address: values?.address,

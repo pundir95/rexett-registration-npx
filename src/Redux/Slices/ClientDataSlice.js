@@ -327,13 +327,14 @@ export function updateDeveloperCvDetails(payload, role, callback) {
     }
   };
 }
-export function getDeveloperDetails(id) {
+export function getDeveloperDetails(id,callback) {
   console.log(id, "id")
   return async (dispatch) => {
     // dispatch(setScreenLoader());
     try {
       let result = await authInstance.get(`/common/developer-details/${id}`);
       dispatch(setDeveloperDetails(result.data.data));
+      callback(result.data)
     } catch (error) {
       const message = error?.message || "Something went wrong";
       toast.error(message, { position: "top-center" });

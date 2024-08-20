@@ -69,12 +69,13 @@ export function getSkillOptions() {
     }
   };
 }
-export function getDeveloperProfileDetails(id) {
+export function getDeveloperProfileDetails(id,callback) {
   return async (dispatch) => {
     // dispatch(setSmallLoader());
     try {
       let result = await authInstance.get(`common/developer-profile?developer_id=${id}`);
       dispatch(setDeveloperRegistrationDetails(result?.data?.data))
+      return callback(result.data.data)
       dispatch(setSuccessActionData());
     } catch (error) {
       const message = error.message || "Something went wrong";
@@ -482,5 +483,6 @@ export function deleteSkill(payload, id, callback) {
     }
   };
 }
+
 
 
