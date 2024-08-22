@@ -16,7 +16,8 @@ const initialClientData = {
   // postedJob:{}
   developerDetails: {},
   skillList:{},
-  timeZoneList:[]
+  timeZoneList:[],
+  clientJobPostDetails:{}
 
 }
 
@@ -95,10 +96,14 @@ export const clientDataSlice = createSlice({
       state.timeZoneList = action.payload;
       state.screenLoader = false;
     },
+    setClientJobPostDetails:(state,action)=>{
+      state.clientJobPostDetails = action.payload;
+      state.screenLoader = false;
+    }
   }
 })
 
-export const { setCountriesList, setSkillList ,setListTimeZone,setScreenLoader,setSmallLoader, setDeveloperDetails, setStatesList, setFailClientData, setActionSuccessFully, setFailDeveloperData, setClientLook, setDegreeList, setProfile, setTimeZones, setCitiesList } = clientDataSlice.actions
+export const { setCountriesList, setSkillList ,setClientJobPostDetails ,setListTimeZone,setScreenLoader,setSmallLoader, setDeveloperDetails, setStatesList, setFailClientData, setActionSuccessFully, setFailDeveloperData, setClientLook, setDegreeList, setProfile, setTimeZones, setCitiesList } = clientDataSlice.actions
 
 export default clientDataSlice.reducer
 
@@ -110,7 +115,6 @@ export function applyAsClient(payload, callback) {
     try {
       let result = await authInstance.post(`/common/client-registration`, { ...payload });
       localStorage.setItem("clientId", result?.data?.data?.id);
-      // localStorage.setItem("jobId", result?.data?.data?.id);
       toast.success(result.data.message, { position: "top-center" });
       return callback(result?.data?.data.Location);
     } catch (error) {
@@ -121,7 +125,7 @@ export function applyAsClient(payload, callback) {
       // } else {
         toast.error(error?.response?.data?.message, { position: "top-center" });
       // }
-      // dispatch(setFailClientData());
+      dispatch(setFailClientData());
     }
   };
 }
@@ -141,10 +145,13 @@ export function getWebClientLookUp(callback) {
 }
 
 export function clientJobPost(payload, activeStep, id,callback) {
+  console.log(payload,"payload")
+  console.log("clientJobPostInside")
   return async (dispatch) => {
     dispatch(setSmallLoader());
     try {
       let result = await authInstance.post(`common/post-job?user_id=${id}`, { ...payload });
+      console.log(result.data.step1, "clientJobPost")
       if (result?.data?.step1?.id) {
         localStorage.setItem("jobId", result?.data?.step1?.id);
       }
@@ -155,6 +162,7 @@ export function clientJobPost(payload, activeStep, id,callback) {
 
         toast.success("Job successfully Posted", { position: "top-center" });
       }
+      dispatch(setClientJobPostDetails(result.data.step1))
       dispatch(setActionSuccessFully());
       return callback();
     } catch (error) {
@@ -165,11 +173,20 @@ export function clientJobPost(payload, activeStep, id,callback) {
     }
   };
 }
-
-
-
-
-
+export const updateClientPost =(user_id,job_id,payload,callback)=>{
+  return async (dispatch) => {
+    dispatch(setSmallLoader());
+    try {
+      let result = await authInstance.put(`/common/update-job/${job_id}?user_id=${user_id}`, payload);
+      callback && callback(result?.data?.data?.Location);
+      dispatch(setActionSuccessFully())
+    } catch (error) {
+      console.log(error, "error")
+      toast.error(error?.response?.data?.message, { position: "top-center" });
+      dispatch(setFailClientData());
+    }
+  };
+}
 
 export const uploadFileToS3Bucket = (payload, callback) => {
   return async (dispatch) => {
@@ -182,7 +199,7 @@ export const uploadFileToS3Bucket = (payload, callback) => {
     } catch (error) {
       console.log(error, "error")
       toast.error(error?.response?.data?.message, { position: "top-center" });
-      // dispatch(setFailClientData());
+      dispatch(setFailClientData());
     }
   };
 };

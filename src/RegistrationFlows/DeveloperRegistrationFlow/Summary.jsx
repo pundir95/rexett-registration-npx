@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import { Button, Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import { FaChevronDown, FaLightbulb, FaPencil } from "react-icons/fa6";
 import { IoCloseOutline } from "react-icons/io5";
@@ -11,8 +11,9 @@ import { getDeveloperProfileDetails } from "../../Redux/Slices/DeveloperDataSlic
 
 const Summary = ({
   nestedActiveStep,
-  stepData,
-  handleDelete,
+  filteredStepData,
+  // handleDelete,
+  setFilteredStepData,
   handleCloseUploadFileModal,
   smallLoader,
   setShowSetUpJobModal,
@@ -25,20 +26,37 @@ const Summary = ({
 }) => {
 
   const dispatch = useDispatch();
-
   let developerId=localStorage.getItem("developerId");
+
+  console.log(filteredStepData,"filteredStepDataSummary")
+
 
   useEffect(()=>{
     if(developerId){
         dispatch(getDeveloperProfileDetails(developerId));
     }
-  
 },[developerId])
 
   const handleDeleteModal = (id) => {
+   handleDelete(id)
+  
     setShowSetUpJobModal({
       isDelete: true,
       deletedId: id,
+    });
+  };
+  const handleDelete = (id) => {
+    console.log(id,"selecttedid")
+    console.log("Delete in Summary")
+    const tempArr = [...filteredStepData];
+    const indexToRemove = tempArr.findIndex(item => item.id === id);
+    if (indexToRemove !== -1) {
+      tempArr.splice(indexToRemove, 1);
+    }
+    console.log(tempArr, "tempArr after splice");
+    setFilteredStepData(tempArr);
+    setShowSetUpJobModal({
+      isDelete: false,
     });
   };
   const tipstext = (
@@ -114,7 +132,7 @@ const Summary = ({
               </div>
             </div>
           </div>
-          {stepData?.map((item, index) => {
+          {filteredStepData?.map((item, index) => {
             return (
               <>
                 <div className="work-summary-wrapper mb-3 position-relative">
@@ -177,8 +195,9 @@ const Summary = ({
         text={"Are you sure to delete this job?"}
         show={showSetUpModal?.isDelete}
         handleClose={handleCloseUploadFileModal}
-        onClick={handleDelete}
+        handleAction={handleDelete}
         smallLoader={smallLoader}
+
       />
     </>
   );

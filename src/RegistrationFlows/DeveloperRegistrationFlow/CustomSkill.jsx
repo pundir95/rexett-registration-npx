@@ -57,7 +57,7 @@ const CustomSkill = ({
               selectOptions={formattedSkillOptions}
               invalidFieldRequired={true}
               placeholder="Select Skill"
-            />{" "}
+            />
           </div>
           <div className="w-100">
             <CommonInput
@@ -70,7 +70,7 @@ const CustomSkill = ({
               error={errors?.experience?.[idx]?.level}
               invalidFieldRequired={true}
               placeholder="Select Experience"
-            />{" "}
+            />
           </div>
           <div className="w-100">
             <CommonInput
@@ -83,7 +83,7 @@ const CustomSkill = ({
               selectOptions={LEVEL_OPTIONS}
               invalidFieldRequired={true}
               placeholder="Select Level"
-            />{" "}
+            />
           </div>
           {/* <Button
               onClick={handleAppend}

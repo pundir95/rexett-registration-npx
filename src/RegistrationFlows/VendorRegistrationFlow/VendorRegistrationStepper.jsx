@@ -26,6 +26,8 @@ import {
 import VendorDecisionMakers from "./VendorDecisionMakers";
 import RexettButton from "../../atomic/RexettButton";
 import RegistrationType from "../ClientRegistrationFlow/RegistrationType";
+import RegistrationStepModal from "../../common/Modals/RegistrationStepModal";
+import ThankRegister from "../../common/Modals/ThankRegister";
 
 const VendorRegistrationStepper = () => {
   const dispatch = useDispatch();
@@ -47,11 +49,12 @@ const VendorRegistrationStepper = () => {
   } = useForm({});
   const [activeStep, setActiveStep] = useState(1);
   const [previewImage, setPreviewImage] = useState(null);
+  const [isRegistrationStepModal, setIsRegistrationStepModal] = useState(false);
 
   const activeStepFields = getVendorActiveStepFields(activeStep);
   console.log(activeStepFields, "activeStepFields");
   console.log(activeStep, "activestep");
-  let arrPercentage = [0, 0, 30,70,100];
+  let arrPercentage = [0, 0, 30, 70, 100];
 
   useEffect(() => {
     const storedStep = localStorage.getItem("vendorActiveStep");
@@ -88,7 +91,7 @@ const VendorRegistrationStepper = () => {
       dispatch(
         getVendorUpdatedDetails(userId, (response) => {
           const data = response[activeStepKeys[activeStep]];
-          console.log(data,"data")
+          console.log(data, "data")
           for (let key in data) {
             if (activeStep === 1) {
               if (key === "country_code") {
@@ -108,7 +111,10 @@ const VendorRegistrationStepper = () => {
                 setValue(key, newValue);
               } else if (key === "company_logo") {
                 // setPreviewImage(data?.company_logo);
-                setPreviewImage({profile_picture : data?.company_logo})
+                setPreviewImage({ profile_picture: data?.company_logo })
+              } else if (key === "post_code") {
+                setValue("passcode" ,data[key] )
+
               } else {
                 setValue(key, data[key]);
               }
@@ -137,6 +143,7 @@ const VendorRegistrationStepper = () => {
   };
 
   const decreaseStepCount = () => {
+    setIsRegistrationStepModal(false);
     setActiveStep((prev) => prev - 1);
     localStorage.setItem("vendorActiveStep", activeStep - 1);
   };
@@ -147,9 +154,12 @@ const VendorRegistrationStepper = () => {
       localStorage.setItem("vendorActiveStep", step);
     }
   };
+  const handleRegistrationModal = () => {
+    setIsRegistrationStepModal(false);
+  }
 
   const getActiveStepText = () => {
-    console.log(activeStep,"ab")
+    console.log(activeStep, "ab")
     switch (activeStep) {
       case 1:
         return "Next :  Decision Makers";
@@ -159,7 +169,8 @@ const VendorRegistrationStepper = () => {
         return "Submit";
     }
   };
-
+  const stepData = watch();
+  console.log(stepData, "stepData")
   const callDecisionMakersAPI = () => {
     const stepData = watch();
     let data = {
@@ -190,6 +201,7 @@ const VendorRegistrationStepper = () => {
       success_story: stepData?.success_story,
     };
     dispatch(getAreaExpertise(payload));
+    setIsRegistrationStepModal(true)
   };
 
   const onSubmit = () => {
@@ -203,6 +215,7 @@ const VendorRegistrationStepper = () => {
             ...stepData,
             country_code: stepData["country_code"]?.value,
             state_iso_code: stepData["state_iso_code"]?.value,
+            post_code: stepData?.passcode,
             country: stepData["country_code"]?.label,
             state: stepData["state_iso_code"]?.label,
             company_logo: url,
@@ -335,6 +348,12 @@ const VendorRegistrationStepper = () => {
         modalData={MODAL_INFORMATION[1]}
         activeStep={activeStep}
       /> : ""} */}
+      <RegistrationStepModal
+        show={isRegistrationStepModal}
+        handleClose={handleRegistrationModal}
+        nextStep={decreaseStepCount}
+        role={"vendor"}
+      />
     </>
   );
 };

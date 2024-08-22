@@ -10,6 +10,7 @@ import CloseIcon from "./CloseIcon";
 import DatePicker from "react-date-picker";
 
 const CommonInput = ({
+  watch,
   label,
   name,
   type = "text",
@@ -75,7 +76,6 @@ console.log(isMaxRequired,"ismax")
                     field.onChange(e.target.checked)
                   } }
                 />
-              
             }
             if (type === "checkbox") {
               return   <Form.Check
@@ -228,6 +228,7 @@ console.log(isMaxRequired,"ismax")
                     className={`common-field ${
                       invalidFieldRequired && error?.message && "invalid-field"
                     }`}
+                    // value={new Date(watch("response_date")).toISOString().split("T")[0]}
                     // if date should not be less than current date
                     min={
                       isMinRequired && new Date().toISOString().split("T")[0]
