@@ -64,7 +64,7 @@ useEffect(() => {
     <>
       {isRegistrationStep ? (
         <>
-          <Col md={4}>
+          <Col md={4} className="pe-md-3 pe-0">
             <div className="mb-3">
               <CommonReactSelect
                 name="country_code"
@@ -80,7 +80,7 @@ useEffect(() => {
               />
             </div>
           </Col>
-          <Col md={4}>
+          <Col md={4} className="pe-md-3 pe-0">
             <div className="mb-3">
               <CommonReactSelect
                 name="state_iso_code"
@@ -96,7 +96,7 @@ useEffect(() => {
               />
             </div>
           </Col>
-          <Col md={4}>
+          <Col md={4} className="pe-md-3 pe-0">
             <div className="mb-3">
               <CommonReactSelect
                 name="city"
@@ -112,7 +112,7 @@ useEffect(() => {
               />
             </div>
           </Col>
-          <Col md={4}>
+          <Col md={4} className="pe-md-3 pe-0">
             <div className="mb-3">
               <CommonInput
                 label={t(`pincode`) + ` *`}
@@ -127,7 +127,7 @@ useEffect(() => {
               />
             </div>
           </Col>
-          <Col md={8}>
+          <Col md={8} className="pe-md-3 pe-0">
             <CommonReactSelect
               name="time_zone"
               errors={errors}

@@ -41,7 +41,7 @@ const PasswordSection = ({
     <>
       {isColSixRequired ? (
         <>
-          <Col md={6}>
+          <Col md={6} className="pe-md-3 pe-0">
             <div className="mb-3">
               <Form.Label className="common-label">{t("Password")} *</Form.Label>
               <div className="position-relative">
@@ -91,7 +91,7 @@ const PasswordSection = ({
               )}
             </div>
           </Col>
-          <Col md={6}>
+          <Col md={6} className="pe-md-3 pe-0">
             <div className="mb-3">
               <Form.Label className="common-label">
                 {t("Confirm Password")} *

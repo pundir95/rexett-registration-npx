@@ -1243,7 +1243,7 @@ console.log(nestedActiveStep,"nes")
               )} */}
             </Row>
 
-            { true ? <div className="d-flex justify-content-end align-items-center ">
+            { true ? <div className="d-flex justify-content-end align-items-center mt-md-0 mt-4">
               <div className="me-3">
                 <RexettButton
                   type="submit"
