@@ -8,6 +8,7 @@ import VendorDecisionMakers from './RegistrationFlows/VendorRegistrationFlow/Ven
 import DeveloperRegistrationStepper from './RegistrationFlows/DeveloperRegistrationFlow/DeveloperRegistrationStepper';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import HomeSection from './Home/HomeSection';
 
 function App() {
   return (
@@ -27,9 +28,10 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<ClientRegistrationStepper/>} />
-          <Route path="/vendor-registration" element={<VendorRegistrationStepper/>} />
-          <Route path="/developer-registration" element={<DeveloperRegistrationStepper/>} />
+          <Route path="/" element={<HomeSection/>}/>
+          <Route path="/client-registration" element={<ClientRegistrationStepper/>} />
+          <Route path="/partner-registration" element={<VendorRegistrationStepper/>} />
+          <Route path="/talent-registration" element={<DeveloperRegistrationStepper/>} />
         </Routes>
       </Router>
     </div>
