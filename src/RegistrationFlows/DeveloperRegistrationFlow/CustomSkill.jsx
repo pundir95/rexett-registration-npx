@@ -44,7 +44,7 @@ const CustomSkill = ({
       <>
         <div
           key={field.id}
-          className="d-flex align-items-center gap-2"
+          className="d-md-flex align-items-center gap-2 mt-md-0 mt-4"
         >
           <div className="w-100">
             <CommonInput

@@ -12,10 +12,10 @@ const WorkHistory = ({ nestedActiveStep, control, errors,stepData }) => {
   return (
     <Row>
       <StepperHeadingSection nestedActiveStep={nestedActiveStep} />
-      <Col md={6}>
+      <Col md={6} className="px-md-3 px-0">
         <RecommendationAI control={control}/>
       </Col>
-      <Col md={6}>
+      <Col md={6} className="px-md-3 px-0">
         <div>
           <p className="fw-semibold mb-2">{stepData && stepData[0]?.job_title} |{ stepData && stepData[0]?.company_name}</p>
           <p className="mb-4 font-14">
