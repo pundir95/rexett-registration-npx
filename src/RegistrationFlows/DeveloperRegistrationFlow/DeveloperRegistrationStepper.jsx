@@ -1181,7 +1181,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
     increaseStepCount();
   };
   const handleClose = () => {
-    console.log("closeModalnotworking")
     setShowSetUpJobModal({
       recommendation: false,
       isDelete: false,
