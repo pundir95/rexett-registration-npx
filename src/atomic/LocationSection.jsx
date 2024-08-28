@@ -7,7 +7,7 @@ import { getCitiesList, getStatesList, getTimeZoneForCountry } from "../Redux/Sl
 import CommonInput from "./CommonInput";
 
 const LocationSection = ({
-  isVendorStep1=false,
+  isVendorStep1,
   setValue,
   watch,
   errors,
@@ -117,7 +117,7 @@ useEffect(() => {
               <CommonInput
                 label={t(`pincode`) + ` *`}
                 name={"passcode"}
-                // name={isVendorStep1 ? "passcode" : "post_code"}
+                // name={isVendorStep1==="true" ? "post_code" : "passcode"}
                 invalidFieldRequired={true}
                 control={control}
                 rules={{ required: "Pin code is required" }}

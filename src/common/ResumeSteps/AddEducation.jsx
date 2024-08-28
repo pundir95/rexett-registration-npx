@@ -49,6 +49,8 @@ const AddEducation = ({
   name
 }) => {
 
+console.log("step6")
+  console.log(name,"name")
   const [formattedSkillOptions, setFormattedSkillOptions] = useState([]);
   console.log(selectedRecommend,"selectedRecommend")
   useEffect(() => {

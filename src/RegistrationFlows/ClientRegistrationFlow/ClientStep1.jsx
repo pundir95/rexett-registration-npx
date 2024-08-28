@@ -39,7 +39,7 @@ const ClientStep1 = ({
 }) => {
   const { t } = useTranslation();
   
-  
+  console.log(stepFields,"fieldname")
   let isStillWorking=watch("is_still_working")
   console.log(skillOptions,"skillOptions")
   // let isStillWorking=true
@@ -153,8 +153,9 @@ const ClientStep1 = ({
                               isMaxRequired={isMaxRequired}
                               disabled={isStillWorking}
                               isMinRequired={isMinRequired}
-                  readOnly={readOnly ? true : false}
-                   />
+                              readOnly={readOnly ? true : false}
+                              watch={watch}
+                             />
                           ): <UploadFile 
                           label={label}
                           placeholder={placeholder}
@@ -170,7 +171,6 @@ const ClientStep1 = ({
                           errors={errors}
                           stepData={stepData}
                           />}
-
                         </div>
                       )}
                     

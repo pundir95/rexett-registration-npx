@@ -64,7 +64,7 @@ const JobDesciptionStep = ({
   console.log(recommend,"recommend")
 
   const handleAppend = () => {
-    const index = watch("skills").findIndex(
+    const index = watch("skills")?.findIndex(
       (curElem) => curElem.title === "" || curElem.level === ""
     );
     //if index value is less than 0 (.i.e -1) means no field is empty

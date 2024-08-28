@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import { FaChevronDown, FaLightbulb, FaPencil } from "react-icons/fa6";
 import { IoCloseOutline } from "react-icons/io5";
@@ -11,9 +11,10 @@ import { getDeveloperProfileDetails } from "../../Redux/Slices/DeveloperDataSlic
 
 const Summary = ({
   nestedActiveStep,
-  stepData,
-  handleDelete,
-  handleCloseUploadFileModal,
+  filteredStepData,
+  // handleDelete,
+  setFilteredStepData,
+  handleClose,
   smallLoader,
   setShowSetUpJobModal,
   showSetUpModal,
@@ -25,20 +26,35 @@ const Summary = ({
 }) => {
 
   const dispatch = useDispatch();
+  let developerId = localStorage.getItem("developerId");
+  const [ eduId , setEduId] = useState("")
 
-  let developerId=localStorage.getItem("developerId");
+  console.log(filteredStepData, "filteredStepDataSummary")
 
-  useEffect(()=>{
-    if(developerId){
-        dispatch(getDeveloperProfileDetails(developerId));
+
+  useEffect(() => {
+    if (developerId) {
+      dispatch(getDeveloperProfileDetails(developerId));
     }
-  
-},[developerId])
+  }, [developerId])
 
   const handleDeleteModal = (id) => {
+    setEduId(id)
     setShowSetUpJobModal({
       isDelete: true,
       deletedId: id,
+    });
+  };
+  const handleDelete = (eduId) => {
+    const tempArr = [{...filteredStepData}];
+    const indexToRemove = tempArr.findIndex(item => item.id === eduId);
+    if (indexToRemove !== -1) {
+      tempArr.splice(indexToRemove, 1);
+    }
+    console.log(tempArr, "tempArr after splice");
+    setFilteredStepData(tempArr);
+    setShowSetUpJobModal({
+      isDelete: false,
     });
   };
   const tipstext = (
@@ -84,8 +100,8 @@ const Summary = ({
           <span>{item?.project_link}</span>
         </span>
       );
-    }else if(item?.job_title){
-      return <span>{`${item?.job_location} | ${item?.start_date?.slice(0,10)} - ${item?.end_date?.slice(0,10)}`}</span> 
+    } else if (item?.job_title) {
+      return <span>{`${item?.job_location} | ${item?.start_date?.slice(0, 10)} - ${item?.end_date?.slice(0, 10)}`}</span>
     }
   };
 
@@ -114,7 +130,7 @@ const Summary = ({
               </div>
             </div>
           </div>
-          {stepData?.map((item, index) => {
+          {filteredStepData?.map((item, index) => {
             return (
               <>
                 <div className="work-summary-wrapper mb-3 position-relative">
@@ -176,9 +192,10 @@ const Summary = ({
       <ConfirmationModal
         text={"Are you sure to delete this job?"}
         show={showSetUpModal?.isDelete}
-        handleClose={handleCloseUploadFileModal}
-        onClick={handleDelete}
+        handleClose={handleClose}
+        handleAction={handleDelete}
         smallLoader={smallLoader}
+
       />
     </>
   );

@@ -9,18 +9,20 @@ import RegistrationType from "./RegistrationType";
 import { FaArrowLeft } from "react-icons/fa6";
 import { DEFAULT_SCREENING_DATA, getActiveStepFields, MODAL_INFORMATION, SIDEBAR_ITEMS } from "../../helper/RegisterConstant";
 import RexettButton from "../../atomic/RexettButton";
-import { applyAsClient, clientJobPost, getCoutriesList, getJobPost, getProfile, getStatesList, getTimeZoneList, uploadFileToS3Bucket } from "../../Redux/Slices/ClientDataSlice";
+import { applyAsClient, clientJobPost, getCoutriesList, getJobPost, getProfile, getStatesList, getTimeZoneList, updateClientPost, uploadFileToS3Bucket } from "../../Redux/Slices/ClientDataSlice";
 import { useTranslation } from "react-i18next";
 import { getSkillOptions } from "../../Redux/Slices/DeveloperDataSlice";
-import SetUpJobModal from "../../common/Modals/SetUpJobModal";
 import ScreeningSection from "./ScreeningSection";
 import JobDesciptionStep from "./JobDescriptionStep";
 import ScreenLoader from "../../atomic/ScreenLoader";
 import bgVideo from '../../assets/images/bg-video.mp4';
+import SetUpJobModal from "../../common/Modals/SetUpJobModal"
+import moment from "moment";
+// import ThankRegister from "../../common/Modals/ThankRegister";
 
 const ClientRegistrationStepper = () => {
   const dispatch = useDispatch();
-  const { smallLoader, screenLoader,timeZoneList } = useSelector((state) => state?.clientData);
+  const { smallLoader, screenLoader, timeZoneList, clientJobPostDetails } = useSelector((state) => state?.clientData);
   const [text, setText] = useState("");
   const [details, setDetails] = useState()
   const [activeStep, setActiveStep] = useState(0);
@@ -29,14 +31,13 @@ const ClientRegistrationStepper = () => {
   const [registrationType, setRegistrationType] = useState("individual"); //for register as indivisual or company
   const [showSetUpModal, setShowSetUpJobModal] = useState(false);
   const [groupedTime, setGroupedTime] = useState([])
-  const [skillDetails , setSkillDetails] = useState({
-    skillName : "",
-    skillWeight : ""
+  const [skillDetails, setSkillDetails] = useState({
+    skillName: [],
+    skillWeight: []
   })
-
-  let currentFormtype=localStorage.getItem("currentRegisterFormType")
+  const job_id = localStorage.getItem("jobId")
+  let currentFormtype = localStorage.getItem("currentRegisterFormType")
   const activeStepFields = getActiveStepFields(activeStep, currentFormtype);
-  console.log(activeStepFields, "activeStepFields")
   const { profileData } = useSelector((state) => state?.clientData)
   const {
     handleSubmit,
@@ -56,9 +57,9 @@ const ClientRegistrationStepper = () => {
   });
   const { skillOptions } = useSelector((state) => state.developerData);
   const { t } = useTranslation()
-  const [countryCode , setCountryCode] = useState()
-  let arrPercentage=[0,0,30,50,70,100]
-  
+  const [countryCode, setCountryCode] = useState()
+  let arrPercentage = [0, 0, 30, 50, 70, 100]
+
   useEffect(() => {
     dispatch(getTimeZoneList())
     const storedStep = localStorage.getItem("clientActiveStep");
@@ -75,7 +76,6 @@ const ClientRegistrationStepper = () => {
     }
   }, [activeStep]);
   const user_id = localStorage.getItem("clientId")
-  console.log(user_id, "user_id")
   useEffect(() => {
     if (timeZoneList?.length > 0) {
       let groupedTimeZones = timeZoneList?.map((item) => {
@@ -100,7 +100,6 @@ const ClientRegistrationStepper = () => {
 
     if (user_id) {
       dispatch(getProfile(user_id, (data) => {
-        console.log(data, "data")
         for (let key in data) {
           if (activeStep === 1) {
             if (key === "country_code") {
@@ -120,8 +119,8 @@ const ClientRegistrationStepper = () => {
               setValue(key, data[key]);
             }
             if (key === "name") {
-              const [firstName, surname] = data[key]?.split(" ") ;
-              setValue("first_name", firstName );
+              const [firstName, surname] = data[key]?.split(" ");
+              setValue("first_name", firstName);
               setValue("last_name", surname);
             }
             if (key === "address") {
@@ -131,30 +130,40 @@ const ClientRegistrationStepper = () => {
               setValue("company_tax_id", data[key]);
             }
             if (key === "company_logo") {
-              setPreviewImage({profile_picture : data?.profile_picture})
+              setPreviewImage({ profile_picture: data?.profile_picture })
             }
           } else if (activeStep === 2) {
             const step1Data = data.jobs[0].step1;
-            console.log(step1Data, "step1Data")
             for (let step1Key in step1Data) {
-              if (step1Key === "response_date") {
-                const new_date = step1Data?.response_date.slice(0, 10)
-                setValue(key, new_date)
+              if (step1Key === "time_zone") {
+                const newValue = { label: step1Data[step1Key], value: step1Data[step1Key] };
+                setValue(step1Key, newValue);
+              } else if (step1Key === "response_date") {
+                const responseDate = step1Data[step1Key].slice(0,10)
+                setValue("response_date", responseDate)
               } else {
-                setValue(step1Key, step1Data[step1Key]);
+                setValue(step1Key, step1Data[step1Key])
               }
             }
           } else if (activeStep === 3) {
-            const step2Data = data.jobs[0].step2;
+            const step2Data = data?.jobs[0]?.step2;
+            console.log(step2Data,"step2Data")
             for (let step2Key in step2Data) {
-              if (step2Key === "job_skills") {
-                const skill_name = step2Data?.job_skills?.map(itm => (itm.skill_name))
-                console.log(skill_name, "skillName")
-                setSkillDetails({skillName:skill_name})
-                const skill_weight = step2Data?.job_skills?.map(itm => (itm.weight))
-                setSkillDetails({skillWeight:skill_weight})
-              } else {
-                setValue(step2Key, step2Data[step2Key]);
+              if (step2Data?.job_skills) {
+                const newSkills = [];
+                const newWeights = [];
+                step2Data?.job_skills?.forEach((item) => {
+                  newSkills.push({ label: item?.skill_name, value: item?.skill_name });
+                  newWeights.push({ label: item?.weight, value: item?.weight });
+                });
+                setSkillDetails({
+                  skillName: newSkills,
+                  skillWeight: newWeights
+                });
+              }
+              if (step2Key === "description") {
+                const desc = stripHtmlTags(step2Data[step2Key])
+                setValue(step2Key, desc)
               }
             }
           }
@@ -162,7 +171,6 @@ const ClientRegistrationStepper = () => {
       }));
     }
   }, [activeStep, user_id, dispatch]);
-
 
   const getActiveStepText = (values) => {
     switch (activeStep) {
@@ -177,7 +185,7 @@ const ClientRegistrationStepper = () => {
     }
   };
   const onSubmit = () => {
-    if (activeStep === 1 || activeStep == 4) {
+    if (activeStep == 1 || activeStep == 4) {
       setShowSetUpJobModal(true);
     } else {
       // increaseStepCount();
@@ -185,7 +193,7 @@ const ClientRegistrationStepper = () => {
     const buttonText = getActiveStepText();
     switch (buttonText) {
       case "Next : Setup Job":
-        handleProceed();
+        setShowSetUpJobModal(true);
         break;
       case "Next : Job Description":
         callJobStep1API();
@@ -197,22 +205,45 @@ const ClientRegistrationStepper = () => {
         callJobStep3API();
     }
   };
+
+  const stripHtmlTags = (str) => {
+    return str?.replace(/<\/?[^>]+(>|$)/g, "");
+  };
+
   const jobStepData = watch();
   const callJobStep1API = () => {
+
     if (activeStep == 2) {
-      let payload = {
-        step: 1,
-        title: jobStepData?.title,
-        contract_type: jobStepData?.contract_type,
-        job_location: jobStepData?.job_location,
-        job_positions: jobStepData?.job_positions,
-        job_type: jobStepData?.job_type,
-        response_date: jobStepData?.response_date
+      let payload;
+      if (job_id) {
+        console.log("jobIdHere")
+        payload = {
+          step: 1,
+          title: jobStepData?.title,
+          contract_type: jobStepData?.contract_type,
+          job_location: jobStepData?.job_location,
+          job_positions: jobStepData?.job_positions,
+          job_type: jobStepData?.job_type,
+          response_date: jobStepData?.response_date,
+          time_zone: jobStepData?.time_zone?.label
+        }
+        dispatch(updateClientPost(user_id, job_id, payload, handleAfterApiSuccess))
+      } else {
+        console.log("NoJobId")
+        payload = {
+          step: 1,
+          title: jobStepData?.title,
+          contract_type: jobStepData?.contract_type,
+          job_location: jobStepData?.job_location,
+          job_positions: jobStepData?.job_positions,
+          job_type: jobStepData?.job_type,
+          response_date: jobStepData?.response_date,
+          time_zone: jobStepData?.time_zone?.label
+        }
+        dispatch(clientJobPost(payload, activeStep, user_id, handleAfterApiSuccess))
       }
-      dispatch(clientJobPost(payload, activeStep, user_id,handleAfterApiSuccess))
     }
   }
-  const job_id = localStorage.getItem("jobId")
   const jobSkills = jobStepData?.skills?.map(skill => ({
     skill_id: skill?.title?.value,
     skill_name: skill?.title?.label,
@@ -234,11 +265,11 @@ const ClientRegistrationStepper = () => {
       if (job_id) {
         let payload = {
           step: 2,
-          job_id: job_id,
+          // job_id: job_id,
           description: jobStepData?.description,
           job_skills: jobSkills,
         }
-        dispatch(clientJobPost(payload, activeStep, user_id,handleAfterApiSuccess))
+        dispatch(updateClientPost(user_id, job_id, payload, handleAfterApiSuccess))
       }
     }
   }
@@ -253,12 +284,10 @@ const ClientRegistrationStepper = () => {
         qualification_filter_out: jobStepData?.qualification_filter_out,
         screening_questions: screeningQuestions,
       }
-      dispatch(clientJobPost(payload, activeStep, user_id,handleAfterApiSuccess))
+      dispatch(updateClientPost(user_id, job_id, payload, handleAfterApiSuccess))
 
     }
   }
-
-  console.log(groupedTime,"groupedTime")
 
   const increaseStepCount = () => {
     if (activeStep === 4) {
@@ -279,7 +308,7 @@ const ClientRegistrationStepper = () => {
         return (
           // this step will be used for both first and second
           <ClientStep1
-          
+
             screenLoader={screenLoader}
             control={control}
             errors={errors}
@@ -303,7 +332,7 @@ const ClientRegistrationStepper = () => {
       case 3:
         return (
           <JobDesciptionStep
-           skillDetails={skillDetails}
+            skillDetails={skillDetails}
             screenLoader={screenLoader}
             register={register}
             stepFields={activeStepFields}
@@ -344,7 +373,7 @@ const ClientRegistrationStepper = () => {
   }, [activeStep])
 
   const handleRegistrationType = (registrationType) => {
-    localStorage.setItem("currentRegisterFormType",registrationType)
+    localStorage.setItem("currentRegisterFormType", registrationType)
     setRegistrationType(registrationType);
     increaseStepCount();
   };
@@ -392,7 +421,8 @@ const ClientRegistrationStepper = () => {
   };
   return (
     <>
-      {screenLoader ? <ScreenLoader /> : <div>
+      {/* {screenLoader ? <ScreenLoader /> : */}
+       <div>
         {activeStep === 0 ? (
           <RegistrationType handleRegistrationType={handleRegistrationType} />
         ) : (
@@ -437,7 +467,8 @@ const ClientRegistrationStepper = () => {
             </div>
           </section>
         )}
-      </div>}
+      </div>
+      {/* } */}
       {showSetUpModal ? <SetUpJobModal
         show={showSetUpModal}
         handleClose={handleToggleSetupModal}
@@ -446,10 +477,12 @@ const ClientRegistrationStepper = () => {
         smallLoader={smallLoader}
         modalData={MODAL_INFORMATION[activeStep]}
         activeStep={activeStep}
-      /> : ""}
+      />
+      : ""}
       {/* <ThankRegister
-        show={showthanksregister}
+        show={false}
         handleClose={handleCloseThanksRegister}
+        role={"client"}
       /> */}
     </>
   );
