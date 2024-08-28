@@ -10,6 +10,7 @@ import CloseIcon from "./CloseIcon";
 import DatePicker from "react-date-picker";
 
 const CommonInput = ({
+  watch,
   label,
   name,
   type = "text",
@@ -38,9 +39,6 @@ const CommonInput = ({
   selectedRecommend
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-console.log(options,"options")
-console.log(isMinRequired,"isMinRequired")
-console.log(isMaxRequired,"ismax")
   const handleTogglePassword = () => {
     setIsPasswordVisible(!isPasswordVisible);
     if (onTogglePassword) {
@@ -54,6 +52,7 @@ console.log(isMaxRequired,"ismax")
   };
   console.log(name,"name")
   // console.log(watch("total_it_recruiter"),"total recruiters")
+  
   return (
     <Form.Group className="mb-3">
       <Form.Label className="font-14 fw-medium form-label">{label}</Form.Label>
@@ -75,7 +74,6 @@ console.log(isMaxRequired,"ismax")
                     field.onChange(e.target.checked)
                   } }
                 />
-              
             }
             if (type === "checkbox") {
               return   <Form.Check
@@ -94,6 +92,7 @@ console.log(isMaxRequired,"ismax")
                   <PhoneInput
                     placeholder={placeholder}
                     value={field.value ? String(field.value) : ""}
+                    defaultCountry="SE"
                     onChange={field.onChange}
                     className="common-field"
                     inputProps={{
@@ -228,6 +227,8 @@ console.log(isMaxRequired,"ismax")
                     className={`common-field ${
                       invalidFieldRequired && error?.message && "invalid-field"
                     }`}
+                    // value={responseDate || ""}
+                    // value={new Date(watch("response_date")).toISOString().split("T")[0]}
                     // if date should not be less than current date
                     min={
                       isMinRequired && new Date().toISOString().split("T")[0]

@@ -44,7 +44,7 @@ const CustomSkill = ({
       <>
         <div
           key={field.id}
-          className="d-flex align-items-center gap-2"
+          className="d-md-flex align-items-center gap-2 mt-md-0 mt-4"
         >
           <div className="w-100">
             <CommonInput
@@ -57,7 +57,7 @@ const CustomSkill = ({
               selectOptions={formattedSkillOptions}
               invalidFieldRequired={true}
               placeholder="Select Skill"
-            />{" "}
+            />
           </div>
           <div className="w-100">
             <CommonInput
@@ -70,7 +70,7 @@ const CustomSkill = ({
               error={errors?.experience?.[idx]?.level}
               invalidFieldRequired={true}
               placeholder="Select Experience"
-            />{" "}
+            />
           </div>
           <div className="w-100">
             <CommonInput
@@ -83,7 +83,7 @@ const CustomSkill = ({
               selectOptions={LEVEL_OPTIONS}
               invalidFieldRequired={true}
               placeholder="Select Level"
-            />{" "}
+            />
           </div>
           {/* <Button
               onClick={handleAppend}

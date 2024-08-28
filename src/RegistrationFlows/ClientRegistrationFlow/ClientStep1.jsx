@@ -39,17 +39,17 @@ const ClientStep1 = ({
 }) => {
   const { t } = useTranslation();
   
-  
+  console.log(stepFields,"fieldname")
   let isStillWorking=watch("is_still_working")
   console.log(skillOptions,"skillOptions")
   // let isStillWorking=true
   return (
     <>
       <Row>
-        <Col md={12}>
+        <Col md={12} className="px-md-3 px-0">
          { <StepperHeadingSection activeStep={activeStep} type = {type} nestedActiveStep={nestedActiveStep}/>}
           <p className="font-12 req-text fw-medium">* includes a required field</p>
-          <div className="d-flex align-items-start gap-3">
+          <div className="d-md-flex align-items-start gap-3">
             {isProfileSectionRequired && (
               <CommonProfilePictureSection
               register={register}
@@ -64,7 +64,7 @@ const ClientStep1 = ({
               errors={errors}
             />
             )}
-            <Row className="w-100">
+            <Row className="w-100 mt-md-0 mt-4">
               {stepFields?.map(({label,
                   fieldName,
                   type,
@@ -104,7 +104,7 @@ const ClientStep1 = ({
                       isRegistrationStep={true}
                     />
                   ) : (
-                    <Col md={columnWidth}>
+                    <Col md={columnWidth} className="pe-md-3 pe-0">
                       {isAutocomplete && (
                         <CommonAutocomplete
                           label={t(`${label}`) + `${isRequired && " *"}`}
@@ -153,8 +153,9 @@ const ClientStep1 = ({
                               isMaxRequired={isMaxRequired}
                               disabled={isStillWorking}
                               isMinRequired={isMinRequired}
-                  readOnly={readOnly ? true : false}
-                   />
+                              readOnly={readOnly ? true : false}
+                              watch={watch}
+                             />
                           ): <UploadFile 
                           label={label}
                           placeholder={placeholder}
@@ -170,7 +171,6 @@ const ClientStep1 = ({
                           errors={errors}
                           stepData={stepData}
                           />}
-
                         </div>
                       )}
                     

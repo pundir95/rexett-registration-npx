@@ -86,7 +86,10 @@ ul {
     background-color: transparent;
     color: #F1416C;
 }
-
+.font-12
+{
+    font-size: 12px;
+}
 .main-btn {
     display: inline-block;
     padding: 10px;
@@ -1071,7 +1074,7 @@ select.common-field {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 2;
+    z-index: 4;
 }
 
 .header-register img {
@@ -1264,6 +1267,7 @@ input[type="date"].common-field {
     background-color: #ffffff24;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
+    gap: 10px;
 }
 
 .screening-wrapper {
@@ -1967,6 +1971,8 @@ input[type="date"].common-field {
     .resume-sidebar ul li {
         flex-direction: column;
         margin-bottom: 0px;
+        padding: 0px;
+        background-color: transparent;
     }
 
     .resume-main-wrapper {
@@ -2055,10 +2061,29 @@ input[type="date"].common-field {
         padding-left: 20px;
         padding-right: 20px;
     }
+    .education-action
+    {
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+    .selection-wrapper
+    {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .intro-video-close .btn-close
+    {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 @media only screen and (max-width: 767px) {
     .resume-sidebar ul li span.step-label {
         display: none;
+    }
+    .client_register_label
+    {
+        padding: 15px;
     }
 }

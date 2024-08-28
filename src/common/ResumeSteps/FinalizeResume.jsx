@@ -275,7 +275,7 @@ const FinalizeResume = () => {
         </Col>
       </Row>
 
-      <ThankRegister show={false} />
+      {/* <ThankRegister show={false} /> */}
     </>
   );
 };

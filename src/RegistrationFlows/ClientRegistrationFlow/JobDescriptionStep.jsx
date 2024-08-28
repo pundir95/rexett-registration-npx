@@ -64,7 +64,7 @@ const JobDesciptionStep = ({
   console.log(recommend,"recommend")
 
   const handleAppend = () => {
-    const index = watch("skills").findIndex(
+    const index = watch("skills")?.findIndex(
       (curElem) => curElem.title === "" || curElem.level === ""
     );
     //if index value is less than 0 (.i.e -1) means no field is empty
@@ -79,7 +79,7 @@ const JobDesciptionStep = ({
         <Row>
           <Col md={12}>
             <StepperHeadingSection activeStep={activeStep} type={type} />
-            <p className="font-12 fw-medium">* includes a required field</p>
+            <p className="font-12 fw-medium req-text">* includes a required field</p>
             <div className="d-flex align-items-start gap-3">
               <Row className="w-100">
                 <Col md={12}>
@@ -105,8 +105,8 @@ const JobDesciptionStep = ({
                       <p className="field-error">{errors.description?.message}</p>
                     )}
                   </div>
-                  <div>
-                    <p className="font-14 mt-3 fw-semibold">Add Description</p>
+                  <div className="mt-3">
+                    <label className="font-14 fw-medium form-label">Add Description</label>
                   </div>
                 </Col>
                 <Col md={6}>
@@ -191,7 +191,7 @@ const JobDesciptionStep = ({
                   </div> */}
                     <RecommendationAI control={control} setRecommend={setRecommend}/>
                 </Col>
-                <Col md={6}>
+                <Col md={6} className="my-md-0 my-4">
                   <div>
                     {fields?.map((field, idx) => (
                       <>

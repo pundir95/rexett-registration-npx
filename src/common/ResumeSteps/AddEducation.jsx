@@ -49,6 +49,8 @@ const AddEducation = ({
   name
 }) => {
 
+console.log("step6")
+  console.log(name,"name")
   const [formattedSkillOptions, setFormattedSkillOptions] = useState([]);
   console.log(selectedRecommend,"selectedRecommend")
   useEffect(() => {
@@ -115,12 +117,12 @@ const AddEducation = ({
       </div>
 
       <Row>
-        <Col md={6}>
+        <Col md={6} className="px-md-3 px-0">
           <div>
           <RecommendationAI control={control} setRecommend={setSelectedRecommend}/>
           </div>
         </Col>
-        <Col md={6}>
+        <Col md={6} className="px-md-3 px-0 mt-md-0 mt-4">
           <div id="custom-ck">
           <label className="font-14 fw-medium mb-1">Description</label>
           <Controller

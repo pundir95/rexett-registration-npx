@@ -13,7 +13,7 @@ const EducationLevelSelect = ({handleEducationLevel}) => {
     <Row className="justify-content-center">
         <Col md={10}>
             <div>
-                <div className="mt-5">
+                <div className="mt-md-5 mt-4">
                     <div className="selection-wrapper">
                     
                         {

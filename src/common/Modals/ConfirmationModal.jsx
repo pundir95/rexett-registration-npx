@@ -10,8 +10,8 @@ const ConfirmationModal = ({ submitText="Yes",text,show, handleClose,onClick ,ha
         }
         onClick(e,data)
     }
-    // const handle = () => {
-    //     handleAction();
+    // const handleAction = () => {
+
     // }
     return(
         <Modal show={show} onHide={handleClose} centered animation className="custom-modal" noValidate> 
@@ -26,9 +26,9 @@ const ConfirmationModal = ({ submitText="Yes",text,show, handleClose,onClick ,ha
                     </Form.Group>
                     <div className="text-center">
                         <RexettButton
-                            type="submit"
+                            type="button"
                             text={submitText ? submitText : "Yes"}
-                            onClick={type ? callBackBtn : handleAction}
+                            onClick={type ? callBackBtn : handleAction()}
                             // onClick={callBackBtn}
                             className="main-btn px-4 me-3 font-14 fw-semibold"
                             variant="transparent"

@@ -20,10 +20,10 @@ const SkillAdd = ({control,activeStep,watch,errors,register,skillOptions,nestedA
       <div>
       <StepperHeadingSection nestedActiveStep={nestedActiveStep} activeStep={activeStep} type={type}/>
         <Row>
-          <Col md={6}>
+          <Col md={8}>
             <RecommendationAI control={control} setRecommend={setSelectedRecommend}  />
           </Col>
-          <Col md={6}>
+          <Col md={12}>
            
        {activeStep==4 &&   <CustomSkill 
              activeStep={activeStep}
