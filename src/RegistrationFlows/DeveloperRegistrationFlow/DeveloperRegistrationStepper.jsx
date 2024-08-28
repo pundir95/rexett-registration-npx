@@ -47,12 +47,9 @@ const DeveloperRegistrationStepper = () => {
     isEdit: false,
     id: null
   })
-  const [ifDone,setDone]=useState(true);
-  const [selectedRecommend,setSelectedRecommend]=useState(null)
   const [activeStep, setActiveStep] = useState(0);
   const [ifDone, setDone] = useState(true);
   const [selectedRecommend, setSelectedRecommend] = useState(null)
-  const [activeStep, setActiveStep] = useState(4);
   const [isAnotherData, setIsAnotherData] = useState(true);
   const [nestedActiveStep, setNestedActiveStep] = useState(0);
   const [previewImage, setPreviewImage] = useState({
