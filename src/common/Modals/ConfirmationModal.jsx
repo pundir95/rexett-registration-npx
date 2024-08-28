@@ -28,7 +28,7 @@ const ConfirmationModal = ({ submitText="Yes",text,show, handleClose,onClick ,ha
                         <RexettButton
                             type="button"
                             text={submitText ? submitText : "Yes"}
-                            onClick={type ? callBackBtn : handleAction}
+                            onClick={type ? callBackBtn : handleAction()}
                             // onClick={callBackBtn}
                             className="main-btn px-4 me-3 font-14 fw-semibold"
                             variant="transparent"

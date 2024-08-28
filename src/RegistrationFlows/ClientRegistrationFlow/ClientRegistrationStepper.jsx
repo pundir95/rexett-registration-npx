@@ -12,10 +12,10 @@ import RexettButton from "../../atomic/RexettButton";
 import { applyAsClient, clientJobPost, getCoutriesList, getJobPost, getProfile, getStatesList, getTimeZoneList, updateClientPost, uploadFileToS3Bucket } from "../../Redux/Slices/ClientDataSlice";
 import { useTranslation } from "react-i18next";
 import { getSkillOptions } from "../../Redux/Slices/DeveloperDataSlice";
-import SetUpJobModal from "../../common/Modals/SetUpJobModal";
 import ScreeningSection from "./ScreeningSection";
 import JobDesciptionStep from "./JobDescriptionStep";
 import ScreenLoader from "../../atomic/ScreenLoader";
+import SetUpJobModal from "../../common/Modals/SetUpJobModal"
 import moment from "moment";
 // import ThankRegister from "../../common/Modals/ThankRegister";
 
@@ -34,11 +34,9 @@ const ClientRegistrationStepper = () => {
     skillName: [],
     skillWeight: []
   })
-  console.log(clientJobPostDetails, "clientJobPostDetails")
   const job_id = localStorage.getItem("jobId")
   let currentFormtype = localStorage.getItem("currentRegisterFormType")
   const activeStepFields = getActiveStepFields(activeStep, currentFormtype);
-  console.log(activeStepFields, "activeStepFields")
   const { profileData } = useSelector((state) => state?.clientData)
   const {
     handleSubmit,
@@ -76,9 +74,7 @@ const ClientRegistrationStepper = () => {
       dispatch(getSkillOptions());
     }
   }, [activeStep]);
-  console.log(job_id, "job_id")
   const user_id = localStorage.getItem("clientId")
-  console.log(user_id, "user_id")
   useEffect(() => {
     if (timeZoneList?.length > 0) {
       let groupedTimeZones = timeZoneList?.map((item) => {
@@ -103,7 +99,6 @@ const ClientRegistrationStepper = () => {
 
     if (user_id) {
       dispatch(getProfile(user_id, (data) => {
-        console.log(data, "data")
         for (let key in data) {
           if (activeStep === 1) {
             if (key === "country_code") {
@@ -143,26 +138,27 @@ const ClientRegistrationStepper = () => {
                 const newValue = { label: step1Data[step1Key], value: step1Data[step1Key] };
                 setValue(step1Key, newValue);
               } else if (step1Key === "response_date") {
-                console.log(step1Data[step1Key], "respobseDate")
-                setValue("response_date", step1Data[step1Key])
+                const responseDate = step1Data[step1Key].slice(0,10)
+                setValue("response_date", responseDate)
               } else {
                 setValue(step1Key, step1Data[step1Key])
               }
             }
           } else if (activeStep === 3) {
             const step2Data = data?.jobs[0]?.step2;
-            console.log(step2Data, "step2Data")
+            console.log(step2Data,"step2Data")
             for (let step2Key in step2Data) {
               if (step2Data?.job_skills) {
-                const skillName = step2Data.job_skills.map(itm => itm.skill_name);
-                const skillWeight = step2Data.job_skills.map(itm => itm.weight);
-                console.log(skillName, "skillName");
-                console.log(skillWeight, "skillWeight");
-
+                const newSkills = [];
+                const newWeights = [];
+                step2Data?.job_skills?.forEach((item) => {
+                  newSkills.push({ label: item?.skill_name, value: item?.skill_name });
+                  newWeights.push({ label: item?.weight, value: item?.weight });
+                });
                 setSkillDetails({
-                  skillName: skillName,
-                  skillWeight: skillWeight
-                })
+                  skillName: newSkills,
+                  skillWeight: newWeights
+                });
               }
               if (step2Key === "description") {
                 const desc = stripHtmlTags(step2Data[step2Key])
@@ -214,8 +210,6 @@ const ClientRegistrationStepper = () => {
   };
 
   const jobStepData = watch();
-  console.log(jobStepData, "jobStepData")
-  console.log(clientJobPostDetails?.id, "job_id")
   const callJobStep1API = () => {
 
     if (activeStep == 2) {
@@ -293,8 +287,6 @@ const ClientRegistrationStepper = () => {
 
     }
   }
-
-  console.log(groupedTime, "groupedTime")
 
   const increaseStepCount = () => {
     if (activeStep === 4) {
@@ -428,7 +420,8 @@ const ClientRegistrationStepper = () => {
   };
   return (
     <>
-      {screenLoader ? <ScreenLoader /> : <div>
+      {/* {screenLoader ? <ScreenLoader /> : */}
+       <div>
         {activeStep === 0 ? (
           <RegistrationType handleRegistrationType={handleRegistrationType} />
         ) : (
@@ -467,7 +460,8 @@ const ClientRegistrationStepper = () => {
             </div>
           </section>
         )}
-      </div>}
+      </div>
+      {/* } */}
       {showSetUpModal ? <SetUpJobModal
         show={showSetUpModal}
         handleClose={handleToggleSetupModal}
@@ -476,7 +470,8 @@ const ClientRegistrationStepper = () => {
         smallLoader={smallLoader}
         modalData={MODAL_INFORMATION[activeStep]}
         activeStep={activeStep}
-      /> : ""}
+      />
+      : ""}
       {/* <ThankRegister
         show={false}
         handleClose={handleCloseThanksRegister}

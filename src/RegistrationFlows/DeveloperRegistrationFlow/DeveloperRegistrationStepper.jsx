@@ -69,9 +69,6 @@ const DeveloperRegistrationStepper = () => {
   let arrPercentage = [0, 0, 30, 40, 50, 70, 80, 100]
   const [isRegistrationStepModal, setIsRegistrationStepModal] = useState(false);
   const [filteredStepData, setFilteredStepData] = useState([]);
-
-
-  console.log(developerRegistrationData, "developerRegistrationData");
   let developer_id = localStorage.getItem("developerId");
   const activeStepFields = getDeveloperActiveStepFields(
     activeStep,
@@ -95,12 +92,8 @@ const DeveloperRegistrationStepper = () => {
     },
   });
   const { skillOptions } = useSelector((state) => state.developerData);
-
   let stepData = getStepDataFromAPI(developerRegistrationData, activeStep);
-  console.log(stepData, "stepData hghg")
   const storedStep = localStorage.getItem("clientActiveStep");
-
-
   const stripHtmlTags = (str) => {
     return str?.replace(/<\/?[^>]+(>|$)/g, "");
   };
@@ -127,9 +120,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
   let [firstName, ...rest] = name;
   let lastName = rest.join(' ');
   const devId = localStorage.getItem("developerId")
-  console.log(devId, "devId")
 
-  console.log(stepData, "stepDataDeveloperRegistration")
   
   useEffect(() => {
     const activeStepKeys = {
@@ -145,10 +136,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
       dispatch(getDeveloperProfileDetails(devId, (response) => {
         const currentStep = activeStepKeys[storedStep];
         const data = response[activeStepKeys[storedStep]];
-
-        console.log(currentStep, "checkit");
-        console.log(data, "developerData");
-
         for (let key in data) {
           if (key === "name") {
             const [firstName, surName] = data[key]?.split(" ");
@@ -205,17 +192,13 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
           const details = data?.find((item, idx) => idx === data.length - 1)
 
           if (details) {
-            console.log(details, "step4details");
-            for (let key in details) {
+       for (let key in details) {
               setValue(key, details[key]);
             }
           }
         }
 
         if (currentStep === "step5") {
-          console.log("step5");
-          console.log(data, "details");
-
           if (data) {
             for (let key in data) {
               if (key === "bio") {
@@ -633,7 +616,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
                 filteredStepData={filteredStepData}
                 setFilteredStepData={setFilteredStepData}
                 // handleDelete={handleDelete}
-                handleCloseUploadFileModal={handleClose}
+                handleClose={handleClose}
                 smallLoader={smallLoader}
                 showSetUpModal={showSetUpModal}
                 setShowSetUpJobModal={setShowSetUpJobModal}
@@ -693,7 +676,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
                 filteredStepData= {filteredStepData}
                 setFilteredStepData={setFilteredStepData}
                 // handleDelete={handleDelete}
-                handleCloseUploadFileModal={handleClose}
+                handleClose={handleClose}
                 smallLoader={smallLoader}
                 showSetUpModal={showSetUpModal}
                 setShowSetUpJobModal={setShowSetUpJobModal}
@@ -832,7 +815,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
                 filteredStepData= {filteredStepData}
                 setFilteredStepData={setFilteredStepData}
                 // handleDelete={handleDelete}
-                handleCloseUploadFileModal={handleClose}
+                handleClose={handleClose}
                 smallLoader={smallLoader}
                 showSetUpModal={showSetUpModal}
                 setShowSetUpJobModal={setShowSetUpJobModal}
@@ -1198,6 +1181,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
     increaseStepCount();
   };
   const handleClose = () => {
+    console.log("closeModalnotworking")
     setShowSetUpJobModal({
       recommendation: false,
       isDelete: false,

@@ -156,9 +156,9 @@ export const getActiveStepHeadingData = (
   nestedActiveStep
 ) => {
   if (type === "client") {
-    return CLIENT_STEPPER_HEADINGS[activeStep] || { heading: "" };
+    return CLIENT_STEPPER_HEADINGS[activeStep] || { heading: "" }
   } else if (type === "vendor") {
-    return VENDOR_STEPPER_HEADINGS[activeStep] || { heading: "" };
+    return VENDOR_STEPPER_HEADINGS[activeStep] || { heading: "" }
   } else {
     if (nestedActiveStep > 0 && activeStep == 2) {
       return (
@@ -238,7 +238,7 @@ const CLIENT_STEP_1_FIELDS = {
       label: "phoneNumber",
       fieldName: "phone_number",
       type: "phone",
-      placeholder: "e.g. +91 1234567890",
+      placeholder: "e.g. +46766921023",
       rules: { required: "Phone number is required" },
       columnWidth: 6,
       isRequired: true,
@@ -262,36 +262,36 @@ const CLIENT_STEP_1_FIELDS = {
       isPasswordSection: true,
     },
 
-    {
-      label: "taxId",
-      fieldName: "company_tax_id",
-      type: "text",
-      placeholder: "Enter Tax Id",
-      rules: {
-        required: "Tax Id number is required",
-        pattern: {
-          value: /^[0-9]+$/,
-          message: "Tax Id number must contain only numbers",
-        },
-      },
-      columnWidth: 6,
-      isRequired: true,
-    },
-    {
-      label: "yearlyRevenue",
-      fieldName: "yearly_revenue",
-      type: "text",
-      placeholder: "Enter yearly revenue",
-      rules: {
-        required: "Yearly revenue is required",
-        pattern: {
-          value: /^[0-9]+$/,
-          message: "Yearly revenue number must contain only numbers",
-        },
-      },
-      columnWidth: 6,
-      isRequired: true,
-    },
+    // {
+    //   label: "taxId",
+    //   fieldName: "company_tax_id",
+    //   type: "text",
+    //   placeholder: "Enter Tax Id",
+    //   rules: {
+    //     required: "Tax Id number is required",
+    //     pattern: {
+    //       value: /^[0-9]+$/,
+    //       message: "Tax Id number must contain only numbers",
+    //     },
+    //   },
+    //   columnWidth: 6,
+    //   isRequired: true,
+    // },
+    // {
+    //   label: "yearlyRevenue",
+    //   fieldName: "yearly_revenue",
+    //   type: "text",
+    //   placeholder: "Enter yearly revenue",
+    //   rules: {
+    //     required: "Yearly revenue is required",
+    //     pattern: {
+    //       value: /^[0-9]+$/,
+    //       message: "Yearly revenue number must contain only numbers",
+    //     },
+    //   },
+    //   columnWidth: 6,
+    //   isRequired: true,
+    // },
     {
       label: "address",
       fieldName: "address",
@@ -317,7 +317,7 @@ const CLIENT_STEP_1_FIELDS = {
       isRequired: true,
     },
     {
-      label: "taxId",
+      label: "Organization Number",
       fieldName: "company_tax_id",
       type: "text",
       placeholder: "Enter Tax Id",
@@ -332,16 +332,16 @@ const CLIENT_STEP_1_FIELDS = {
       isRequired: true,
     },
 
-    {
-      label: "establishmentYear",
-      fieldName: "establishment_year",
-      type: "year-picker",
-      isMinRequired: true,
-      isMaxRequired: false,
-      rules: { required: "Establishment year is required" },
-      columnWidth: 6,
-      isRequired: true,
-    },
+    // {
+    //   label: "establishmentYear",
+    //   fieldName: "establishment_year",
+    //   type: "year-picker",
+    //   isMinRequired: true,
+    //   isMaxRequired: false,
+    //   rules: { required: "Establishment year is required" },
+    //   columnWidth: 6,
+    //   isRequired: true,
+    // },
     {
       label: "websiteUrl",
       fieldName: "website_url",
@@ -358,15 +358,15 @@ const CLIENT_STEP_1_FIELDS = {
       columnWidth: 6,
       isRequired: true,
     },
-    {
-      label: "yearlyRevenueInUsd",
-      fieldName: "yearly_revenue",
-      type: "text",
-      placeholder: "e.g. 15,000",
-      rules: { required: "Yearly revenue is required" },
-      columnWidth: 6,
-      isRequired: true,
-    },
+    // {
+    //   label: "yearlyRevenueInUsd",
+    //   fieldName: "yearly_revenue",
+    //   type: "text",
+    //   placeholder: "e.g. 15,000",
+    //   rules: { required: "Yearly revenue is required" },
+    //   columnWidth: 6,
+    //   isRequired: true,
+    // },
     {
       label: "employeesStrength",
       fieldName: "total_it_recruiter",
@@ -386,7 +386,7 @@ const CLIENT_STEP_1_FIELDS = {
       label: "phoneNumber",
       fieldName: "phone_number",
       type: "phone",
-      placeholder: "e.g. +91 1234567890",
+      placeholder: "e.g. +46766921023",
       rules: { required: "Phone number is required" },
       columnWidth: 6,
       isRequired: true,
@@ -860,7 +860,7 @@ const DEVELOPER_STEP_1_FIELDS = [
     label: "phoneNumber",
     fieldName: "phone_number",
     type: "phone",
-    placeholder: "e.g. +91 1234567890",
+    placeholder: "e.g. +46766921023",
     rules: { required: "Phone number is required" },
     columnWidth: 6,
     isRequired: true,
@@ -1264,7 +1264,7 @@ const adminStepData = [
     label: "phoneNumber",
     fieldName: "phone_number",
     type: "phone",
-    placeholder: "e.g. +91 1234567890",
+    placeholder: "e.g. +46766921023",
     rules: { required: "Phone number is required" },
     columnWidth: 6,
     isRequired: true,
