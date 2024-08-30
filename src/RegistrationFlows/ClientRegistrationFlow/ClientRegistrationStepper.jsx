@@ -418,7 +418,7 @@ const ClientRegistrationStepper = () => {
                     </span>
                   </div>
                   {renderActiveStep()}
-                  <div className="d-flex justify-content-between align-items-center ">
+                  <div className="d-flex justify-content-md-between justify-content-center align-items-center ">
                     <div>
                     </div>
                     <div>

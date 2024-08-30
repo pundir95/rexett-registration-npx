@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCheck } from "react-icons/fa6";
 import rexettLogo from "./../assets/images/rexett-logo-white.png"
+import { Link } from "react-router-dom";
 
 
 const SidebarSection = ({activeStep,stepperSideBarItems,handleSetActiveStep,arrPercentage}) => {
@@ -14,8 +15,8 @@ const getPercentage = () => {
 
   return (
     <div className="resume-sidebar">
-      <div className="resume-sidelogo mb-4">
-      <img src={rexettLogo} />
+      <div className="resume-sidelogo mb-4 text-center">
+        <Link to={'https://www.rexett.com'}><img src={rexettLogo} /></Link>
       </div>
       <div>
         <ul>
