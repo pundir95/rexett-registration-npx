@@ -51,11 +51,13 @@ useEffect(() => {
       dispatch(
         getCitiesList(
           watch("country_code")?.value,
-          watch("state_iso_code")?.label
+          watch("state_iso_code")?.value
         )
       );
       setValue("city", null);
-    } else if (name === "time_zone") {
+    } else if (name === "city"){
+      setValue("city",value)
+    }else if (name === "time_zone") {
       setValue("time_zone", value);
       clearErrors("time_zone");
     }
@@ -116,8 +118,8 @@ useEffect(() => {
             <div className="mb-3">
               <CommonInput
                 label={t(`pincode`) + ` *`}
-                name={"passcode"}
-                // name={isVendorStep1==="true" ? "post_code" : "passcode"}
+                // name={"passcode"}
+                name={isVendorStep1 =="true" ? "post_code" : "passcode"}
                 invalidFieldRequired={true}
                 control={control}
                 rules={{ required: "Pin code is required" }}
@@ -205,3 +207,4 @@ useEffect(() => {
 };
 
 export default LocationSection;
+

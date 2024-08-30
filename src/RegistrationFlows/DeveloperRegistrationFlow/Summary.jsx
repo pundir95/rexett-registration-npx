@@ -11,10 +11,10 @@ import { getDeveloperProfileDetails } from "../../Redux/Slices/DeveloperDataSlic
 
 const Summary = ({
   nestedActiveStep,
-  filteredStepData,
+  stepData,
   // handleDelete,
   setFilteredStepData,
-  handleClose,
+  handleCloseUploadFileModal,
   smallLoader,
   setShowSetUpJobModal,
   showSetUpModal,
@@ -26,17 +26,14 @@ const Summary = ({
 }) => {
 
   const dispatch = useDispatch();
-  let developerId = localStorage.getItem("developerId");
-  const [ eduId , setEduId] = useState("")
-
-  console.log(filteredStepData, "filteredStepDataSummary")
-
-
-  useEffect(() => {
-    if (developerId) {
-      dispatch(getDeveloperProfileDetails(developerId));
+  let developerId=localStorage.getItem("developerId");
+  const[eduId , setEduId] = useState("")
+  useEffect(()=>{
+    if(developerId){
+        dispatch(getDeveloperProfileDetails(developerId));
     }
-  }, [developerId])
+},[developerId])
+
 
   const handleDeleteModal = (id) => {
     setEduId(id)
@@ -45,13 +42,13 @@ const Summary = ({
       deletedId: id,
     });
   };
-  const handleDelete = (eduId) => {
-    const tempArr = [{...filteredStepData}];
+  const handleDelete = () => {
+    const tempArr = [...stepData];
     const indexToRemove = tempArr.findIndex(item => item.id === eduId);
     if (indexToRemove !== -1) {
       tempArr.splice(indexToRemove, 1);
     }
-    console.log(tempArr, "tempArr after splice");
+
     setFilteredStepData(tempArr);
     setShowSetUpJobModal({
       isDelete: false,
@@ -100,8 +97,8 @@ const Summary = ({
           <span>{item?.project_link}</span>
         </span>
       );
-    } else if (item?.job_title) {
-      return <span>{`${item?.job_location} | ${item?.start_date?.slice(0, 10)} - ${item?.end_date?.slice(0, 10)}`}</span>
+    }else if(item?.job_title){
+      return <span>{`${item?.job_location} | ${item?.start_date?.slice(0,10)} - ${item?.end_date?.slice(0,10)}`}</span> 
     }
   };
 
@@ -130,7 +127,7 @@ const Summary = ({
               </div>
             </div>
           </div>
-          {filteredStepData?.map((item, index) => {
+          {stepData?.map((item, index) => {
             return (
               <>
                 <div className="work-summary-wrapper mb-3 position-relative">
@@ -192,7 +189,7 @@ const Summary = ({
       <ConfirmationModal
         text={"Are you sure to delete this job?"}
         show={showSetUpModal?.isDelete}
-        handleClose={handleClose}
+        handleClose={handleCloseUploadFileModal}
         handleAction={handleDelete}
         smallLoader={smallLoader}
 
@@ -202,3 +199,4 @@ const Summary = ({
 };
 
 export default Summary;
+

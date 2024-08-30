@@ -63,6 +63,8 @@ const UploadFile = ({ label, placeholder,
     }
   };
 
+  
+
 console.log(imageFile,"imageFile")
 console.log(previewImage,"previewImage")
 console.log(fieldName,"fieldName")
@@ -73,6 +75,29 @@ const handleIntroVideo=()=>{
   console.log("int")
   setShowVideo(!showVideo)
 }
+
+const handleClear = () => {
+  console.log("clearFile")
+  setImageFile(prevState => ({ ...prevState, resume: '' }));
+}
+
+const handleClearIntro=()=>{
+  console.log("clearIntroVideo")
+  setImageFile(prevState => ({ ...prevState, introVideo: '' }));
+}
+const isResumeEmpty = imageFile?.resume === '' || imageFile?.resume == null;
+  const isIntroVideoEmpty = imageFile?.introVideo === '' || imageFile?.introVideo == null;
+  const getLabel = () => {
+    return (
+      <>
+        <Form.Label htmlFor={fieldName} className="upload-intro-file">
+          {placeholder}
+        </Form.Label>
+      </>
+    )
+  }
+
+
 
   return (
     <>
@@ -88,41 +113,60 @@ const handleIntroVideo=()=>{
             placeholder="Company Name"
             className="common-field d-none"
           />
-        <Form.Label htmlFor={fieldName} className="upload-intro-file">
+        {/* <Form.Label htmlFor={fieldName} className="upload-intro-file">
           {placeholder}
-        </Form.Label>
+        </Form.Label> */}
        
       </div>
       <div>
       {errors[fieldName] && (
             <p className="field-error">{errors[fieldName]?.message}</p>
           )}
-        {label!=="Resume" ? (
-          <div className="profile-upload-preview position-relative preview_intro mb-3">
-            <div className="profile-img-preview w-100 h-100">
-              <video src={previewImage?.introVideo ? previewImage?.introVideo : stepData?.intro_video_url ? stepData?.intro_video_url : videoImg} className="w-100 h-100"/>
-            
+        {label !== "Resume" ? (
+          isIntroVideoEmpty ? (
+            getLabel()
+          ) : (
+            <div className="profile-upload-preview position-relative preview_intro mb-3">
+              <div className="profile-img-preview w-100 h-100">
+                <video
+                  src={
+                    previewImage?.introVideo ||
+                    stepData?.intro_video_url ||
+                    videoImg
+                  }
+                  className="w-100 h-100"
+                  controls
+                />
+              </div>
+              <div className="playback_intro" onChange={handleIntroVideo}>
+                <IoPlay />
+              </div>
+              <span className="cursor-pointer text-danger" onClick={handleClearIntro}>
+                  <IoClose />
+                </span>
+              <Form.Label htmlFor="intro-video" className="profile-img-label">
+                <FaUpload />
+              </Form.Label>
             </div>
-            <div className="playback_intro" onClick={handleIntroVideo}>
-              <IoPlay />
-            </div>
-            <Form.Label htmlFor="intro-video" className="profile-img-label">
-              <FaUpload />
-            </Form.Label>
-  
-          </div>
+          )
         ) : (
-          <div className="d-flex justify-content-between align-items-center gap-5 p-2 bg-light rounded-3 mb-3">
-            <span className="font-14 fw-medium">{imageFile?.resume?.name ? imageFile?.resume?.name : stepData?.resume}</span>
-            <span className="cursor-pointer text-danger">
-              {/* <IoClose /> */}
-                {/* {errors[fieldName] && (
-            <p className="field-error">{errors[fieldName]?.message}</p>
-          )} */}
-            </span>
-        
+          <div>
+            {isResumeEmpty ? (
+              getLabel()
+            ) : (
+              <div className="d-flex justify-content-between align-items-center gap-5 p-2 bg-light rounded-3 mb-3">
+                <span className="font-14 fw-medium">
+                  {imageFile?.resume?.name || stepData?.resume}
+                </span>
+                <span className="cursor-pointer text-danger" onClick={handleClear}>
+                  <IoClose />
+                  {errors[fieldName] && (
+                    <p className="field-error">{errors[fieldName]?.message}</p>
+                  )}
+                </span>
+              </div>
+            )}
           </div>
-          
         )}
       </div>
       <IntroVideo show={showVideo} handleClose={handleIntroVideo} previewImage={previewImage?.introVideo ? previewImage?.introVideo : stepData?.intro_video_url}/>

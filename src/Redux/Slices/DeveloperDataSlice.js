@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import authInstance from "../../services/auth.instance";
+import { toast } from "react-toastify";
 
 const initialDeveloperData = {
   skillOptions: [],
@@ -101,16 +102,18 @@ export function addDeveloperRegisProject(payload, callback) {
 }
 export function developerRegistration(payload, callback) {
   return async (dispatch) => {
-    // dispatch(setSmallLoader());
+    dispatch(setSmallLoader());
     try {
       let result = await authInstance.post("common/developer-registration", { ...payload });
-      // toast.success(result?.data?.message, { position: "top-center" });
+      if (result.status === 201) {
+      toast.success(result?.data?.message, { position: "top-center" });
       localStorage.setItem("developerId", result?.data?.data?.id)
       dispatch(setActionSuccessFully());
       return callback()
+    }
     } catch (error) {
       const message = error.message || "Something went wrong";
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
+      toast.error(error?.response?.data?.message, { position: "top-center" });
       dispatch(setFailDeveloperData());
     }
   };
@@ -131,13 +134,13 @@ export function developerRegistrationBio(payload) {
 }
 export function fileUploadForWeb(fileData, callback) {
   return async (dispatch) => {
-    // dispatch(setSmallLoader());
+    dispatch(setSmallLoader());
     try {
       let result = await authInstance.post(`web/upload-file`, fileData);
-      // dispatch(setActionSuccessFully());
+      dispatch(setActionSuccessFully());
       return callback(result?.data?.data.Location);
     } catch (error) {
-      // toast.error(error?.response?.data?.message, { position: "top-center" });
+      toast.error(error?.response?.data?.message, { position: "top-center" });
       dispatch(setFailDeveloperData());
     }
   };
@@ -158,7 +161,6 @@ export function registerDeveloperEducation(payload, id, callback) {
   };
 }
 export function registerDeveloperExperience(payload, id, callback) {
-  console.log(id,"iid------")
   return async (dispatch) => {
     dispatch(setSmallLoader());
     try {

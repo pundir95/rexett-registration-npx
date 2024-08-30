@@ -40,7 +40,6 @@ const DeveloperRegistrationStepper = () => {
     (state) => state?.developerData
   );
   const [countryCode, setCountryCode] = useState()
-  console.log(countryCode, "countryCode")
   const [educationLevel, setEducationLevel] = useState(null);
   const [isEditMode, setEditMode] = useState({
     isEdit: false,
@@ -48,7 +47,7 @@ const DeveloperRegistrationStepper = () => {
   })
   const [ifDone, setDone] = useState(true);
   const [selectedRecommend, setSelectedRecommend] = useState(null)
-  const [activeStep, setActiveStep] = useState(4);
+  const [activeStep, setActiveStep] = useState(1);
   const [isAnotherData, setIsAnotherData] = useState(true);
   const [nestedActiveStep, setNestedActiveStep] = useState(0);
   const [previewImage, setPreviewImage] = useState({
@@ -98,7 +97,6 @@ const DeveloperRegistrationStepper = () => {
     return str?.replace(/<\/?[^>]+(>|$)/g, "");
   };
 
-console.log(filteredStepData,"filteredStepDataDeveloperStepper")
   useEffect(() => {
     setFilteredStepData(stepData);
   }, [stepData])
@@ -121,7 +119,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
   let lastName = rest.join(' ');
   const devId = localStorage.getItem("developerId")
 
-  
+
   useEffect(() => {
     const activeStepKeys = {
       1: "step1",
@@ -151,6 +149,12 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
           } else if (key === "state_iso_code") {
             const newValue = { label: data["state"], value: data[key] };
             setValue(key, newValue);
+          } else if (key === "city") {
+            const newValue = {
+              label: data["city"],
+              value: data[key]
+            }
+            setValue(key, newValue)
           } else if (key === "time_zone") {
             const newValue = { label: data[key], value: data[key] };
             setValue(key, newValue);
@@ -192,7 +196,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
           const details = data?.find((item, idx) => idx === data.length - 1)
 
           if (details) {
-       for (let key in details) {
+            for (let key in details) {
               setValue(key, details[key]);
             }
           }
@@ -203,22 +207,20 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
             for (let key in data) {
               if (key === "bio") {
                 const newBio = stripHtmlTags(data[key]);
-                console.log(newBio, "newBio");
                 setValue("description", newBio);
               }
             }
           }
         }
         if (currentStep === "step6") {
-          console.log("step6")
           const details = data?.find((item, idx) => idx === data.length - 1)
           if (details) {
             for (let key in details) {
               if (key == "project_start_date") {
-                const startDate = details[key].slice(0,10);
+                const startDate = details[key].slice(0, 10);
                 setValue("project_start_date", startDate);
               } else if (key === "project_end_date") {
-                const endDate = details[key].slice(0,10);
+                const endDate = details[key].slice(0, 10);
                 setValue("project_end_date", endDate);
               } else {
                 setValue(key, details[key]);
@@ -228,7 +230,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
         }
       }));
     }
-  }, [devId, storedStep,nestedActiveStep]);
+  }, [devId, storedStep, nestedActiveStep]);
 
 
   useEffect(() => {
@@ -435,7 +437,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
         break;
     }
   };
-  console.log(stepData, "stepData")
 
 
   const handleEducationLevel = (item) => {
@@ -445,7 +446,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
   };
 
   const addAnotherPosition = () => {
-    console.log(watch(), 'watch');
     if (activeStep == 2) {
       setValue("job_title", "");
       setValue("company_name", "");
@@ -476,7 +476,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
     }
 
     else if (activeStep == 3) {
-      console.log(watch(), 'watch stepthree')
       setValue("university_name", '');
       setValue("location", '');
       setValue("degree_id", 0);
@@ -494,11 +493,10 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
     }
   };
 
-  
+
 
   const editSummary = (id) => {
     let selectedEditData = stepData?.find(it => it.id == id)
-    console.log(selectedEditData, "selectedEditData")
     if (activeStep == 6 && selectedEditData) {
 
       setValue("project_title", selectedEditData?.project_title);
@@ -515,8 +513,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
 
 
     } else if (activeStep == 2 && selectedEditData) {
-      console.log(watch(), 'watch steptwo');
-
       setValue("job_title", selectedEditData?.job_title);
       setValue("company_name", selectedEditData?.company_name);
       setValue("project_description", selectedEditData?.description);
@@ -673,7 +669,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
             return (
               <Summary
                 nestedActiveStep={nestedActiveStep}
-                filteredStepData= {filteredStepData}
+                filteredStepData={filteredStepData}
                 setFilteredStepData={setFilteredStepData}
                 // handleDelete={handleDelete}
                 handleClose={handleClose}
@@ -812,7 +808,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
             return (
               <Summary
                 nestedActiveStep={nestedActiveStep}
-                filteredStepData= {filteredStepData}
+                filteredStepData={filteredStepData}
                 setFilteredStepData={setFilteredStepData}
                 // handleDelete={handleDelete}
                 handleClose={handleClose}
@@ -836,7 +832,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
   };
 
   const onSubmit = (values) => {
-    console.log(values, "project_description");
     const uploadFiles = (files) => {
       let uploadedUrls = {};
       const uploadPromises = Object.keys(files).map((key) => {
@@ -846,7 +841,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
           return new Promise((resolve) => {
             dispatch(
               fileUploadForWeb(fileData, (url) => {
-                console.log(url, `${key} url`);
                 uploadedUrls[key] = url;
                 resolve();
               })
@@ -977,7 +971,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
 
             return updatedVal;
           });
-          console.log(newData, 'hibye', stepData)
           let developer_education = [
             ...newData,
             {
@@ -1104,7 +1097,6 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
       setIsRegistrationStepModal(true);
     }
     else {
-      console.log(values, "these are values");
       uploadFiles({
         resume: imageFile.resume,
         introVideo: imageFile.introVideo,
@@ -1215,8 +1207,7 @@ console.log(filteredStepData,"filteredStepDataDeveloperStepper")
 
 
   let token = localStorage.getItem('token')
-  console.log(activeStep, "activeStep")
-  console.log(nestedActiveStep, "nes")
+
 
   return (
     <section className={`${token ? "edit-developer-wrapper resume-section-wrapper" : "resume-section-wrapper"}`}>

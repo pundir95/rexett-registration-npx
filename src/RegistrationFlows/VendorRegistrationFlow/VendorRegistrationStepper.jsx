@@ -14,7 +14,6 @@ import { createOptionsForReactSelect } from "../../constant/developerStepConstan
 import {
   getCoutriesList,
   getWebClientLookUp,
-  uploadFileToS3Bucket,
 } from "../../Redux/Slices/ClientDataSlice";
 import SetUpJobModal from "../../common/Modals/SetUpJobModal";
 import {
@@ -22,6 +21,7 @@ import {
   getAreaExpertise,
   getEditDecision,
   getVendorUpdatedDetails,
+  uploadFileToS3Bucket,
 } from "../../Redux/Slices/VendorDataSlice";
 import VendorDecisionMakers from "./VendorDecisionMakers";
 import RexettButton from "../../atomic/RexettButton";
@@ -35,7 +35,10 @@ const VendorRegistrationStepper = () => {
   const userId = localStorage.getItem("vendorId");
 
   const [companyTypeOptions, setCompanyTypeOptions] = useState([]);
-  const { smallLoader } = useSelector((state) => state.clientData);
+  // const { smallLoader } = useSelector(state => state.clientData);
+  const { smallLoader } = useSelector(state => state.vendorData);
+
+  console.log(smallLoader,"smallLoader")
   const {
     handleSubmit,
     register,
@@ -52,8 +55,6 @@ const VendorRegistrationStepper = () => {
   const [isRegistrationStepModal, setIsRegistrationStepModal] = useState(false);
 
   const activeStepFields = getVendorActiveStepFields(activeStep);
-  console.log(activeStepFields, "activeStepFields");
-  console.log(activeStep, "activestep");
   let arrPercentage = [0, 0, 30, 70, 100];
 
   useEffect(() => {
@@ -85,48 +86,45 @@ const VendorRegistrationStepper = () => {
     const activeStepKeys = {
       1: "step1",
       2: "step2",
-      3: "step3",
-    };
-    if (userId && [activeStepKeys[activeStep]]) {
-      dispatch(
-        getVendorUpdatedDetails(userId, (response) => {
-          const data = response[activeStepKeys[activeStep]];
-          console.log(data, "data")
-          for (let key in data) {
-            if (activeStep === 1) {
-              if (key === "country_code") {
-                const newValue = {
-                  label: data["country"],
-                  value: data[key],
-                };
-                setValue(key, newValue);
-              } else if (key === "state_iso_code") {
-                const newValue = {
-                  label: data["state"],
-                  value: data[key],
-                };
-                setValue(key, newValue);
-              } else if (key === "time_zone") {
-                const newValue = { label: data[key], value: data["time_zone"] };
-                setValue(key, newValue);
-              } else if (key === "company_logo") {
-                // setPreviewImage(data?.company_logo);
-                setPreviewImage({ profile_picture: data?.company_logo })
-              } else if (key === "post_code") {
-                setValue("passcode" ,data[key] )
-
-              } else {
-                setValue(key, data[key]);
-              }
-            }
-            if (activeStep !== 1) {
-              setValue(key, data[key]);
-            }
-          }
-        })
-      );
+      3: "step3"
     }
-  }, [activeStep, userId]);
+    if (userId && [activeStepKeys[activeStep]]) {
+      dispatch(getVendorUpdatedDetails(userId, (response) => {
+        const data = response[activeStepKeys[activeStep]];
+        console.log(data,"data")
+        for (let key in data) {
+        
+          if (activeStep === 1) {
+            if (key === "country_code") {
+              const newValue = {
+                label: data["country"],
+                value: data[key],
+              };
+              setValue(key, newValue);
+            } else if (key === "state_iso_code") {
+              const newValue = {
+                label: data["state"],
+                value: data[key],
+              };
+              setValue(key, newValue);
+            } else if (key === "time_zone") {
+              const newValue = { label: data[key], value: data["time_zone"] };
+              setValue(key, newValue);
+            } else if (key === "company_logo") {
+              setPreviewImage({profile_picture : data?.company_logo})
+            } else if(key === "passcode"){
+              setValue("post_code",data[key])
+            }else{
+              setValue(key, data[key])
+            } 
+          }
+          if (activeStep !== 1){
+            setValue(key, data[key])
+          }
+        }
+      }))
+    }
+  }, [activeStep, userId])
 
   const handleAfterApiSuccess = () => {
     increaseStepCount();
@@ -157,9 +155,7 @@ const VendorRegistrationStepper = () => {
   const handleRegistrationModal = () => {
     setIsRegistrationStepModal(false);
   }
-
   const getActiveStepText = () => {
-    console.log(activeStep, "ab")
     switch (activeStep) {
       case 1:
         return "Next :  Decision Makers";
@@ -169,8 +165,23 @@ const VendorRegistrationStepper = () => {
         return "Submit";
     }
   };
+  
+
+  const onSubmit = () => {
+    if (activeStep === 1) {
+      handleProceed()
+    } 
+    const buttonText = getActiveStepText();
+    switch (buttonText) {
+      case "Next : Area of Expertise":
+        callDecisionMakersAPI();
+        break;
+      case "Submit":
+        callAreaOfExpertiseAPI();
+        break;
+    }
+  };
   const stepData = watch();
-  console.log(stepData, "stepData")
   const callDecisionMakersAPI = () => {
     const stepData = watch();
     let data = {
@@ -189,7 +200,7 @@ const VendorRegistrationStepper = () => {
 
   const callAreaOfExpertiseAPI = () => {
     const stepData = watch();
-    console.log(stepData?.success_story, "success_story");
+
     let payload = {
       user_id: userId,
       specialization: stepData?.specialization,
@@ -200,55 +211,40 @@ const VendorRegistrationStepper = () => {
         stepData?.turn_around_time_to_close_permanent_position,
       success_story: stepData?.success_story,
     };
-    dispatch(getAreaExpertise(payload));
+    dispatch(getAreaExpertise(payload,handleAfterApiSuccess));
     setIsRegistrationStepModal(true)
   };
 
-  const onSubmit = () => {
-    if (activeStep === 1) {
-      const stepData = watch();
-      let formData = new FormData();
-      formData.append("file", imageFile?.profile_picture);
-      dispatch(
-        uploadFileToS3Bucket(formData, (url) => {
-          let payload = {
+  const handleProceed = () => {
+    const stepData = watch();
+    console.log(stepData,"stepDta")
+    let formData = new FormData();
+    formData.append('file', imageFile?.profile_picture);
+    dispatch(uploadFileToS3Bucket(formData, (url) => {
+        let payload = {
             ...stepData,
             country_code: stepData["country_code"]?.value,
             state_iso_code: stepData["state_iso_code"]?.value,
-            post_code: stepData?.passcode,
             country: stepData["country_code"]?.label,
             state: stepData["state_iso_code"]?.label,
             company_logo: url,
             time_zone: stepData?.time_zone?.label,
-            establishment_year: new Date(
-              stepData?.establishment_year
-            ).getFullYear(),
-          };
-          if (userId) {
-            payload = {
-              ...payload,
-              user_id: userId,
-            };
-          }
-          delete payload["profile_picture"];
-          delete payload["timezone"];
-          delete payload["confirm_password"];
-          // handleToggleSetupModal();
-          dispatch(applyAsVendor(payload, handleAfterApiSuccess));
-        })
-      );
-    }
+            establishment_year: (new Date(stepData?.establishment_year).getFullYear()),
 
-    const buttonText = getActiveStepText();
-    switch (buttonText) {
-      case "Next : Area of Expertise":
-        callDecisionMakersAPI();
-        break;
-      case "Submit":
-        callAreaOfExpertiseAPI();
-        break;
-    }
-  };
+        };
+        if (userId) {
+            payload = {
+                ...payload,
+                user_id: userId,
+            };
+        }
+        delete payload["profile_picture"];
+        delete payload["timezone"];
+        delete payload["confirm_password"];
+        // handleToggleSetupModal();
+        dispatch(applyAsVendor(payload, handleAfterApiSuccess));
+    }));
+}
 
   const renderActiveStep = () => {
     switch (activeStep) {
@@ -272,7 +268,7 @@ const VendorRegistrationStepper = () => {
             setPreviewImage={setPreviewImage}
             setImageFile={setImageFile}
             isProfileSectionRequired={activeStep === 1}
-            isVendorStep1={true}
+            isVendorStep1={"true"}
           />
         );
       case 2:

@@ -35,7 +35,6 @@ const FinalizeResume = () => {
 
   }, [developerId])
 
-  console.log(developerRegistrationData, "developerDetails")
 
 
   return (

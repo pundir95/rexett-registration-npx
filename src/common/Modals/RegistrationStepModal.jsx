@@ -6,7 +6,7 @@ import RexettButton from "../../atomic/RexettButton";
 const RegistrationStepModal = ({ show, role,handleClose, nextStep }) => {
   const navigate = useNavigate()
   const redirectToLogin = () => {
-    if(role="vendor"){
+    if(role==="vendor"){
       window.location.href = "https://rexett-frontend.rvtechnologies.info/vendor-login"
     }else{
        window.location.href = "https://rexett-frontend.rvtechnologies.info/developer-login"

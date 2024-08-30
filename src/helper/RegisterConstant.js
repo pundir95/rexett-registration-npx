@@ -165,7 +165,6 @@ export const getActiveStepHeadingData = (
         DEVELOPER_NESTED_STEPPER_HEADINGS[nestedActiveStep] || { heading: "" }
       );
     } else if (nestedActiveStep > 0 && activeStep == 3) {
-      console.log("hello33");
       return (
         DEVELOPER_STEPPER_HEADINGS_FOR_STEP_3[nestedActiveStep] || {
           heading: "",
@@ -700,7 +699,7 @@ const VENDOR_STEP_2_FIELDS = [
     label: "Position",
     fieldName: "proprietor_position",
     type: "text",
-    placeholder: "e.g. Microsoft",
+    placeholder: "e.g. Team Lead",
     rules: { required: "Position is required" },
     columnWidth: 6,
     isRequired: true,
@@ -709,7 +708,7 @@ const VENDOR_STEP_2_FIELDS = [
     label: "Phone Number",
     fieldName: "proprietor_contact_number",
     type: "phone",
-    placeholder: "e.g. +918979003975",
+    placeholder: "e.g. +46766921023",
     rules: { required: "Phone number is required" },
     columnWidth: 6,
     isRequired: true,
@@ -1345,7 +1344,6 @@ const DEVELOPER_STEP_FIELDS_FOR_STEP_6 = {
 };
 
 export const getDeveloperActiveStepFields = (activeStep, nestedActiveStep) => {
-  console.log(activeStep, nestedActiveStep, "cosn");
   if (nestedActiveStep > 0 && activeStep == 2) {
     return NESTED_DEVELOPER_STEP_FIELDS[1] || null;
   } else if (nestedActiveStep > 0 && activeStep == 3) {

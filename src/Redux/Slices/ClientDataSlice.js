@@ -191,7 +191,7 @@ export const updateClientPost =(user_id,job_id,payload,callback)=>{
 export const uploadFileToS3Bucket = (payload, callback) => {
   return async (dispatch) => {
     // dispatch(setScreenLoader());
-    // dispatch(setSmallLoader());
+    dispatch(setSmallLoader());
     try {
       let result = await authInstance.post(`web/upload-file/`, payload);
       callback && callback(result?.data?.data?.Location);

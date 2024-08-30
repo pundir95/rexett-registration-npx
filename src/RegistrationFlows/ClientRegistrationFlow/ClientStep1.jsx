@@ -15,6 +15,7 @@ const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAP_API;
 // const GOOGLE_MAP_API_KEY = "AIzaSyABX4LTqTLQGg_b3jFOH8Z6_H5CDqn8tbc"
 
 const ClientStep1 = ({
+  isVendorStep1,
   control,
   errors,
   companyTypeOptions=null,
@@ -102,6 +103,7 @@ const ClientStep1 = ({
                       clearErrors={clearErrors}
                       isTimeZoneRequired={true}
                       isRegistrationStep={true}
+                      isVendorStep1={isVendorStep1}
                     />
                   ) : (
                     <Col md={columnWidth}>

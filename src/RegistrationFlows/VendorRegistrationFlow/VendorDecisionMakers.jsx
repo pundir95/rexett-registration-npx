@@ -29,8 +29,6 @@ const VendorDecisionMakers = ({
   const { t } = useTranslation()
   // const fields = getVendorActiveStepFields(activeStep);
   const fields = activeStepFields;
-  console.log(fields, "fields")
-  console.log(errors?.proprietor_email, "proprietor_email")
 
 
 
