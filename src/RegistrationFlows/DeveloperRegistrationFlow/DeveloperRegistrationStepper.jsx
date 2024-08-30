@@ -860,7 +860,7 @@ const DeveloperRegistrationStepper = () => {
           country: values?.country_code?.label,
           address: values?.address,
           password: values?.password,
-          city: values?.city?.value,
+          city: values?.city?.label,
           state: values?.state_iso_code?.label,
           country_iso_code: values?.country_iso_code?.value,
           state_iso_code: values?.state_iso_code?.value,
